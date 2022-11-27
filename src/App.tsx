@@ -1,25 +1,13 @@
-import logo from './logo.svg'
-import './App.scss'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { Board, Main } from './pages'
+
+const router = createBrowserRouter([
+  { path: '/', element: <Main /> },
+  { path: '/board', element: <Board /> }
+])
 
 function App(): JSX.Element {
-  return (
-    <div className='App'>
-      <header className='App-header btn'>
-        <img src={logo} className='App-logo' alt='logo' />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className='App-link'
-          href='https://reactjs.org'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          ToDo
-        </a>
-      </header>
-    </div>
-  )
+  return <RouterProvider router={router} />
 }
 
 export default App
