@@ -4,7 +4,6 @@ import { useAppSelector } from './../../redux/index'
 
 function ProjectsList(): JSX.Element {
   const projects = useAppSelector<Project[]>((state) => state.projectsReducer)
-  console.log(projects)
 
   return (
     <ul className='projects-list'>
