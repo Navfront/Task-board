@@ -6,3 +6,5 @@ export interface Project {
   time: Date | null
   newComments: number
 }
+
+export type LocalStorageApiTypes = 'projects'
