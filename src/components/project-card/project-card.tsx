@@ -1,11 +1,17 @@
 import { MouseEvent, MouseEventHandler } from 'react'
 import { Link } from 'react-router-dom'
+import { useAppDispatch } from '../../redux'
 
 function ProjectsCard(): JSX.Element {
-  const onDeleteHandler: MouseEventHandler<HTMLButtonElement> = (
+  const dispatch = useAppDispatch()
+
+  const onDeleteHandler: MouseEventHandler<HTMLElement> = (
     event: MouseEvent
   ): void => {
-    console.log('delete..', event.target)
+    const target = event.target as HTMLElement
+    const id = target.dataset.id ?? ''
+    console.log('delete..', id)
+    dispatch({ type: 'DELETE', id })
   }
 
   const onLinkClickHandler: MouseEventHandler<HTMLAnchorElement> = (
@@ -14,7 +20,9 @@ function ProjectsCard(): JSX.Element {
     const target = event.target as HTMLElement
     if (target.nodeName === 'BUTTON') {
       event.preventDefault()
+      return
     }
+    console.log('goTo board..')
   }
 
   return (
