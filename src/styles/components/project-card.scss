@@ -1,10 +1,12 @@
 .project-card {
   padding: 15px;
   background-color: $color-card-bg;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  height: 100%;
+  box-shadow: $shadow-light;
 
   &__link {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     text-decoration: none;
     color: $color-text-light;
   }
@@ -21,6 +23,7 @@
   }
 
   &__time {
+    justify-self: end;
     font-size: 0.8rem;
   }
 
@@ -28,6 +31,8 @@
     background-color: transparent;
     border: 2px solid $color-border-light;
     color: inherit;
+    justify-self: center;
+    padding: 2px 15px;
     cursor: pointer;
   }
 }

@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body,
 html {
   height: 100%;
@@ -15,7 +19,6 @@ body {
   min-height: 100vh;
   font-size: calc(10px + 2vmin);
   color: $color-text-light;
-  box-sizing: border-box;
 }
 
 button {

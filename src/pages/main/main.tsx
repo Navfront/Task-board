@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
-import { Header, ProjectsList } from '../../components'
+import { Header, Menu, ProjectsList } from '../../components'
 
 function Main(): JSX.Element {
   return (
@@ -11,6 +11,7 @@ function Main(): JSX.Element {
       </Helmet>
       <Header>
         <Link to='/board'>To board</Link>
+        <Menu />
       </Header>
       <ProjectsList />
     </>
