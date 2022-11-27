@@ -1,44 +1,14 @@
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
-import { MouseEvent, MouseEventHandler } from 'react'
 import { Link } from 'react-router-dom'
 import { Project } from '../../model/data-types'
-import { useAppDispatch } from '../../redux'
-dayjs.extend(relativeTime)
+import { HumanizeLastDate } from '../../model/utils'
+import { useHandlers } from './hooks/use-handlers'
 
 interface ProjectsCardProps {
   project: Project
 }
 
 function ProjectsCard({ project }: ProjectsCardProps): JSX.Element {
-  const dispatch = useAppDispatch()
-
-  const HumanizeLastDate = (date: Date | null): string => {
-    if (date != null) {
-      return dayjs(date).toNow()
-    }
-    return ''
-  }
-
-  const onDeleteHandler: MouseEventHandler<HTMLElement> = (
-    event: MouseEvent
-  ): void => {
-    const target = event.currentTarget as HTMLElement
-    const id = target.dataset.id ?? ''
-    console.log('delete..', id)
-    dispatch({ type: 'DELETE', id })
-  }
-
-  const onLinkClickHandler: MouseEventHandler<HTMLAnchorElement> = (
-    event: MouseEvent
-  ): void => {
-    const target = event.target as HTMLElement
-    if (target.nodeName === 'BUTTON') {
-      event.preventDefault()
-      return
-    }
-    console.log('goTo board..')
-  }
+  const { onLinkClickHandler, onDeleteHandler } = useHandlers()
 
   return (
     <article className='project-card'>
