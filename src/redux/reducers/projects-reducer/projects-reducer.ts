@@ -1,5 +1,5 @@
 import { Reducer } from 'react'
-import { Project } from '../..'
+import { Project } from '../../../model/data-types'
 import { MOCK_PROJECTS } from '../../../model/mock'
 import { ProjectsActions } from './actions'
 

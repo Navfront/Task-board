@@ -1,4 +1,4 @@
-import { Project } from '../redux'
+import { Project } from './data-types'
 
 export const MOCK_PROJECTS: Project[] = [
   {

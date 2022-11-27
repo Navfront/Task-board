@@ -1,15 +1,6 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import { store } from './store'
 
-export interface Project {
-  id: string
-  userId: string
-  title: string
-  description: string
-  time: Date
-  newComments: number
-}
-
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>
 
