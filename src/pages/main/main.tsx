@@ -20,7 +20,7 @@ function Main(): JSX.Element {
         <Menu />
       </Header>
       <ProjectsList />
-      <Modal isOpen>
+      <Modal>
         <ProjectEditor />
       </Modal>
     </>

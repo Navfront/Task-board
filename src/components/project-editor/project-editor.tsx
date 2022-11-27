@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Project } from '../../model/data-types'
+import { useAppDispatch } from '../../redux'
 
 interface ProjectEditorProps {
   project?: Project
@@ -8,6 +9,12 @@ interface ProjectEditorProps {
 function ProjectEditor({ project }: ProjectEditorProps): JSX.Element {
   const [title, setTitle] = useState(project?.title ?? '')
   const [description, setDescription] = useState(project?.description ?? '')
+
+  const dispatch = useAppDispatch()
+
+  const onCancelClickHandler = (): void => {
+    dispatch({ type: 'CLOSE_MODAL', payload: { isOpen: false } })
+  }
 
   return (
     <form
@@ -51,7 +58,11 @@ function ProjectEditor({ project }: ProjectEditorProps): JSX.Element {
         <button type='submit' className='project-editor__button'>
           {project?.title != null ? 'Edit' : 'Create'}
         </button>
-        <button type='button' className='project-editor__button'>
+        <button
+          type='button'
+          className='project-editor__button'
+          onClick={onCancelClickHandler}
+        >
           Cancel
         </button>
       </fieldset>
