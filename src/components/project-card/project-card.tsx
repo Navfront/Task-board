@@ -1,14 +1,19 @@
 import { MouseEvent, MouseEventHandler } from 'react'
 import { Link } from 'react-router-dom'
+import { Project } from '../../model/data-types'
 import { useAppDispatch } from '../../redux'
 
-function ProjectsCard(): JSX.Element {
+interface ProjectsCardProps {
+  project: Project
+}
+
+function ProjectsCard({ project }: ProjectsCardProps): JSX.Element {
   const dispatch = useAppDispatch()
 
   const onDeleteHandler: MouseEventHandler<HTMLElement> = (
     event: MouseEvent
   ): void => {
-    const target = event.target as HTMLElement
+    const target = event.currentTarget as HTMLElement
     const id = target.dataset.id ?? ''
     console.log('delete..', id)
     dispatch({ type: 'DELETE', id })
@@ -44,6 +49,7 @@ function ProjectsCard(): JSX.Element {
           className='project-card__button'
           type='button'
           onClick={onDeleteHandler}
+          data-id={project.id}
         >
           delete
         </button>
