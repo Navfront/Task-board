@@ -1,0 +1,20 @@
+.projects-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border: 2px solid goldenrod;
+  margin: 0;
+  padding: 0;
+
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (min-width: 992px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  @media (min-width: 1200px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}

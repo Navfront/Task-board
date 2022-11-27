@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
+import { Header } from '../../components'
 
 function Board(): JSX.Element {
   return (
@@ -8,12 +9,10 @@ function Board(): JSX.Element {
         <meta charSet='utf-8' />
         <title>Доска задач</title>
       </Helmet>
-      <div>
-        board
-        <p>
-          <Link to={'/'}>To Main</Link>
-        </p>
-      </div>
+      <Header>
+        <Link to={'/'}>To Main</Link>
+      </Header>
+      <div>board</div>
     </>
   )
 }

@@ -1,2 +1,14 @@
+// Global
+
+@import './normalize.scss';
 @import './variables.scss';
 @import './global.scss';
+
+// Layouts
+
+@import './components/layouts/header.scss';
+
+// Components
+
+@import './components/projects-list.scss';
+@import './components/project-card.scss';
