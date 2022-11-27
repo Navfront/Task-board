@@ -3,6 +3,6 @@ export interface Project {
   userId: string
   title: string
   description: string
-  time: Date
+  time: Date | null
   newComments: number
 }

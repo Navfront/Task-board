@@ -10,6 +10,10 @@ interface ProjectsCardProps {
 function ProjectsCard({ project }: ProjectsCardProps): JSX.Element {
   const dispatch = useAppDispatch()
 
+  const HumanizeLastDate = (date: Date | null): string => {
+    return ''
+  }
+
   const onDeleteHandler: MouseEventHandler<HTMLElement> = (
     event: MouseEvent
   ): void => {
@@ -37,9 +41,12 @@ function ProjectsCard({ project }: ProjectsCardProps): JSX.Element {
         to='/board'
         onClick={onLinkClickHandler}
       >
-        <h2 className='project-card__title'>Title</h2>
-        <time className='project-card__time' dateTime='12/12/2022'>
-          Last opened 12.12.2022
+        <h2 className='project-card__title'>{project.title}</h2>
+        <time
+          className='project-card__time'
+          dateTime={project.time?.toISOString()}
+        >
+          {HumanizeLastDate(project.time)}
         </time>
         <p className='project-card__description'>Description of project...</p>
         <button className='project-card__button' type='button'>

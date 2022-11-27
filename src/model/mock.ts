@@ -14,7 +14,7 @@ export const MOCK_PROJECTS: Project[] = [
     title: 'Мой второй проект',
     description: 'Создал чтобы удалить. ',
     newComments: 0,
-    time: new Date(),
+    time: null,
     userId: '123'
   },
   {
