@@ -1,7 +1,10 @@
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
 import { MouseEvent, MouseEventHandler } from 'react'
 import { Link } from 'react-router-dom'
 import { Project } from '../../model/data-types'
 import { useAppDispatch } from '../../redux'
+dayjs.extend(relativeTime)
 
 interface ProjectsCardProps {
   project: Project
@@ -11,6 +14,9 @@ function ProjectsCard({ project }: ProjectsCardProps): JSX.Element {
   const dispatch = useAppDispatch()
 
   const HumanizeLastDate = (date: Date | null): string => {
+    if (date != null) {
+      return dayjs(date).toNow()
+    }
     return ''
   }
 
