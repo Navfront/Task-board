@@ -6,7 +6,7 @@ function Board(): JSX.Element {
     <>
       <Helmet>
         <meta charSet='utf-8' />
-        <title>Главная страница</title>
+        <title>Доска задач</title>
       </Helmet>
       <div>
         board
