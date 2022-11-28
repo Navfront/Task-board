@@ -1,22 +1,20 @@
+import { Project } from '../../../model/data-types'
+
 interface ActionA {
-  type: 'ADD'
-  id: string
+  type: 'ADD_PROJECT'
+  project: Project
 }
 interface ActionB {
-  type: 'DELETE'
+  type: 'DELETE_PROJECT'
   id: string
 }
 interface ActionC {
-  type: 'CHANGE_TITLE'
-  id: string
+  type: 'UPDATE_PROJECT'
+  project: Project
 }
-interface ActionD {
-  type: 'UPDATE_LAST_VISIT'
-  id: string
-}
-interface ActionE {
-  type: 'UPDATE_DESCRIPTION'
-  id: string
+interface ActionF {
+  type: 'GET_ALL_PROJECTS'
+  projects: Project[]
 }
 
-export type ProjectsActions = ActionA | ActionB | ActionC | ActionD | ActionE
+export type ProjectsActions = ActionA | ActionB | ActionC | ActionF

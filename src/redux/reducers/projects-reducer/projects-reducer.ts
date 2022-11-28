@@ -1,22 +1,19 @@
 import { Reducer } from 'react'
 import { Project } from '../../../model/data-types'
-import { MOCK_PROJECTS } from '../../../model/mock'
 import { ProjectsActions } from './actions'
 
 export const projectsReducer: Reducer<Project[], ProjectsActions> = (
-  state = MOCK_PROJECTS,
+  state: Project[] = [],
   action
 ) => {
   switch (action.type) {
-    case 'ADD':
+    case 'ADD_PROJECT':
       return state
-    case 'DELETE':
+    case 'GET_ALL_PROJECTS':
+      return state.concat(action.projects)
+    case 'DELETE_PROJECT':
       return state
-    case 'CHANGE_TITLE':
-      return state
-    case 'UPDATE_DESCRIPTION':
-      return state
-    case 'UPDATE_LAST_VISIT':
+    case 'UPDATE_PROJECT':
       return state
     default:
       return state
