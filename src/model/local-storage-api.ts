@@ -14,7 +14,7 @@ export class LocalStorageApi {
   constructor() {
     if (LocalStorageApi._instance !== undefined) {
       throw new Error(
-        'Error: Instantiation failed: Use SingletonClass.getInstance() instead of new.'
+        'Error: Instantiation failed: Use LocalStorageApi.getInstance() instead of new.'
       )
     }
     LocalStorageApi._instance = this
@@ -25,11 +25,28 @@ export class LocalStorageApi {
   }
 
   /**
+   * Добавляет новый item в Localstorage
+   * @param type строка, описывающая тип создаваемого обьекта
+   * @param item сам обьект item
+   * @param cb при успехе выполнится cb(items)
+   * @returns возвращает item
+   */
+
+  addItem<T extends Item>(type: string, item: T, cb: Cb = () => {}): T {
+    const items = this.getItems(type)
+    items.push(item)
+    this.setItems(type, items)
+    cb(items)
+    return item
+  }
+
+  /**
    * Записывает в LocalStorage
+   * @param type строка, описывающая тип создаваемого обьекта
    * @param items Принимает массив проектов
    * @param cb Исполняет cb(items)
    */
-  setItems(type: string, items: Item[], cb: Cb = () => {}): Item[] {
+  setItems<T extends Item>(type: string, items: T[], cb: Cb = () => {}): T[] {
     localStorage.setItem(type, JSON.stringify(items))
     cb(items)
     return items
@@ -37,13 +54,14 @@ export class LocalStorageApi {
 
   /**
    * Метод берет из LocalStorage все проекты если они есть.
+   * @param type строка, описывающая тип создаваемого обьекта
    * @param cb Исполняет cb(items)
    * @returns Возвращает массив с проектами пустой массив если данных нет
    */
-  getItems(type: string, cb: Cb = () => {}): Item[] {
+  getItems<T extends Item>(type: string, cb: Cb = () => {}): T[] {
     const response = localStorage.getItem(type)
     if (response !== null) {
-      const parsed = JSON.parse(response) as Item[]
+      const parsed = JSON.parse(response) as T[]
       cb(parsed)
       return parsed.map((it) => ({
         ...it,
@@ -55,14 +73,15 @@ export class LocalStorageApi {
 
   /**
    * Метод обновляет данные проекта на представленные, либо удаляет проект при shallDelete = true. Принимает колбэк на исполнение при удаче.
+   * @param type строка, описывающая тип создаваемого обьекта
    * @param Item Обьект проекта, обязательное поле id
    * @param shallDelete Удалить проект если true
    * @param Cb Выполнится при успехе cb(items)
    * @returns boolean в зависимости от успеха
    */
-  updateItemById(
+  updateItemById<T extends Item>(
     type: string,
-    item: Item,
+    item: T,
     shallDelete: boolean = false,
     cb: Cb = () => {}
   ): boolean {
