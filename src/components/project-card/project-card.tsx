@@ -8,7 +8,7 @@ interface ProjectsCardProps {
 }
 
 function ProjectsCard({ project }: ProjectsCardProps): JSX.Element {
-  const { onLinkClickHandler, onDeleteHandler } = useHandlers()
+  const { onLinkClickHandler, onDeleteHandler } = useHandlers(project)
 
   return (
     <article className='project-card'>

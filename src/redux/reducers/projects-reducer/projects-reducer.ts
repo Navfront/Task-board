@@ -8,11 +8,11 @@ export const projectsReducer: Reducer<Project[], ProjectsActions> = (
 ) => {
   switch (action.type) {
     case 'ADD_PROJECT':
-      return state
+      return [...state, action.project]
     case 'GET_ALL_PROJECTS':
       return state.concat(action.projects)
     case 'DELETE_PROJECT':
-      return state
+      return state.filter((p) => p.id !== action.project.id)
     case 'UPDATE_PROJECT':
       return state
     default:

@@ -6,7 +6,7 @@ interface ActionA {
 }
 interface ActionB {
   type: 'DELETE_PROJECT'
-  id: string
+  project: Project
 }
 interface ActionC {
   type: 'UPDATE_PROJECT'

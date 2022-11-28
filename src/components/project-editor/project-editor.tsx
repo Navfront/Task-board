@@ -1,7 +1,6 @@
 import { FormEvent, useState } from 'react'
 import { Project } from '../../model/data-types'
 import { useAppDispatch } from '../../redux'
-import { ProjectsApiFacade } from './../../model/service/projects-api-facade'
 
 interface ProjectEditorProps {
   project?: Project
@@ -10,7 +9,6 @@ interface ProjectEditorProps {
 function ProjectEditor({ project }: ProjectEditorProps): JSX.Element {
   const [title, setTitle] = useState(project?.title ?? '')
   const [description, setDescription] = useState(project?.description ?? '')
-  const [isLoading, setIsLoading] = useState(false)
 
   const dispatch = useAppDispatch()
 
@@ -28,20 +26,11 @@ function ProjectEditor({ project }: ProjectEditorProps): JSX.Element {
       newComments: 0,
       userId: 'iAm' // need token or userId
     }
-    setIsLoading(true)
-    ProjectsApiFacade.projectsQueryApi
-      .add(newProject)
-      .then((ok) => {
-        if (ok) {
-          dispatch({
-            type: 'ADD_PROJECT',
-            project: newProject
-          })
-          setIsLoading(false)
-          dispatch({ type: 'CLOSE_MODAL' })
-        }
-      })
-      .catch(console.log)
+
+    dispatch({
+      type: 'ADD_PROJECT',
+      project: newProject
+    })
   }
 
   return (
@@ -79,11 +68,10 @@ function ProjectEditor({ project }: ProjectEditorProps): JSX.Element {
           }}
         ></textarea>
         <button type='submit' className='project-editor__button'>
-          {isLoading
-            ? 'Loading...'
-            : project?.title != null
-              ? 'Edit'
-              : 'Create'}
+
+        {project?.title != null
+          ? 'Edit'
+          : 'Create'}
         </button>
         <button
           type='button'
