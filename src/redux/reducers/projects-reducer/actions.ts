@@ -16,5 +16,8 @@ interface ActionF {
   type: 'GET_ALL_PROJECTS'
   projects: Project[]
 }
+interface ActionD {
+  type: 'INIT_PROJECTS'
+}
 
-export type ProjectsActions = ActionA | ActionB | ActionC | ActionF
+export type ProjectsActions = ActionA | ActionB | ActionC | ActionF | ActionD
