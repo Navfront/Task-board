@@ -51,4 +51,13 @@ describe('Testing LocalStorageApi', () => {
     ).toBeTruthy()
     expect(locStoreInstance.getItems('project')[0].title).toEqual('new')
   })
+
+  test('Method addItem works', () => {
+    expect(locStoreInstance.addItem('item', { id: 'id123' })).toEqual({
+      id: 'id123'
+    })
+    expect(
+      locStoreInstance.updateItemById('item', { id: 'id123' })
+    ).toBeTruthy()
+  })
 })
