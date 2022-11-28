@@ -2,57 +2,50 @@ name: 'Test and Deploy'
 
 on:
   pull_request:
-    types:
-      - closed
-    branches:
-      - master
   push:
-    branches:
-      - master
+    branches: master
 jobs:
-  if_merged:
-    if: github.event.pull_request.merged == true
-    deploy:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v3
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-        - name: Setup node
-          uses: actions/setup-node@v3
-          with:
-            node-version: 19.0.0
-            cache: npm
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 19.0.0
+          cache: npm
 
-        - name: Install dependencies
-          run: npm install
+      - name: Install dependencies
+        run: npm install
 
-        - name: Eslint check
-          run: npm run eslint
+      - name: Eslint check
+        run: npm run eslint
 
-        - name: Prettier check
-          run: npm run prettier
+      - name: Prettier check
+        run: npm run prettier
 
-        - name: Testing code
-          run: echo 'Test passed;)'
+      - name: Testing code
+        run: echo 'Test passed;)'
 
-        - name: Set -eu rule
-          run: set -eu
+      - name: Set -eu rule
+        run: set -eu
 
-        - name: Making dir ssh
-          run: mkdir "$HOME/.ssh"
+      - name: Making dir ssh
+        run: mkdir "$HOME/.ssh"
 
-        - name: Writing ssh-key
-          run: echo "${{ secrets.DEPLOY_KEY }}" > "$HOME/.ssh/key"
+      - name: Writing ssh-key
+        run: echo "${{ secrets.DEPLOY_KEY }}" > "$HOME/.ssh/key"
 
-        - name: Set privileges
-          run: chmod 600 "$HOME/.ssh/key"
+      - name: Set privileges
+        run: chmod 600 "$HOME/.ssh/key"
 
-        - name: Set known-hosts
-          run: echo "${{ secrets.KNOWN_HOSTS }}" > "$HOME/.ssh/known_hosts"
+      - name: Set known-hosts
+        run: echo "${{ secrets.KNOWN_HOSTS }}" > "$HOME/.ssh/known_hosts"
 
-        - name: Build project
-          run: npm run build
+      - name: Build project
+        run: npm run build
 
-        - name: Rsync Deploy
-          run: cd build && rsync -e "ssh -p 22 -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --progress --archive --compress --delete . root@${{secrets.HOST}}:/var/www/html/
+      - name: Rsync Deploy
+        run: cd build && rsync -e "ssh -p 22 -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --progress --archive --compress --delete . root@${{secrets.HOST}}:/var/www/html/
