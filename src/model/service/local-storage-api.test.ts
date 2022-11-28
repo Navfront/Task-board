@@ -1,5 +1,5 @@
+import { MOCK_PROJECTS } from '../mock'
 import { LocalStorageApi } from './local-storage-api'
-import { MOCK_PROJECTS } from './mock'
 
 let locStoreInstance: LocalStorageApi
 
