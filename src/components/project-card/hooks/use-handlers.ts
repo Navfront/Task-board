@@ -13,7 +13,7 @@ export const useHandlers = (): {
   ): void => {
     const target = event.currentTarget as HTMLElement
     const id = target.dataset.id ?? ''
-    dispatch({ type: 'DELETE', id })
+    dispatch({ type: 'DELETE_PROJECT', id })
   }
 
   const onLinkClickHandler: MouseEventHandler<HTMLElement> = (
