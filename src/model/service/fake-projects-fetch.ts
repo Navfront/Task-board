@@ -1,5 +1,5 @@
 import { Project } from '../data-types'
-import { MOCK_PROJECTS } from '../mock'
+import { LocalStorageApi } from './local-storage-api'
 import { FetchApiInterface } from './query-api'
 
 export class FakeProjectsFetch implements FetchApiInterface<Project> {
@@ -22,7 +22,7 @@ export class FakeProjectsFetch implements FetchApiInterface<Project> {
   async get(): Promise<Project[]> {
     return await new Promise((resolve) => {
       setTimeout(() => {
-        resolve(MOCK_PROJECTS)
+        resolve(LocalStorageApi.getInstance().getItems('project'))
       }, this.timeout)
     })
   }
