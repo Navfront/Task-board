@@ -14,8 +14,8 @@ interface Item {
 }
 
 export class QueryApi<T extends Item> {
-  localStorageApi: LocalStorageApi
-  fetchApi: FetchApiInterface<T>
+  private readonly localStorageApi: LocalStorageApi
+  private readonly fetchApi: FetchApiInterface<T>
 
   constructor(
     localStorageApi: LocalStorageApi,
