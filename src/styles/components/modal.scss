@@ -1,0 +1,25 @@
+.modal {
+  display: block;
+  visibility: hidden;
+  transform: scale(0.2);
+  opacity: 0;
+  transition: ease 0.15s;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+
+  &[open] {
+    opacity: 1;
+    visibility: visible;
+    border: none;
+    background-color: transparent;
+    transform: scale(1);
+    transition: ease 0.25s;
+  }
+
+  &[open]::backdrop {
+    background-color: $color-modal-bg;
+  }
+}
