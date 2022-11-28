@@ -68,10 +68,7 @@ function ProjectEditor({ project }: ProjectEditorProps): JSX.Element {
           }}
         ></textarea>
         <button type='submit' className='project-editor__button'>
-
-        {project?.title != null
-          ? 'Edit'
-          : 'Create'}
+          {project?.title != null ? 'Edit' : 'Create'}
         </button>
         <button
           type='button'

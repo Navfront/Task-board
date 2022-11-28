@@ -1,3 +1,6 @@
 # Ignore artifacts:
 build
 coverage
+normalize.scss
+package-lock.json
+package.json
