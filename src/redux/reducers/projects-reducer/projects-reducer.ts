@@ -10,7 +10,7 @@ export const projectsReducer: Reducer<IProject[], ProjectsActions> = (
     case 'ADD_PROJECT':
       return [...state, action.project]
     case 'GET_ALL_PROJECTS':
-      return state.concat(action.projects)
+      return action.projects
     case 'DELETE_PROJECT':
       return state.filter((p) => p.id !== action.project.id)
     case 'UPDATE_PROJECT':
