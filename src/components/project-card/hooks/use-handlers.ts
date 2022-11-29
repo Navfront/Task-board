@@ -8,6 +8,7 @@ export const useHandlers = (
 ): {
   onDeleteHandler: typeof onDeleteHandler
   onLinkClickHandler: typeof onLinkClickHandler
+  onEditClickHandler: typeof onEditClickHandler
 } => {
   const dispatch = useAppDispatch()
 
@@ -15,14 +16,16 @@ export const useHandlers = (
     dispatch({ type: 'DELETE_PROJECT', project })
   }
 
-  const onLinkClickHandler: MouseEventHandler<HTMLElement> = (
-    event: MouseEvent
-  ): void => {
+  const onLinkClickHandler: MouseEventHandler<HTMLElement> = (event: MouseEvent): void => {
     const target = event.target as HTMLElement
     if (target.nodeName === 'BUTTON') {
       event.preventDefault()
     }
   }
 
-  return { onLinkClickHandler, onDeleteHandler }
+  const onEditClickHandler: MouseEventHandler<HTMLElement> = (): void => {
+    dispatch({ type: 'OPEN_MODAL', payload: { isOpen: true, editProjectData: project } })
+  }
+
+  return { onLinkClickHandler, onDeleteHandler, onEditClickHandler }
 }
