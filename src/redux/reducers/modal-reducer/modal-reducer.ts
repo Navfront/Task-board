@@ -1,21 +1,27 @@
 import { Reducer } from 'react'
-import { Project } from '../../../model/data-types'
-import { ModalActions } from './actions'
+import { ModalActions, ModalChildTypes } from './actions'
+import { IProject } from './../../../model/data-types'
 
-export interface ModalPayload {
+export interface IModalState {
   isOpen: boolean
-  currentProject?: Project
+  childType: ModalChildTypes | null
+  data?: IProject | null
 }
 
-export const modalReducer: Reducer<ModalPayload, ModalActions> = (
-  state = { isOpen: false },
+export const modalReducer: Reducer<IModalState, ModalActions> = (
+  state = { isOpen: false, childType: null, data: null },
   action
 ) => {
   switch (action.type) {
     case 'OPEN_MODAL':
-      return { ...state, isOpen: true }
+      return {
+        isOpen: true,
+        childType: action.childType,
+        data: action.data != null ? action.data : null
+      }
+
     case 'CLOSE_MODAL':
-      return { ...state, isOpen: false }
+      return { isOpen: false, childType: null }
     default:
       return state
   }

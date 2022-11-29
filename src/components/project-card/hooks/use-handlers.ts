@@ -1,13 +1,14 @@
 import { MouseEventHandler, MouseEvent } from 'react'
 
 import { useAppDispatch } from '../../../redux'
-import { Project } from './../../../model/data-types'
+import { IProject } from './../../../model/data-types'
 
 export const useHandlers = (
-  project: Project
+  project: IProject
 ): {
   onDeleteHandler: typeof onDeleteHandler
   onLinkClickHandler: typeof onLinkClickHandler
+  onEditClickHandler: typeof onEditClickHandler
 } => {
   const dispatch = useAppDispatch()
 
@@ -15,14 +16,16 @@ export const useHandlers = (
     dispatch({ type: 'DELETE_PROJECT', project })
   }
 
-  const onLinkClickHandler: MouseEventHandler<HTMLElement> = (
-    event: MouseEvent
-  ): void => {
+  const onLinkClickHandler: MouseEventHandler<HTMLElement> = (event: MouseEvent): void => {
     const target = event.target as HTMLElement
     if (target.nodeName === 'BUTTON') {
       event.preventDefault()
     }
   }
 
-  return { onLinkClickHandler, onDeleteHandler }
+  const onEditClickHandler: MouseEventHandler<HTMLElement> = (): void => {
+    dispatch({ type: 'OPEN_MODAL', childType: 'EDITOR_EDIT_PROJECT', data: project })
+  }
+
+  return { onLinkClickHandler, onDeleteHandler, onEditClickHandler }
 }

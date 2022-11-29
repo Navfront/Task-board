@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../../redux'
-import { ModalPayload } from '../../../../redux/reducers/modal-reducer/modal-reducer'
+import { IModalState } from '../../../../redux/reducers/modal-reducer/modal-reducer'
 
-interface ReturnUseDialogHandling {
+interface IReturnUseDialogHandling {
   modalRef: React.RefObject<HTMLDialogElement>
 }
 
-export const useDialogHandling = (): ReturnUseDialogHandling => {
-  const modalState = useAppSelector<ModalPayload>((state) => state.modalReducer)
+export const useDialogHandling = (): IReturnUseDialogHandling => {
+  const modalState = useAppSelector<IModalState>((state) => state.modalReducer)
   const dispatch = useAppDispatch()
   const modalRef = React.createRef<HTMLDialogElement>()
 

@@ -24,19 +24,9 @@ describe('Testing LocalStorageApi', () => {
   })
 
   test('Method updateItemById remove Item from LocStor', () => {
-    const response = locStoreInstance.updateItemById(
-      'project',
-      MOCK_PROJECTS[0],
-      true
-    )
-    const secondResponse = locStoreInstance.updateItemById(
-      'project',
-      MOCK_PROJECTS[0],
-      true
-    )
-    expect(locStoreInstance.getItems('project').length).toBeGreaterThanOrEqual(
-      2
-    )
+    const response = locStoreInstance.updateItemById('project', MOCK_PROJECTS[0], true)
+    const secondResponse = locStoreInstance.updateItemById('project', MOCK_PROJECTS[0], true)
+    expect(locStoreInstance.getItems('project').length).toBeGreaterThanOrEqual(2)
     expect(response).toBeTruthy()
     expect(secondResponse).toBeFalsy()
     expect(locStoreInstance.getItems('project').length).toBeLessThan(3)
@@ -56,8 +46,6 @@ describe('Testing LocalStorageApi', () => {
     expect(locStoreInstance.addItem('item', { id: 'id123' })).toEqual({
       id: 'id123'
     })
-    expect(
-      locStoreInstance.updateItemById('item', { id: 'id123' })
-    ).toBeTruthy()
+    expect(locStoreInstance.updateItemById('item', { id: 'id123' })).toBeTruthy()
   })
 })

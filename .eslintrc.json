@@ -12,8 +12,9 @@
   },
   "plugins": ["react"],
   "rules": {
-    "generator-star-spacing": ["off", "after"],
     "indent": "off",
+    "@typescript-eslint/indent": "off",
+    "generator-star-spacing": ["off", "after"],
     "no-extra-semi": "off",
     "space-before-function-paren": "off",
     "@typescript-eslint/space-before-function-paren": "off",

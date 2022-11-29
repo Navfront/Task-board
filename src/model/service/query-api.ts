@@ -1,3 +1,4 @@
+import { Item } from '../data-types'
 import { LocalStorageApi } from './local-storage-api'
 
 export interface FetchApiInterface<T> {
@@ -8,19 +9,11 @@ export interface FetchApiInterface<T> {
   delete: (projectId: string) => Promise<boolean>
 }
 
-interface Item {
-  id: string
-  [k: string]: any
-}
-
 export class QueryApi<T extends Item> {
   private readonly localStorageApi: LocalStorageApi
   private readonly fetchApi: FetchApiInterface<T>
 
-  constructor(
-    localStorageApi: LocalStorageApi,
-    fetchApi: FetchApiInterface<T>
-  ) {
+  constructor(localStorageApi: LocalStorageApi, fetchApi: FetchApiInterface<T>) {
     this.localStorageApi = localStorageApi
     this.fetchApi = fetchApi
   }

@@ -1,12 +1,16 @@
-import { ModalPayload } from './modal-reducer'
+import { IProject } from './../../../model/data-types'
+export type ModalChildTypes = 'EDITOR_CREATE_PROJECT' | 'EDITOR_EDIT_PROJECT'
 
-interface ModalActionA {
+interface IModalActionOpen {
   type: 'OPEN_MODAL'
-  payload?: ModalPayload
+  childType: ModalChildTypes
+  data: IProject | null
 }
 
-interface ModalActionB {
+interface IModalActionClose {
   type: 'CLOSE_MODAL'
 }
 
-export type ModalActions = ModalActionA | ModalActionB
+export type ModalActions = IModalActionOpen | IModalActionClose
+
+export type ModalActionTypes = ModalActions[keyof Pick<ModalActions, 'type'>]
