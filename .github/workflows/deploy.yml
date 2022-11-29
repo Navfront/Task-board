@@ -6,8 +6,7 @@ on:
       - closed
     branches:
       - master
-  push:
-    branches: master
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -31,7 +30,7 @@ jobs:
         run: npm run prettier
 
       - name: Testing code
-        run: echo 'Test passed;)'
+        run: npm run test
 
       - name: Set -eu rule
         run: set -eu
