@@ -14,7 +14,13 @@ export const projectsReducer: Reducer<IProject[], ProjectsActions> = (
     case 'DELETE_PROJECT':
       return state.filter((p) => p.id !== action.project.id)
     case 'UPDATE_PROJECT':
-      return state
+      return state.map((p) => {
+        if (p.id === action.project.id) {
+          return action.project
+        }
+        return p
+      })
+
     default:
       return state
   }

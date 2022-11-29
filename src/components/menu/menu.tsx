@@ -4,7 +4,7 @@ function Menu(): JSX.Element {
   const dispatch = useAppDispatch()
 
   const onCreateClickHandler = (): void => {
-    dispatch({ type: 'OPEN_MODAL', childType: 'EDITOR_CREATE_PROJECT' })
+    dispatch({ type: 'OPEN_MODAL', childType: 'EDITOR_CREATE_PROJECT', data: null })
   }
 
   return (

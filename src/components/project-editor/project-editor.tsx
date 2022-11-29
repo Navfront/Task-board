@@ -8,8 +8,8 @@ interface IProjectEditorProps {
 }
 
 function ProjectEditor({ project, mode }: IProjectEditorProps): JSX.Element {
-  const [title, setTitle] = useState(project?.title ?? '')
-  const [description, setDescription] = useState(project?.description ?? '')
+  const [title, setTitle] = useState(project != null ? project.title : '')
+  const [description, setDescription] = useState(project != null ? project.description : '')
 
   const dispatch = useAppDispatch()
 
@@ -35,8 +35,12 @@ function ProjectEditor({ project, mode }: IProjectEditorProps): JSX.Element {
         project: newProject
       })
     } else if (mode === 'EDIT' && project != null) {
+      console.log('newDATA = ', { ...project, title, description })
+
       dispatch({ type: 'UPDATE_PROJECT', project: { ...project, title, description } })
     }
+
+    dispatch({ type: 'CLOSE_MODAL' })
   }
 
   return (
@@ -50,7 +54,7 @@ function ProjectEditor({ project, mode }: IProjectEditorProps): JSX.Element {
           type='text'
           className='project-editor__title-input'
           placeholder='Enter new title here'
-          value={project?.title != null ? project.title : title ?? ''}
+          value={title ?? ''}
           onChange={(event) => {
             setTitle(event.target.value)
           }}
@@ -62,7 +66,7 @@ function ProjectEditor({ project, mode }: IProjectEditorProps): JSX.Element {
           id='project-editor__description-input'
           className='project-editor__description-input'
           placeholder='Description of your project'
-          value={project?.description != null ? project.description : description ?? ''}
+          value={description ?? ''}
           onChange={(event) => {
             setDescription(event.target.value)
           }}

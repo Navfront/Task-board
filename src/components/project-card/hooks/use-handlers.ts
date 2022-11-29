@@ -24,7 +24,7 @@ export const useHandlers = (
   }
 
   const onEditClickHandler: MouseEventHandler<HTMLElement> = (): void => {
-    dispatch({ type: 'OPEN_MODAL', childType: 'EDITOR_EDIT_PROJECT' })
+    dispatch({ type: 'OPEN_MODAL', childType: 'EDITOR_EDIT_PROJECT', data: project })
   }
 
   return { onLinkClickHandler, onDeleteHandler, onEditClickHandler }

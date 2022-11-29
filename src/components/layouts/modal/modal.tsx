@@ -1,8 +1,8 @@
 import ReactDOM from 'react-dom'
 import { useAppSelector } from '../../../redux'
+import { useDialogHandling } from './hooks/use-dialog-handling'
 import { IModalState } from '../../../redux/reducers/modal-reducer/modal-reducer'
 import ProjectEditor from '../../project-editor/project-editor'
-import { useDialogHandling } from './hooks/use-dialog-handling'
 
 const portal = document.getElementById('portal')
 
@@ -16,7 +16,7 @@ function Modal(): JSX.Element {
       case 'EDITOR_CREATE_PROJECT':
         return <ProjectEditor mode='CREATE' />
       case 'EDITOR_EDIT_PROJECT':
-        return <ProjectEditor mode='EDIT' />
+        return <ProjectEditor mode='EDIT' project={modalState.data ?? undefined} />
       default:
         return <></>
     }
