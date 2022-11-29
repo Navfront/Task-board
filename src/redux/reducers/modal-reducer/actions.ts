@@ -1,8 +1,8 @@
-import { ModalPayload } from './modal-reducer'
+import { IModalState } from './modal-reducer'
 
 interface IModalActionOpen {
   type: 'OPEN_MODAL'
-  payload?: ModalPayload
+  payload?: IModalState
 }
 
 interface IModalActionClose {

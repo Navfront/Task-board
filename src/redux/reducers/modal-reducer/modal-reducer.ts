@@ -2,12 +2,12 @@ import { Reducer } from 'react'
 import { IProject } from '../../../model/data-types'
 import { ModalActions } from './actions'
 
-export interface ModalPayload {
+export interface IModalState {
   isOpen: boolean
   currentProject?: IProject
 }
 
-export const modalReducer: Reducer<ModalPayload, ModalActions> = (
+export const modalReducer: Reducer<IModalState, ModalActions> = (
   state = { isOpen: false },
   action
 ) => {
