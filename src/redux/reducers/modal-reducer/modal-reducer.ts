@@ -1,10 +1,8 @@
 import { Reducer } from 'react'
-import { IProject } from '../../../model/data-types'
 import { ModalActions } from './actions'
 
 export interface IModalState {
   isOpen: boolean
-  currentProject?: IProject
 }
 
 export const modalReducer: Reducer<IModalState, ModalActions> = (
@@ -13,9 +11,10 @@ export const modalReducer: Reducer<IModalState, ModalActions> = (
 ) => {
   switch (action.type) {
     case 'OPEN_MODAL':
-      return { ...state, isOpen: true }
+      return { isOpen: true }
+
     case 'CLOSE_MODAL':
-      return { ...state, isOpen: false }
+      return { isOpen: false }
     default:
       return state
   }
