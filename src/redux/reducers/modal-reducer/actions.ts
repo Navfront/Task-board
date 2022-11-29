@@ -1,8 +1,8 @@
-import { IModalState } from './modal-reducer'
+export type ModalChildTypes = 'EDITOR_CREATE_PROJECT' | 'EDITOR_EDIT_PROJECT'
 
 interface IModalActionOpen {
   type: 'OPEN_MODAL'
-  payload?: IModalState
+  childType: ModalChildTypes
 }
 
 interface IModalActionClose {

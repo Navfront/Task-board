@@ -1,13 +1,7 @@
 import { useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
-import {
-  Header,
-  Menu,
-  Modal,
-  ProjectEditor,
-  ProjectsList
-} from '../../components'
+import { Header, Menu, Modal, ProjectsList } from '../../components'
 import { useAppDispatch } from '../../redux'
 
 function Main(): JSX.Element {
@@ -28,9 +22,7 @@ function Main(): JSX.Element {
         <Menu />
       </Header>
       <ProjectsList />
-      <Modal>
-        <ProjectEditor />
-      </Modal>
+      <Modal />
     </>
   )
 }
