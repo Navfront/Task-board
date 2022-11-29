@@ -13,10 +13,7 @@ export class QueryApi<T extends Item> {
   private readonly localStorageApi: LocalStorageApi
   private readonly fetchApi: FetchApiInterface<T>
 
-  constructor(
-    localStorageApi: LocalStorageApi,
-    fetchApi: FetchApiInterface<T>
-  ) {
+  constructor(localStorageApi: LocalStorageApi, fetchApi: FetchApiInterface<T>) {
     this.localStorageApi = localStorageApi
     this.fetchApi = fetchApi
   }
