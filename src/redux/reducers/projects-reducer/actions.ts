@@ -1,23 +1,24 @@
-import { Project } from '../../../model/data-types'
+import { IProject } from '../../../model/data-types'
 
-interface ActionA {
+interface IProjectActionAdd {
   type: 'ADD_PROJECT'
-  project: Project
+  project: IProject
 }
-interface ActionB {
+interface IProjectActionDelete {
   type: 'DELETE_PROJECT'
-  project: Project
+  project: IProject
 }
-interface ActionC {
+interface IProjectActionUpdate {
   type: 'UPDATE_PROJECT'
-  project: Project
+  project: IProject
 }
-interface ActionF {
+interface IProjectActionGetAll {
   type: 'GET_ALL_PROJECTS'
-  projects: Project[]
-}
-interface ActionD {
-  type: 'INIT_PROJECTS'
+  projects: IProject[]
 }
 
-export type ProjectsActions = ActionA | ActionB | ActionC | ActionF | ActionD
+export type ProjectsActions =
+  | IProjectActionAdd
+  | IProjectActionDelete
+  | IProjectActionUpdate
+  | IProjectActionGetAll

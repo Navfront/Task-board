@@ -1,9 +1,9 @@
 import { Reducer } from 'react'
-import { Project } from '../../../model/data-types'
+import { IProject } from '../../../model/data-types'
 import { ProjectsActions } from './actions'
 
-export const projectsReducer: Reducer<Project[], ProjectsActions> = (
-  state: Project[] = [],
+export const projectsReducer: Reducer<IProject[], ProjectsActions> = (
+  state: IProject[] = [],
   action
 ) => {
   switch (action.type) {

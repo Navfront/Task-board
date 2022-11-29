@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom'
-import { Project } from '../../model/data-types'
+import { IProject } from '../../model/data-types'
 import { HumanizeLastDate } from '../../model/utils'
 import { useHandlers } from './hooks/use-handlers'
 
-interface ProjectsCardProps {
-  project: Project
+interface IProjectsCardProps {
+  project: IProject
 }
 
-function ProjectsCard({ project }: ProjectsCardProps): JSX.Element {
+function ProjectsCard({ project }: IProjectsCardProps): JSX.Element {
   const { onLinkClickHandler, onDeleteHandler } = useHandlers(project)
 
   return (

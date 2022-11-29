@@ -1,9 +1,7 @@
+import { Item } from '../data-types'
+
 type Cb = any
 
-interface Item {
-  id: string
-  [k: string]: any
-}
 /**
  * Класс для работы с LocalStorage
  * Используйте метод getInstance()

@@ -1,12 +1,12 @@
 import { FormEvent, useState } from 'react'
-import { Project } from '../../model/data-types'
+import { IProject } from '../../model/data-types'
 import { useAppDispatch } from '../../redux'
 
-interface ProjectEditorProps {
-  project?: Project
+interface IProjectEditorProps {
+  project?: IProject
 }
 
-function ProjectEditor({ project }: ProjectEditorProps): JSX.Element {
+function ProjectEditor({ project }: IProjectEditorProps): JSX.Element {
   const [title, setTitle] = useState(project?.title ?? '')
   const [description, setDescription] = useState(project?.description ?? '')
 

@@ -1,10 +1,10 @@
 import { Reducer } from 'react'
-import { Project } from '../../../model/data-types'
+import { IProject } from '../../../model/data-types'
 import { ModalActions } from './actions'
 
 export interface ModalPayload {
   isOpen: boolean
-  currentProject?: Project
+  currentProject?: IProject
 }
 
 export const modalReducer: Reducer<ModalPayload, ModalActions> = (

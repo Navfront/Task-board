@@ -1,10 +1,10 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
-import { Project } from '../../model/data-types'
+import { IProject } from '../../model/data-types'
 import { ProjectsApiFacade } from '../../model/service/projects-api-facade'
 
 // GET_ALL_PROJECTS
 
-const fetchProjects = async (): Promise<Project[]> => {
+const fetchProjects = async (): Promise<IProject[]> => {
   return await ProjectsApiFacade.projectsQueryApi.get()
 }
 
@@ -20,7 +20,7 @@ export function* watchGetAllProjectsAsync(): any {
 
 // ADD_PROJECT
 
-const addProject = async (project: Project): Promise<boolean> => {
+const addProject = async (project: IProject): Promise<boolean> => {
   return await ProjectsApiFacade.projectsQueryApi.add(project)
 }
 
@@ -34,7 +34,7 @@ export function* watchAddProjectAsync(): any {
 
 // DELETE_PROJECT
 
-const deleteProject = async (project: Project): Promise<boolean> => {
+const deleteProject = async (project: IProject): Promise<boolean> => {
   return await ProjectsApiFacade.projectsQueryApi.delete(project)
 }
 

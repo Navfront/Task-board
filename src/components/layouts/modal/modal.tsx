@@ -4,11 +4,11 @@ import { useDialogHandling } from './hooks/use-dialog-handling'
 
 const portal = document.getElementById('portal')
 
-interface ModalProps extends PropsWithChildren {
+interface IModalProps extends PropsWithChildren {
   isOpen?: boolean
 }
 
-function Modal({ children }: ModalProps): JSX.Element {
+function Modal({ children }: IModalProps): JSX.Element {
   const { modalRef } = useDialogHandling()
 
   if (portal !== null) {

@@ -1,6 +1,6 @@
-import { Project } from './data-types'
+import { IProject } from './data-types'
 
-export const MOCK_PROJECTS: Project[] = [
+export const MOCK_PROJECTS: IProject[] = [
   {
     id: '1',
     title: 'Мой первый проект',

@@ -1,3 +1,4 @@
+import { Item } from '../data-types'
 import { LocalStorageApi } from './local-storage-api'
 
 export interface FetchApiInterface<T> {
@@ -6,11 +7,6 @@ export interface FetchApiInterface<T> {
   get: () => Promise<T[]>
   update: (project: T) => Promise<boolean>
   delete: (projectId: string) => Promise<boolean>
-}
-
-interface Item {
-  id: string
-  [k: string]: any
 }
 
 export class QueryApi<T extends Item> {

@@ -1,4 +1,4 @@
-export interface Project {
+export interface IProject {
   id: string
   userId: string
   title: string
@@ -8,3 +8,8 @@ export interface Project {
 }
 
 export type LocalStorageApiTypes = 'projects'
+
+export interface Item {
+  id: string
+  [k: string]: any
+}

@@ -1,10 +1,10 @@
 import { MouseEventHandler, MouseEvent } from 'react'
 
 import { useAppDispatch } from '../../../redux'
-import { Project } from './../../../model/data-types'
+import { IProject } from './../../../model/data-types'
 
 export const useHandlers = (
-  project: Project
+  project: IProject
 ): {
   onDeleteHandler: typeof onDeleteHandler
   onLinkClickHandler: typeof onLinkClickHandler

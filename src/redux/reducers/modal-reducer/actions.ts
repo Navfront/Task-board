@@ -1,12 +1,12 @@
 import { ModalPayload } from './modal-reducer'
 
-interface ModalActionA {
+interface IModalActionOpen {
   type: 'OPEN_MODAL'
   payload?: ModalPayload
 }
 
-interface ModalActionB {
+interface IModalActionClose {
   type: 'CLOSE_MODAL'
 }
 
-export type ModalActions = ModalActionA | ModalActionB
+export type ModalActions = IModalActionOpen | IModalActionClose
