@@ -1,50 +1,26 @@
-import { FormEvent, useState } from 'react'
 import { IProject } from '../../model/data-types'
-import { useAppDispatch } from '../../redux'
+import { useEditorHandlers } from './hooks/use-editor-handlers'
 
-interface IProjectEditorProps {
+export interface IProjectEditorProps {
   project?: IProject
   mode: 'CREATE' | 'EDIT'
 }
 
 function ProjectEditor({ project, mode }: IProjectEditorProps): JSX.Element {
-  const [title, setTitle] = useState(project != null ? project.title : '')
-  const [description, setDescription] = useState(project != null ? project.description : '')
-
-  const dispatch = useAppDispatch()
-
-  const onCancelClickHandler = (): void => {
-    dispatch({ type: 'CLOSE_MODAL', payload: { isOpen: false } })
-  }
-
-  const onSubmitButtonClick = (event: FormEvent): void => {
-    event.preventDefault()
-
-    if (mode === 'CREATE') {
-      const newProject = {
-        description,
-        title,
-        id: Date.now().toString(),
-        time: null,
-        newComments: 0,
-        userId: 'iAm' // need token or userId
-      }
-
-      dispatch({
-        type: 'ADD_PROJECT',
-        project: newProject
-      })
-    } else if (mode === 'EDIT' && project != null) {
-      console.log('newDATA = ', { ...project, title, description })
-
-      dispatch({ type: 'UPDATE_PROJECT', project: { ...project, title, description } })
-    }
-
-    dispatch({ type: 'CLOSE_MODAL' })
-  }
+  const {
+    onCancelClickHandler,
+    onSubmitHandler,
+    title,
+    description,
+    onChangeDescriptionHandler,
+    onChangeTitleHandler
+  } = useEditorHandlers({
+    mode,
+    project
+  })
 
   return (
-    <form className='project-editor' onSubmit={onSubmitButtonClick}>
+    <form className='project-editor' onSubmit={onSubmitHandler}>
       <fieldset className='project-editor__fieldset'>
         <label htmlFor='project-editor__title-input' className='project-editor__label'>
           Title
@@ -55,9 +31,7 @@ function ProjectEditor({ project, mode }: IProjectEditorProps): JSX.Element {
           className='project-editor__title-input'
           placeholder='Enter new title here'
           value={title ?? ''}
-          onChange={(event) => {
-            setTitle(event.target.value)
-          }}
+          onChange={onChangeTitleHandler}
         />
         <label htmlFor='project-editor__description-input' className='project-editor__label'>
           Description
@@ -67,9 +41,7 @@ function ProjectEditor({ project, mode }: IProjectEditorProps): JSX.Element {
           className='project-editor__description-input'
           placeholder='Description of your project'
           value={description ?? ''}
-          onChange={(event) => {
-            setDescription(event.target.value)
-          }}
+          onChange={onChangeDescriptionHandler}
         ></textarea>
         <button type='submit' className='project-editor__button'>
           {project?.title != null ? 'Edit' : 'Create'}

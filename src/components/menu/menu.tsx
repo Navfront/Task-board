@@ -1,11 +1,7 @@
-import { useAppDispatch } from './../../redux/index'
+import { useHandlers } from './hooks/use-handlers'
 
 function Menu(): JSX.Element {
-  const dispatch = useAppDispatch()
-
-  const onCreateClickHandler = (): void => {
-    dispatch({ type: 'OPEN_MODAL', childType: 'EDITOR_CREATE_PROJECT', data: null })
-  }
+  const { onCreateClickHandler } = useHandlers()
 
   return (
     <ul className='menu'>
