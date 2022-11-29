@@ -10,3 +10,5 @@ interface IModalActionClose {
 }
 
 export type ModalActions = IModalActionOpen | IModalActionClose
+
+export type ModalActionTypes = ModalActions[keyof Pick<ModalActions, 'type'>]

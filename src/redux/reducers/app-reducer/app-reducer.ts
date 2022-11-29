@@ -1,5 +1,5 @@
 import { Reducer } from 'react'
-import { IAppActions } from './actions'
+import { AppActions } from './actions'
 
 export interface IUser {
   id: string
@@ -15,7 +15,7 @@ const initialAppState: IAppState = {
   isTouch: false
 }
 
-export const appReducer: Reducer<IAppState, IAppActions> = (
+export const appReducer: Reducer<IAppState, AppActions> = (
   state: IAppState = initialAppState,
   action
 ) => {

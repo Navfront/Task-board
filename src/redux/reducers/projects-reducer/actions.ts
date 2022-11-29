@@ -22,3 +22,5 @@ export type ProjectsActions =
   | IProjectActionDelete
   | IProjectActionUpdate
   | IProjectActionGetAll
+
+export type ProjectActionTypes = ProjectsActions[keyof Pick<ProjectsActions, 'type'>]

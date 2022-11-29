@@ -9,4 +9,6 @@ interface IAppActionSetUser {
   user: IUser
 }
 
-export type IAppActions = IAppActionInit | IAppActionSetUser
+export type AppActions = IAppActionInit | IAppActionSetUser
+
+export type AppActionTypes = AppActions[keyof Pick<AppActions, 'type'>]
