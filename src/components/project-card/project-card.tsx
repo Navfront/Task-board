@@ -12,7 +12,7 @@ function ProjectsCard({ project }: IProjectsCardProps): JSX.Element {
 
   return (
     <article className='project-card'>
-      <Link className='project-card__link' to='/board' onClick={onLinkClickHandler}>
+      <Link className='project-card__link' to={`/board:${project.id}`} onClick={onLinkClickHandler}>
         <h2 className='project-card__title'>{project.title}</h2>
         <time className='project-card__time' dateTime={project.time?.toISOString()}>
           {HumanizeLastDate(project.time)}
