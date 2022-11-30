@@ -19,7 +19,9 @@ function Main(): JSX.Element {
       <Header>
         <Menu />
       </Header>
-      <ProjectsList />
+      <main className='page__main main'>
+        <ProjectsList />
+      </main>
       <Modal />
     </>
   )

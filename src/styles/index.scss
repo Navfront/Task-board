@@ -7,6 +7,8 @@
 // Layouts
 
 @import './components/modal.scss';
+@import './components/layouts/page.scss';
+@import './components/layouts/main.scss';
 @import './components/layouts/header.scss';
 
 // Components
@@ -15,3 +17,4 @@
 @import './components/project-card.scss';
 @import './components/menu.scss';
 @import './components/project-editor.scss';
+@import './components/board.scss';
