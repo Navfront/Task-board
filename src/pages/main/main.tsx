@@ -14,7 +14,7 @@ function Main(): JSX.Element {
     <>
       <Helmet>
         <meta charSet='utf-8' />
-        <title>Главная страница</title>
+        <title>Main page</title>
       </Helmet>
       <Header>
         <Menu />
