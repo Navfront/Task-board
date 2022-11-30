@@ -1,0 +1,16 @@
+.page {
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  &__header {
+    flex-grow: 0;
+  }
+
+  &__main {
+    justify-self: stretch;
+    flex-grow: 1;
+  }
+}

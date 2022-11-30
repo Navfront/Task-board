@@ -1,0 +1,33 @@
+.column {
+  padding: 10px;
+
+  &__list {
+    padding: 5px;
+    margin: 0;
+
+    list-style: none;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.14), 0 2px 6px rgba(0, 0, 0, 0.14),
+      0 0 1px rgba(0, 0, 0, 0.14);
+  }
+
+  &__alpha {
+    background-color: lightyellow;
+  }
+
+  &__betta {
+    background-color: lightpink;
+  }
+
+  &__gamma {
+    background-color: lightseagreen;
+  }
+
+  @media (max-width: 767px) {
+    min-width: 340px;
+  }
+
+  @media (min-width: 768px) {
+    min-width: 360px;
+  }
+}
