@@ -24,6 +24,10 @@
   }
 
   @media (max-width: 767px) {
-    min-width: 500px;
+    min-width: 340px;
+  }
+
+  @media (min-width: 768px) {
+    min-width: 360px;
   }
 }
