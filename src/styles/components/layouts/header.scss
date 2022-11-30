@@ -1,5 +1,11 @@
 .header {
   display: flex;
   padding: 10px;
-  background-color: green;
+  background-color: rgb(143, 189, 198);
+  border-bottom: 3px solid rgb(163, 163, 163);
+  align-items: center;
+
+  &__project-id {
+    margin-left: auto;
+  }
 }

@@ -1,4 +1,5 @@
 .board {
   min-height: 100%;
-  background-color: $color-board-bg;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }

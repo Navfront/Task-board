@@ -20,6 +20,7 @@ function Main(): JSX.Element {
         <Menu />
       </Header>
       <main className='page__main main'>
+        <h1 className='visually-hidden'>Todo board system</h1>
         <ProjectsList />
       </main>
       <Modal />

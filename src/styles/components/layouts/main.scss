@@ -1,3 +1,8 @@
 .main {
   height: 100%;
+  padding: 20px;
+
+  &--board {
+    padding: 0;
+  }
 }
