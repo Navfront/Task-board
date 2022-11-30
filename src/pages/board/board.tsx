@@ -14,7 +14,7 @@ function Board(): JSX.Element {
       <Header>
         <Link to={'/'}>To Main</Link>
         <button type='button'>New Task</button>
-        <input type='text' placeholder='SEARCH' />
+        <input className='header__search' type='text' placeholder='SEARCH' />
         <p className='header__project-id'>{`Project id: ${projectId?.slice(1) ?? ''}`}</p>
       </Header>
       <main className='page__main main main--board'>
