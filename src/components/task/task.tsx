@@ -26,6 +26,7 @@ function Task(task: ITaskProps): JSX.Element {
     <article className={`task task--priority-${task.priority}`}>
       <h3 className='task__title'>Title</h3>
       <button
+        type='button'
         className={`task__expand-button ${isExpand ? 'task__expand-button--active' : ''}`}
         onClick={onExpandClickHandler}
       >
@@ -44,17 +45,12 @@ function Task(task: ITaskProps): JSX.Element {
         </ul>
 
         <ul className='task__files files'>
-          <li className='files-list__item'></li>
+          <li className='files-list__item'>file</li>
         </ul>
 
-        <ul className='task__comments comments'>
-          <li className='comments__item'>Comment</li>
-          <li>
-            <ul className='comments__sub'>
-              <li className='comments__item'>Sub_Comment</li>
-            </ul>
-          </li>
-        </ul>
+        <p className='task__comments-counter'>
+          Comments: 324 <button type='button'>Read comments</button>
+        </p>
       </div>
     </article>
   )
