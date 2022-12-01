@@ -28,9 +28,13 @@ function Task(task: ITaskProps): JSX.Element {
       <button
         className={`task__expand-button ${isExpand ? 'task__expand-button--active' : ''}`}
         onClick={onExpandClickHandler}
+<<<<<<< HEAD
       >
         {isExpand ? 'Свернуть' : 'Развернуть'}
       </button>
+=======
+      ></button>
+>>>>>>> e6f1be2b1019fb22398d742f4a9cd646de313522
       <div className={`task__expander ${isExpand ? 'task__expander--active' : ''}`}>
         <p>
           <span>Created: {task.createdDate.toDateString()}</span>
