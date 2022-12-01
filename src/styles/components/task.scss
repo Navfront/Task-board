@@ -1,8 +1,11 @@
 .task {
+  display: grid;
   padding: 5px;
+  color: $color-text-dark;
   background-color: $color-task-bg;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.04),
     0 0 1px rgba(0, 0, 0, 0.04);
+  position: relative;
 
   &__title {
     color: $color-text-dark;
@@ -10,5 +13,19 @@
 
   & + & {
     margin-top: 20px;
+  }
+
+  &__expander {
+    overflow: hidden;
+    transition: ease 0.3s;
+  }
+
+  &__expander--active {
+    height: 1px;
+  }
+  &__expand-button {
+    position: absolute;
+    right: 5px;
+    top: 1.45em;
   }
 }
