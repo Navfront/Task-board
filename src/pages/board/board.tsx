@@ -20,10 +20,11 @@ function Board(): JSX.Element {
         <Link to={'/'}>To Main</Link>
         <button type='button'>New Task</button>
         <input className='header__search' type='text' placeholder='SEARCH' />
-        <p className='header__project-id'>{`Project id: ${projectId?.slice(1) ?? ''}`}</p>
+        <p className='header__project-id'>{project?.title}</p>
       </Header>
       <main className='page__main main main--board'>
         <div className='board'>
+          <h1 className='visually-hidden'>Task board: {project?.title}</h1>
           {project !== undefined ? (
             <>
               <section className='column column__alpha'>
