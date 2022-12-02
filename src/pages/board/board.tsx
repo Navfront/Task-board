@@ -1,10 +1,11 @@
 /* eslint-disable multiline-ternary */
 import { Helmet } from 'react-helmet-async'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { BoardColumn, columnTitles, Header } from '../../components'
+import { BoardColumn, Header } from '../../components'
 import { useAppSelector } from '../../redux'
 import { IProject } from './../../model/data-types'
 import { useEffect } from 'react'
+import { columnTitles } from '../../redux/reducers/task-reducer/task-reducer'
 
 function Board(): JSX.Element {
   const { projectId } = useParams()

@@ -1,8 +1,7 @@
+import { columnTitles } from '../../redux/reducers/task-reducer/task-reducer'
 import Task from '../task/task'
 
-export const columnTitles = ['Queue', 'Development', 'Done'] as const
-
-interface IColumnTitleProps {
+export interface IColumnTitleProps {
   columnTitle: typeof columnTitles[number]
   classModificator: string
 }
