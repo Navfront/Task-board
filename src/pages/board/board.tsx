@@ -1,14 +1,22 @@
 /* eslint-disable multiline-ternary */
 import { Helmet } from 'react-helmet-async'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { BoardColumn, columnTitles, Header } from '../../components'
 import { useAppSelector } from '../../redux'
 import { IProject } from './../../model/data-types'
+import { useEffect } from 'react'
 
 function Board(): JSX.Element {
   const { projectId } = useParams()
   const projects = useAppSelector<IProject[]>((state) => state.projectsReducer)
   const project = projects.find((p) => p.id === projectId?.slice(1))
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (project === undefined) {
+      navigate('/')
+    }
+  }, [])
 
   return (
     <>
@@ -25,21 +33,10 @@ function Board(): JSX.Element {
       <main className='page__main main main--board'>
         <div className='board'>
           <h1 className='visually-hidden'>Task board: {project?.title}</h1>
-          {project !== undefined ? (
-            <>
-              {columnTitles.map((title) => (
-                <BoardColumn
-                  key={title}
-                  columnTitle={title}
-                  classModificator={title.toLowerCase()}
-                />
-              ))}
-            </>
-          ) : (
-            <p style={{ justifySelf: 'center', gridColumn: 'span 3' }}>
-              Error! Project is not created yet!
-            </p>
-          )}
+
+          {columnTitles.map((title) => (
+            <BoardColumn key={title} columnTitle={title} classModificator={title.toLowerCase()} />
+          ))}
         </div>
       </main>
     </>
