@@ -1,5 +1,6 @@
 import { columnTitles, ITask, priorities } from '../../redux/reducers/task-reducer/task-reducer'
-import { useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
+import { useAppDispatch } from './../../redux/index'
 
 interface ITaskEditorProps {
   mode: 'CREATE' | 'EDIT'
@@ -7,13 +8,61 @@ interface ITaskEditorProps {
 }
 
 function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
+  const isEdit = mode === 'EDIT'
   const [title, setTitle] = useState(task?.title ?? '')
   const [description, setDescription] = useState(task?.description ?? '')
   const [status, setStatus] = useState(task?.status ?? 'Queue')
-  const [priority, setPriority] = useState(task?.priority ?? 'mid')
+  const [priority, setPriority] = useState(task?.priority ?? 'Middle')
+  const dispatch = useAppDispatch()
+
+  const onCancelClickHandler = (): void => {
+    dispatch({ type: 'CLOSE_MODAL', payload: { isOpen: false } })
+  }
+
+  const onChangeTitleHandler = (event: ChangeEvent<HTMLInputElement>): void => {
+    setTitle(event.target.value)
+  }
+  const onChangeDescriptionHandler = (event: ChangeEvent<HTMLInputElement>): void => {
+    setDescription(event.target.value)
+  }
+
+  const onSubmitHandler = (event: FormEvent): void => {
+    event.preventDefault()
+
+    if (mode === 'CREATE') {
+      const newTask: ITask = {
+        description,
+        title,
+        taskId: Date.now().toString(),
+        order: 0,
+        createdDate: new Date(),
+        inWork: 0,
+        doneDate: null,
+        priority,
+        files: [],
+        status,
+        subTasks: [],
+        comments: []
+      }
+      console.log(newTask)
+
+      dispatch({ type: 'CREATE_TASK', task: newTask })
+    } else if (task != null) {
+      const updateTask: ITask = {
+        ...task,
+        description,
+        title,
+        priority,
+        status
+      }
+      dispatch({ type: 'UPDATE_TASK', task: updateTask })
+    }
+
+    dispatch({ type: 'CLOSE_MODAL' })
+  }
 
   return (
-    <form className='task-editor'>
+    <form className='task-editor' onSubmit={onSubmitHandler}>
       <header className='task-editor__header'>
         <h2 className='task-editor__title'>
           <span>{task?.taskId ?? ''}</span>
@@ -47,9 +96,7 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
             type='text'
             placeholder='Write title here..'
             value={title}
-            onChange={(e) => {
-              setTitle(e.target.value)
-            }}
+            onChange={onChangeTitleHandler}
           />
         </label>
         <label>
@@ -58,9 +105,7 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
             type='text'
             placeholder='Write description here..'
             value={description}
-            onChange={(e) => {
-              setDescription(e.target.value)
-            }}
+            onChange={onChangeDescriptionHandler}
           />
         </label>
         <label>
@@ -94,9 +139,9 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
 
         <p className='task-editor__submit-controls'>
           <button className='task-editor__control-btn' type='submit'>
-            {task?.title != null ? 'Edit' : 'Create'}
+            {isEdit ? 'Edit' : 'Create'}
           </button>
-          <button className='task-editor__control-btn' type='button'>
+          <button className='task-editor__control-btn' type='button' onClick={onCancelClickHandler}>
             Close
           </button>
         </p>
