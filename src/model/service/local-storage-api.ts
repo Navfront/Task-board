@@ -44,7 +44,6 @@ export class LocalStorageApi {
    * @param cb Исполняет cb(items)
    */
   setItems<T extends Item>(type: LocalStorageApiTypes, items: T[], cb: Cb = () => {}): T[] {
-    console.log('set', type, items)
     localStorage.setItem(type, JSON.stringify(items))
     cb(items)
 
