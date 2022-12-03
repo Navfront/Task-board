@@ -1,6 +1,7 @@
 import React from 'react'
+import { columnTitles, IBoard } from '../../model/data-types'
 import { useAppSelector } from '../../redux'
-import { columnTitles, IBoard } from '../../redux/reducers/board-reducer/board-reducer'
+
 import Task from '../task/task'
 
 export interface IColumnTitleProps {
@@ -23,9 +24,9 @@ function BoardColumn({ columnTitle, classModificator }: IColumnTitleProps): JSX.
       {board[columnTitle].length > 0 ? (
         <ul className='column__list'>
           {board[columnTitle].map((task) => (
-            <li key={task.taskId} className='column__item'>
+            <li key={task.id} className='column__item'>
               <Task
-                taskId={task.taskId}
+                id={task.id}
                 order={task.order}
                 title={task.title !== '' ? task.title : 'No-name'}
                 description={task.description !== '' ? task.description : 'nothing..'}

@@ -3,9 +3,8 @@ import { Helmet } from 'react-helmet-async'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { BoardColumn, Header } from '../../components'
 import { useAppDispatch, useAppSelector } from '../../redux'
-import { IProject } from './../../model/data-types'
+import { columnTitles, IProject } from './../../model/data-types'
 import { useEffect } from 'react'
-import { columnTitles } from '../../redux/reducers/board-reducer/board-reducer'
 
 function Board(): JSX.Element {
   const { projectId } = useParams()

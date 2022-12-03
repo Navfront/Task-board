@@ -1,4 +1,4 @@
-import { columnTitles, ITask } from './board-reducer'
+import { columnTitles, ITask } from '../../../model/data-types'
 
 interface ActionTaskCreate {
   type: 'CREATE_TASK'
@@ -7,12 +7,12 @@ interface ActionTaskCreate {
 
 interface ActionTaskDelete {
   type: 'DELETE_TASK'
-  taskId: Pick<ITask, 'taskId'>
+  taskId: Pick<ITask, 'id'>
 }
 
 interface ActionTaskMove {
   type: 'MOVE_TASK'
-  taskId: Pick<ITask, 'taskId'>
+  taskId: Pick<ITask, 'id'>
   from: typeof columnTitles[number]
   to: typeof columnTitles[number]
 }

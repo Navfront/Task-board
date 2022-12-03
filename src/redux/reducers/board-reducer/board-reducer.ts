@@ -1,26 +1,7 @@
 import { Reducer } from 'react'
+import { columnTitles, IBoard, ITask } from '../../../model/data-types'
+
 import { BoardActions } from './actions'
-export const columnTitles = ['Queue', 'Development', 'Done'] as const
-export const priorities = ['Low', 'Middle', 'Hight'] as const
-
-export interface ITask {
-  taskId: string
-  order: number
-  title: string
-  description: string
-  createdDate: Date
-  inWork: number
-  doneDate: null | Date
-  priority: typeof priorities[number]
-  files: FileReader[]
-  status: typeof columnTitles[number]
-  subTasks: string[]
-  comments: string[]
-}
-
-export type IBoard = {
-  [column in typeof columnTitles[number]]: ITask[]
-}
 
 function createTask(state: IBoard, column: typeof columnTitles[number], task: ITask): IBoard {
   const newState = Object.assign({}, state)

@@ -1,5 +1,5 @@
-import { columnTitles, ITask, priorities } from '../../redux/reducers/board-reducer/board-reducer'
 import { ChangeEvent, FormEvent, useState } from 'react'
+import { columnTitles, ITask, priorities } from '../../model/data-types'
 import { useAppDispatch } from './../../redux/index'
 
 interface ITaskEditorProps {
@@ -33,7 +33,7 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
       const newTask: ITask = {
         description,
         title,
-        taskId: Date.now().toString(),
+        id: Date.now().toString(),
         order: 0,
         createdDate: new Date(),
         inWork: 0,
@@ -65,7 +65,7 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
     <form className='task-editor' onSubmit={onSubmitHandler}>
       <header className='task-editor__header'>
         <h2 className='task-editor__title'>
-          <span>{task?.taskId ?? ''}</span>
+          <span>{task?.id ?? ''}</span>
           {task?.title ?? 'Create new task'}
         </h2>
       </header>

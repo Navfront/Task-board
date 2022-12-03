@@ -12,9 +12,31 @@ export interface IProjectMove {
   toId: IProject['id']
 }
 
-export type LocalStorageApiTypes = 'projects' | 'test'
+export type LocalStorageApiTypes = 'projects' | 'test' | 'tasks'
 
 export interface Item {
   id: string
   [k: string]: any
+}
+
+export const columnTitles = ['Queue', 'Development', 'Done'] as const
+export const priorities = ['Low', 'Middle', 'Hight'] as const
+
+export interface ITask {
+  id: string
+  order: number
+  title: string
+  description: string
+  createdDate: Date
+  inWork: number
+  doneDate: null | Date
+  priority: typeof priorities[number]
+  files: FileReader[]
+  status: typeof columnTitles[number]
+  subTasks: string[]
+  comments: string[]
+}
+
+export type IBoard = {
+  [column in typeof columnTitles[number]]: ITask[]
 }

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { columnTitles, ITask } from '../../redux/reducers/board-reducer/board-reducer'
+import { columnTitles, ITask } from '../../model/data-types'
 
 interface ITaskProps extends ITask {
-  taskId: string
+  id: string
   order: number
   title: string
   description: string
