@@ -1,5 +1,3 @@
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
 import { useDrag, useDrop } from 'react-dnd'
 import { Link } from 'react-router-dom'
 import { dNDItemTypes } from '../../dnd/item-types'
@@ -7,7 +5,6 @@ import { IProject } from '../../model/data-types'
 import { HumanizeLastDate } from '../../model/utils'
 import { useAppDispatch } from '../../redux'
 import { useHandlers } from './hooks/use-handlers'
-dayjs.extend(relativeTime)
 
 interface IProjectsCardProps {
   project: IProject
@@ -68,9 +65,7 @@ function ProjectsCard({ project }: IProjectsCardProps): JSX.Element {
       >
         Open&nbsp;🔼
       </Link>
-      <p className='project-card__time'>
-        {project.time != null ? dayjs(project.time).fromNow() : 'new project'}
-      </p>
+
       <div className='project-card__controls-wrapper'>
         <button
           className='project-card__button'
