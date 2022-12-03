@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { columnTitles } from '../../redux/reducers/board-reducer/board-reducer'
+import { columnTitles, ITask } from '../../redux/reducers/board-reducer/board-reducer'
 
-interface ITaskProps {
+interface ITaskProps extends ITask {
   taskId: string
   order: number
   title: string
@@ -9,7 +9,6 @@ interface ITaskProps {
   createdDate: Date
   inWork: number
   doneDate: null | Date
-  priority: 'low' | 'mid' | 'hi'
   files: FileReader[]
   status: typeof columnTitles[number]
   subTasks: string[]
