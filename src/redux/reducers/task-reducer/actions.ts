@@ -1,6 +1,6 @@
 import { columnTitles, ITask } from './task-reducer'
 
-interface ActionCreateTask {
+interface ActionTaskCreate {
   type: 'CREATE_TASK'
   task: PartialOptional<ITask, RequiredTaskKeys>
 }
@@ -9,16 +9,21 @@ type RequiredTaskKeys = 'taskId' | 'title' | 'createdDate'
 
 type PartialOptional<T, K extends keyof T> = Partial<Omit<T, K>> | Pick<T, K>
 
-interface ActionDeleteTask {
+interface ActionTaskDelete {
   type: 'DELETE_TASK'
   taskId: Pick<ITask, 'taskId'>
 }
 
-interface ActionMoveTask {
+interface ActionTaskMove {
   type: 'MOVE_TASK'
   taskId: Pick<ITask, 'taskId'>
   from: typeof columnTitles[number]
   to: typeof columnTitles[number]
 }
 
-export type BoardActions = ActionCreateTask | ActionDeleteTask | ActionMoveTask
+interface ActionTaskUpdate {
+  type: 'UPDATE_TASK'
+  task: ITask
+}
+
+export type BoardActions = ActionTaskCreate | ActionTaskDelete | ActionTaskUpdate | ActionTaskMove

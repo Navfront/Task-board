@@ -32,6 +32,8 @@ export const boardReducer: Reducer<IBoard, BoardActions> = (
       return state
     case 'MOVE_TASK':
       return state
+    case 'UPDATE_TASK':
+      return state
     default:
       return state
   }
