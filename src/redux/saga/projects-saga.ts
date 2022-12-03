@@ -49,6 +49,22 @@ export function* watchDeleteProjectAsync(): any {
   yield takeEvery<AllActionTypes>('DELETE_PROJECT', deleteProjectAsync)
 }
 
+// UPDATE_PROJECT
+
+const updateProject = async (project: IProject): Promise<boolean> => {
+  console.log(project)
+
+  return await ProjectsApiFacade.projectsQueryApi.update(project)
+}
+
+function* updateProjectAsync(action: any): any {
+  yield call(updateProject, action.project)
+}
+
+export function* watchUpdateProjectAsync(): any {
+  yield takeEvery<AllActionTypes>('UPDATE_PROJECT', updateProjectAsync)
+}
+
 // SHUFFLE_PROJECTS
 
 const setToLocalStorage = async (action: any): Promise<IProject[]> => {

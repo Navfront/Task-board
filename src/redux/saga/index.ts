@@ -3,7 +3,8 @@ import {
   watchGetAllProjectsAsync,
   watchAddProjectAsync,
   watchDeleteProjectAsync,
-  watchMoveProject
+  watchMoveProject,
+  watchUpdateProjectAsync
 } from './projects-saga'
 
 export function* rootWatcher(): any {
@@ -11,6 +12,7 @@ export function* rootWatcher(): any {
     fork(watchGetAllProjectsAsync),
     fork(watchAddProjectAsync),
     fork(watchDeleteProjectAsync),
-    fork(watchMoveProject)
+    fork(watchMoveProject),
+    fork(watchUpdateProjectAsync)
   ])
 }
