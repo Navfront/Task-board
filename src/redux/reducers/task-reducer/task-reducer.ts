@@ -1,6 +1,7 @@
 import { Reducer } from 'react'
 import { BoardActions } from './actions'
 export const columnTitles = ['Queue', 'Development', 'Done'] as const
+export const priorities = ['Low', 'Middle', 'Hight'] as const
 
 export interface ITask {
   taskId: string
@@ -10,7 +11,7 @@ export interface ITask {
   createdDate: Date
   inWork: number
   doneDate: null | Date
-  priority: 'low' | 'mid' | 'hi'
+  priority: typeof priorities[number]
   files: FileReader[]
   status: typeof columnTitles[number]
   subTasks: string[]

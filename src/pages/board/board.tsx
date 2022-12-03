@@ -31,7 +31,7 @@ function Board(): JSX.Element {
         <button
           type='button'
           onClick={() => {
-            dispatch({ type: 'OPEN_MODAL', childType: 'TASK_EDITOR', data: null })
+            dispatch({ type: 'OPEN_MODAL', childType: 'EDITOR_CREATE_TASK', data: null })
           }}
         >
           New Task

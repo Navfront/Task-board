@@ -18,10 +18,8 @@ function Modal(): JSX.Element {
         return <ProjectEditor mode='CREATE' />
       case 'EDITOR_EDIT_PROJECT':
         return <ProjectEditor mode='EDIT' project={modalState.data ?? undefined} />
-      case 'TASK_EDITOR':
-        console.log('ttt')
-
-        return <TaskEditor />
+      case 'EDITOR_CREATE_TASK':
+        return <TaskEditor mode='CREATE' />
       default:
         return <></>
     }
