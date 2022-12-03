@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { columnTitles } from '../../redux/reducers/task-reducer/task-reducer'
+import { columnTitles } from '../../redux/reducers/board-reducer/board-reducer'
 
 interface ITaskProps {
   taskId: string

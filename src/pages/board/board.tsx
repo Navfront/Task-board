@@ -5,7 +5,7 @@ import { BoardColumn, Header } from '../../components'
 import { useAppDispatch, useAppSelector } from '../../redux'
 import { IProject } from './../../model/data-types'
 import { useEffect } from 'react'
-import { columnTitles } from '../../redux/reducers/task-reducer/task-reducer'
+import { columnTitles } from '../../redux/reducers/board-reducer/board-reducer'
 
 function Board(): JSX.Element {
   const { projectId } = useParams()

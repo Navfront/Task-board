@@ -1,4 +1,4 @@
-import { columnTitles, ITask, priorities } from '../../redux/reducers/task-reducer/task-reducer'
+import { columnTitles, ITask, priorities } from '../../redux/reducers/board-reducer/board-reducer'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { useAppDispatch } from './../../redux/index'
 

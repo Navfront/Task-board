@@ -1,4 +1,4 @@
-import { columnTitles, ITask } from './task-reducer'
+import { columnTitles, ITask } from './board-reducer'
 
 interface ActionTaskCreate {
   type: 'CREATE_TASK'

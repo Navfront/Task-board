@@ -1,4 +1,5 @@
-import { columnTitles } from '../../redux/reducers/task-reducer/task-reducer'
+import { useAppSelector } from '../../redux'
+import { columnTitles } from '../../redux/reducers/board-reducer/board-reducer'
 import Task from '../task/task'
 
 export interface IColumnTitleProps {
@@ -7,6 +8,9 @@ export interface IColumnTitleProps {
 }
 
 function BoardColumn({ columnTitle, classModificator }: IColumnTitleProps): JSX.Element {
+  const board = useAppSelector((state) => state.boardReducer)
+  console.log(board)
+
   return (
     <section className={`column column__${classModificator}`}>
       <h2 className='column__title'>{columnTitle}</h2>
