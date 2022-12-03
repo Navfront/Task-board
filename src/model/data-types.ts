@@ -7,6 +7,11 @@ export interface IProject {
   newComments: number
 }
 
+export interface IProjectMove {
+  fromId: IProject['id']
+  toId: IProject['id']
+}
+
 export type LocalStorageApiTypes = 'projects'
 
 export interface Item {

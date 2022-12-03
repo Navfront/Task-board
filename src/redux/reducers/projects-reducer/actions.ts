@@ -1,4 +1,4 @@
-import { IProject } from '../../../model/data-types'
+import { IProject, IProjectMove } from '../../../model/data-types'
 
 interface IProjectActionAdd {
   type: 'ADD_PROJECT'
@@ -17,10 +17,16 @@ interface IProjectActionGetAll {
   projects: IProject[]
 }
 
+interface IProjectActionMove {
+  type: 'MOVE_PROJECT'
+  move: IProjectMove
+}
+
 export type ProjectsActions =
   | IProjectActionAdd
   | IProjectActionDelete
   | IProjectActionUpdate
   | IProjectActionGetAll
+  | IProjectActionMove
 
 export type ProjectActionTypes = ProjectsActions[keyof Pick<ProjectsActions, 'type'>]
