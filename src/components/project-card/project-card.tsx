@@ -1,10 +1,13 @@
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
 import { useDrag, useDrop } from 'react-dnd'
-
+import { Link } from 'react-router-dom'
 import { dNDItemTypes } from '../../dnd/item-types'
 import { IProject } from '../../model/data-types'
 import { HumanizeLastDate } from '../../model/utils'
 import { useAppDispatch } from '../../redux'
 import { useHandlers } from './hooks/use-handlers'
+dayjs.extend(relativeTime)
 
 interface IProjectsCardProps {
   project: IProject
@@ -12,7 +15,7 @@ interface IProjectsCardProps {
 
 function ProjectsCard({ project }: IProjectsCardProps): JSX.Element {
   const projectItem = { type: dNDItemTypes.PROJECT, id: project.id }
-  const { onDeleteHandler, onEditClickHandler } = useHandlers(project)
+  const { onLinkClickHandler, onDeleteHandler, onEditClickHandler } = useHandlers(project)
   const dispatch = useAppDispatch()
 
   // DRAG
@@ -42,9 +45,6 @@ function ProjectsCard({ project }: IProjectsCardProps): JSX.Element {
     })
   }))
 
-  // CONSOLE.LOG
-  // console.log('options', { canDrop, isOver, item })
-
   return (
     <article
       className='project-card'
@@ -60,12 +60,35 @@ function ProjectsCard({ project }: IProjectsCardProps): JSX.Element {
         {HumanizeLastDate(project.time)}
       </time>
       <p className='project-card__description'>{project.description}</p>
-      <button className='project-card__button' type='button' onClick={onEditClickHandler}>
-        Edit
-      </button>
-      <button className='project-card__button' type='button' onClick={onDeleteHandler}>
-        Delete
-      </button>
+      <Link
+        className='project-card__link'
+        to={isDragging ? '' : `/board:${project.id}`}
+        onClick={onLinkClickHandler}
+        style={{ display: isDragging ? 'contents' : 'block' }}
+      >
+        Open&nbsp;🔼
+      </Link>
+      <p className='project-card__time'>
+        {project.time != null ? dayjs(project.time).fromNow() : 'new project'}
+      </p>
+      <div className='project-card__controls-wrapper'>
+        <button
+          className='project-card__button'
+          type='button'
+          title='edit'
+          onClick={onEditClickHandler}
+        >
+          ⚙️ <span className='visually-hidden'>Edit</span>
+        </button>
+        <button
+          className='project-card__button'
+          title='delete'
+          type='button'
+          onClick={onDeleteHandler}
+        >
+          ⭕ <span className='visually-hidden'>Delete</span>
+        </button>
+      </div>
     </article>
   )
 }
