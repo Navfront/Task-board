@@ -1,7 +1,9 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
-import { IProject } from '../../model/data-types'
+import { IProject, LocalStorageApiTypes } from '../../model/data-types'
+import { LocalStorageApi } from '../../model/service/local-storage-api'
 import { ProjectsApiFacade } from '../../model/service/projects-api-facade'
 import { AllActionTypes } from '../reducers/types'
+import { moveItem } from './../utils'
 
 // GET_ALL_PROJECTS
 
@@ -45,4 +47,22 @@ function* deleteProjectAsync(action: any): any {
 
 export function* watchDeleteProjectAsync(): any {
   yield takeEvery<AllActionTypes>('DELETE_PROJECT', deleteProjectAsync)
+}
+
+// SHUFFLE_PROJECTS
+
+const setToLocalStorage = async (action: any): Promise<IProject[]> => {
+  const localStorageItemType: LocalStorageApiTypes = 'projects'
+  const lApi = LocalStorageApi.getInstance()
+  const prev = lApi.getItems<IProject>(localStorageItemType)
+  const shuffled = moveItem(prev, action.move.fromId, action.move.toId)
+  return lApi.setItems<IProject>(localStorageItemType, shuffled)
+}
+
+function* shuffleProjects(action: any): any {
+  yield call(setToLocalStorage, action)
+}
+
+export function* watchMoveProject(): any {
+  yield takeEvery<AllActionTypes>('MOVE_PROJECT', shuffleProjects)
 }

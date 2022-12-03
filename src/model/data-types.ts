@@ -12,7 +12,7 @@ export interface IProjectMove {
   toId: IProject['id']
 }
 
-export type LocalStorageApiTypes = 'projects'
+export type LocalStorageApiTypes = 'projects' | 'test'
 
 export interface Item {
   id: string

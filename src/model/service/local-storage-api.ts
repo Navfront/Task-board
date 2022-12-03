@@ -1,5 +1,4 @@
-import { Item } from '../data-types'
-
+import { Item, LocalStorageApiTypes } from '../data-types'
 type Cb = any
 
 /**
@@ -30,7 +29,7 @@ export class LocalStorageApi {
    * @returns возвращает item
    */
 
-  addItem<T extends Item>(type: string, item: T, cb: Cb = () => {}): T {
+  addItem<T extends Item>(type: LocalStorageApiTypes, item: T, cb: Cb = () => {}): T {
     const items = this.getItems(type)
     items.push(item)
     this.setItems(type, items)
@@ -44,9 +43,11 @@ export class LocalStorageApi {
    * @param items Принимает массив проектов
    * @param cb Исполняет cb(items)
    */
-  setItems<T extends Item>(type: string, items: T[], cb: Cb = () => {}): T[] {
+  setItems<T extends Item>(type: LocalStorageApiTypes, items: T[], cb: Cb = () => {}): T[] {
+    console.log('set', type, items)
     localStorage.setItem(type, JSON.stringify(items))
     cb(items)
+
     return items
   }
 
@@ -56,7 +57,7 @@ export class LocalStorageApi {
    * @param cb Исполняет cb(items)
    * @returns Возвращает массив с проектами пустой массив если данных нет
    */
-  getItems<T extends Item>(type: string, cb: Cb = () => {}): T[] {
+  getItems<T extends Item>(type: LocalStorageApiTypes, cb: Cb = () => {}): T[] {
     const response = localStorage.getItem(type)
     if (response !== null) {
       const parsed = JSON.parse(response) as T[]
@@ -78,7 +79,7 @@ export class LocalStorageApi {
    * @returns boolean в зависимости от успеха
    */
   updateItemById<T extends Item>(
-    type: string,
+    type: LocalStorageApiTypes,
     item: T,
     shallDelete: boolean = false,
     cb: Cb = () => {}

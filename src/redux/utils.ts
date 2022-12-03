@@ -1,6 +1,8 @@
 import { Item } from '../model/data-types'
 
 export const moveItem = <T extends Item>(state: T[], fromId: string, toId: string): T[] => {
+  console.log(fromId, toId)
+
   const item = state.find((p) => p.id === fromId)
   const itemIndex = state.findIndex((p) => p.id === fromId)
   const target = state.find((p) => p.id === toId)

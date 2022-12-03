@@ -1,19 +1,19 @@
-import { Item } from '../data-types'
+import { Item, LocalStorageApiTypes } from '../data-types'
 import { LocalStorageApi } from './local-storage-api'
 
-export interface FetchApiInterface<T> {
-  itemType: string
+export interface FetchApiInterface<T, K extends LocalStorageApiTypes> {
+  itemType: K
   add: (project: T) => Promise<boolean>
   get: () => Promise<T[]>
   update: (project: T) => Promise<boolean>
   delete: (projectId: string) => Promise<boolean>
 }
 
-export class QueryApi<T extends Item> {
+export class QueryApi<T extends Item, K extends LocalStorageApiTypes> {
   private readonly localStorageApi: LocalStorageApi
-  private readonly fetchApi: FetchApiInterface<T>
+  private readonly fetchApi: FetchApiInterface<T, K>
 
-  constructor(localStorageApi: LocalStorageApi, fetchApi: FetchApiInterface<T>) {
+  constructor(localStorageApi: LocalStorageApi, fetchApi: FetchApiInterface<T, K>) {
     this.localStorageApi = localStorageApi
     this.fetchApi = fetchApi
   }
