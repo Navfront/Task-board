@@ -31,7 +31,8 @@ function Task(task: ITaskProps): JSX.Element {
 
   return (
     <article className={`task task--priority-${task.priority}`} onClick={onExpandClickHandler}>
-      <h3 className='task__title'>Title</h3>
+      <h3 className='task__title'>{task.title}</h3>
+      <p className='task__description'>{task.description}</p>
       <button
         type='button'
         className={`task__expand-button ${!isExpand ? 'task__expand-button--active' : ''}`}

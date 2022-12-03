@@ -2,12 +2,8 @@ import { columnTitles, ITask } from './board-reducer'
 
 interface ActionTaskCreate {
   type: 'CREATE_TASK'
-  task: PartialOptional<ITask, RequiredTaskKeys>
+  task: ITask
 }
-
-type RequiredTaskKeys = 'taskId' | 'title' | 'createdDate'
-
-type PartialOptional<T, K extends keyof T> = Partial<Omit<T, K>> | Pick<T, K>
 
 interface ActionTaskDelete {
   type: 'DELETE_TASK'

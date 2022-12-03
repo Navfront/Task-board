@@ -1,3 +1,4 @@
+import React from 'react'
 import { useAppSelector } from '../../redux'
 import { columnTitles, IBoard } from '../../redux/reducers/board-reducer/board-reducer'
 import Task from '../task/task'
@@ -8,7 +9,12 @@ export interface IColumnTitleProps {
 }
 
 function BoardColumn({ columnTitle, classModificator }: IColumnTitleProps): JSX.Element {
-  const board = useAppSelector<IBoard>((state) => state.boardReducer)
+  const board = useAppSelector<IBoard>(
+    (state) => state.boardReducer,
+    (prev, curr) => {
+      return prev[columnTitle].length !== curr[columnTitle].length
+    }
+  )
   console.log(board)
 
   return (
@@ -21,8 +27,8 @@ function BoardColumn({ columnTitle, classModificator }: IColumnTitleProps): JSX.
               <Task
                 taskId={task.taskId}
                 order={task.order}
-                title={task.title ?? 'No-name'}
-                description={task.description ?? 'nothing..'}
+                title={task.title !== '' ? task.title : 'No-name'}
+                description={task.description !== '' ? task.description : 'nothing..'}
                 createdDate={task.createdDate}
                 inWork={task.inWork}
                 doneDate={task.doneDate}
@@ -42,4 +48,4 @@ function BoardColumn({ columnTitle, classModificator }: IColumnTitleProps): JSX.
   )
 }
 
-export default BoardColumn
+export default React.memo(BoardColumn)
