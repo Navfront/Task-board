@@ -1,6 +1,6 @@
 .project-card {
   display: grid;
-  grid-template-columns: 1fr 1fr 20%;
+  grid-template-columns: 1fr 1fr 30%;
   min-height: 110px;
   padding: 15px;
   background-color: $color-card-bg;
@@ -26,13 +26,18 @@
     grid-column: span 2;
     color: $color-text-light;
     font-size: 1.2em;
-    margin: 0;
+    margin: 0 15px 8px;
+
+    word-wrap: break-word;
   }
 
   &__description {
     text-align: center;
-    font-size: 1em;
+    font-size: 0.8em;
     grid-column: span 2;
+    word-wrap: break-word;
+    color: $color-text-light;
+    margin: 0;
   }
 
   &__time {
