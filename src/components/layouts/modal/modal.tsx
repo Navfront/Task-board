@@ -3,6 +3,7 @@ import { useAppSelector } from '../../../redux'
 import { useDialogHandling } from './hooks/use-dialog-handling'
 import { IModalState } from '../../../redux/reducers/modal-reducer/modal-reducer'
 import ProjectEditor from '../../project-editor/project-editor'
+import { TaskEditor } from '../..'
 
 const portal = document.getElementById('portal')
 
@@ -17,6 +18,10 @@ function Modal(): JSX.Element {
         return <ProjectEditor mode='CREATE' />
       case 'EDITOR_EDIT_PROJECT':
         return <ProjectEditor mode='EDIT' project={modalState.data ?? undefined} />
+      case 'TASK_EDITOR':
+        console.log('ttt')
+
+        return <TaskEditor />
       default:
         return <></>
     }

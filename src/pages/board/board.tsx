@@ -2,7 +2,7 @@
 import { Helmet } from 'react-helmet-async'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { BoardColumn, Header } from '../../components'
-import { useAppSelector } from '../../redux'
+import { useAppDispatch, useAppSelector } from '../../redux'
 import { IProject } from './../../model/data-types'
 import { useEffect } from 'react'
 import { columnTitles } from '../../redux/reducers/task-reducer/task-reducer'
@@ -12,6 +12,7 @@ function Board(): JSX.Element {
   const projects = useAppSelector<IProject[]>((state) => state.projectsReducer)
   const project = projects.find((p) => p.id === projectId?.slice(1))
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     if (project === undefined) {
@@ -27,7 +28,14 @@ function Board(): JSX.Element {
       </Helmet>
       <Header>
         <Link to={'/'}>To Main</Link>
-        <button type='button'>New Task</button>
+        <button
+          type='button'
+          onClick={() => {
+            dispatch({ type: 'OPEN_MODAL', childType: 'TASK_EDITOR', data: null })
+          }}
+        >
+          New Task
+        </button>
         <input className='header__search' type='text' placeholder='SEARCH' />
         <p className='header__project-id'>{project?.title}</p>
       </Header>

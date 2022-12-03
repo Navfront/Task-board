@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { store } from './redux/store'
 import { HelmetProvider } from 'react-helmet-async'
 import { Board, Main } from './pages'
+import { Modal } from './components'
 
 const router = createBrowserRouter([
   { path: '*', element: <Main /> },
@@ -14,6 +15,7 @@ function App(): JSX.Element {
     <HelmetProvider>
       <Provider store={store}>
         <RouterProvider router={router} />
+        <Modal />
       </Provider>
     </HelmetProvider>
   )

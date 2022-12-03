@@ -1,5 +1,5 @@
 import { IProject } from './../../../model/data-types'
-export type ModalChildTypes = 'EDITOR_CREATE_PROJECT' | 'EDITOR_EDIT_PROJECT'
+export type ModalChildTypes = 'EDITOR_CREATE_PROJECT' | 'EDITOR_EDIT_PROJECT' | 'TASK_EDITOR'
 
 interface IModalActionOpen {
   type: 'OPEN_MODAL'
