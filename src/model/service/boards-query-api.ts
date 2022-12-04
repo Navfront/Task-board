@@ -15,7 +15,7 @@ export class BoardsQueryApi {
   localStorage: LocalStorageApi
   fetchBoardApi: FetchBoardApiInterface
 
-  private constructor(localStorageApi: LocalStorageApi, fetchBoardApi: FetchBoardApiInterface) {
+  constructor(localStorageApi: LocalStorageApi, fetchBoardApi: FetchBoardApiInterface) {
     this.localStorage = localStorageApi
     this.fetchBoardApi = fetchBoardApi
   }
