@@ -40,7 +40,7 @@ export class LocalStorageApi {
   /**
    * Записывает в LocalStorage
    * @param type строка, описывающая тип создаваемого обьекта
-   * @param items Принимает массив проектов
+   * @param items Принимает массив items
    * @param cb Исполняет cb(items)
    */
   setItems<T extends Item>(type: LocalStorageApiTypes, items: T[], cb: Cb = () => {}): T[] {
@@ -51,10 +51,10 @@ export class LocalStorageApi {
   }
 
   /**
-   * Метод берет из LocalStorage все проекты если они есть.
+   * Метод берет из LocalStorage все items если они есть.
    * @param type строка, описывающая тип создаваемого обьекта
    * @param cb Исполняет cb(items)
-   * @returns Возвращает массив с проектами пустой массив если данных нет
+   * @returns Возвращает массив с items пустой массив если данных нет
    */
   getItems<T extends Item>(type: LocalStorageApiTypes, cb: Cb = () => {}): T[] {
     const response = localStorage.getItem(type)
@@ -70,11 +70,11 @@ export class LocalStorageApi {
   }
 
   /**
-   * Метод обновляет данные проекта на представленные, либо удаляет проект при shallDelete = true. Принимает колбэк на исполнение при удаче.
+   * Метод обновляет данные item на представленные, либо удаляет item при shallDelete = true. Принимает колбэк на исполнение при удаче.
    * @param type строка, описывающая тип создаваемого обьекта
-   * @param Item Обьект проекта, обязательное поле id
-   * @param shallDelete Удалить проект если true
-   * @param Cb Выполнится при успехе cb(items)
+   * @param Item Обьект item, обязательное поле id
+   * @param shallDelete Удалить items если true
+   * @param Cb Выполнится при успехе cb(item)
    * @returns boolean в зависимости от успеха
    */
   updateItemById<T extends Item>(
