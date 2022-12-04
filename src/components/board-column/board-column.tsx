@@ -1,19 +1,21 @@
 import React from 'react'
-import { columnTitles, IBoard } from '../../model/data-types'
+import { columnTitles } from '../../model/data-types'
 import { useAppSelector } from '../../redux'
 
 import Task from '../task/task'
+import { IProjectsBoard } from './../../model/data-types'
 
 export interface IColumnTitleProps {
   columnTitle: typeof columnTitles[number]
   classModificator: string
+  projectId: string
 }
 
-function BoardColumn({ columnTitle, classModificator }: IColumnTitleProps): JSX.Element {
-  const board = useAppSelector<IBoard>(
+function BoardColumn({ columnTitle, classModificator, projectId }: IColumnTitleProps): JSX.Element {
+  const board = useAppSelector<IProjectsBoard>(
     (state) => state.boardReducer,
     (prev, curr) => {
-      return prev[columnTitle].length !== curr[columnTitle].length
+      return prev[projectId][columnTitle].length !== curr[projectId][columnTitle].length
     }
   )
   console.log(board)
@@ -21,9 +23,9 @@ function BoardColumn({ columnTitle, classModificator }: IColumnTitleProps): JSX.
   return (
     <section className={`column column__${classModificator}`}>
       <h2 className='column__title'>{columnTitle}</h2>
-      {board[columnTitle].length > 0 ? (
+      {board[projectId][columnTitle].length > 0 ? (
         <ul className='column__list'>
-          {board[columnTitle].map((task) => (
+          {board[projectId][columnTitle].map((task) => (
             <li key={task.id} className='column__item'>
               <Task
                 id={task.id}

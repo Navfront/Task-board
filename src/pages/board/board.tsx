@@ -16,6 +16,8 @@ function Board(): JSX.Element {
   useEffect(() => {
     if (project === undefined) {
       navigate('/')
+    } else {
+      dispatch({ type: 'INIT_BOARD' })
     }
   }, [])
 
@@ -42,9 +44,16 @@ function Board(): JSX.Element {
         <div className='board'>
           <h1 className='visually-hidden'>Task board: {project?.title}</h1>
 
-          {columnTitles.map((title) => (
-            <BoardColumn key={title} columnTitle={title} classModificator={title.toLowerCase()} />
-          ))}
+          {projectId != null
+            ? columnTitles.map((title) => (
+                <BoardColumn
+                  key={title}
+                  projectId={projectId}
+                  columnTitle={title}
+                  classModificator={title.toLowerCase()}
+                />
+              ))
+            : ''}
         </div>
       </main>
     </>
