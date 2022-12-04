@@ -11,8 +11,7 @@ const fetchTasks = async (projectId: string, userId: string | null): Promise<IPr
 
 function* getAllTasksAsync(action: ActionBoardInit): any {
   const board = yield call(fetchTasks, action.projectId, null)
-
-  yield put({ type: 'SET_BOARD', board })
+  yield put({ type: 'SET_BOARD', board, projectId: action.projectId })
 }
 
 export function* watchGetAllTasksAsync(): any {

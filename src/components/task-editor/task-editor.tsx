@@ -31,7 +31,6 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
 
   const onSubmitHandler = (event: FormEvent): void => {
     event.preventDefault()
-
     if (mode === 'CREATE' && projectId != null) {
       const newTask: ITask = {
         description,
@@ -47,6 +46,7 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
         subTasks: [],
         comments: []
       }
+
       dispatch({ type: 'CREATE_BOARD_TASK', projectId, task: newTask })
     } else if (task != null && projectId != null) {
       const updateTask: ITask = {
@@ -76,8 +76,6 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
           <select
             onChange={(e) => {
               const value = e.target.value as typeof priorities[number]
-              console.log(value, priority)
-
               setPriority(value)
             }}
           >
@@ -114,8 +112,6 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
           <select
             onChange={(e) => {
               const value = e.target.value as typeof columnTitles[number]
-              console.log(value, status)
-
               setStatus(value)
             }}
           >

@@ -31,7 +31,11 @@ function Board(): JSX.Element {
         <button
           type='button'
           onClick={() => {
-            dispatch({ type: 'OPEN_MODAL', childType: 'EDITOR_CREATE_TASK', data: null })
+            dispatch({
+              type: 'OPEN_MODAL',
+              childType: 'EDITOR_CREATE_TASK',
+              data: project ?? null
+            })
           }}
         >
           New Task
@@ -43,7 +47,7 @@ function Board(): JSX.Element {
         <div className='board'>
           <h1 className='visually-hidden'>Task board: {project?.title}</h1>
 
-          {projectId !== undefined && Object.hasOwn(columnTitles, 'Done')
+          {projectId != null && columnTitles.includes('Queue')
             ? columnTitles.map((title) => (
                 <BoardColumn
                   key={title}

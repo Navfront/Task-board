@@ -46,7 +46,7 @@ function Task(task: ITaskProps): JSX.Element {
       >
         <div ref={contentRef} className='task__content'>
           <p>
-            <span>Created: {task.createdDate.toDateString()}</span>
+            <span>Created: {JSON.stringify(task.createdDate)}</span>
             <span>In work: {task.inWork} ms</span>
           </p>
 

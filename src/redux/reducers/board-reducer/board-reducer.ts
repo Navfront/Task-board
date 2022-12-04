@@ -45,7 +45,7 @@ export const boardReducer: Reducer<IProjectsBoard, BoardActions> = (state = {}, 
     case 'INIT_BOARD':
       return state
     case 'SET_BOARD':
-      return action.board
+      return { ...state, ...action.board }
     case 'CREATE_BOARD_TASK':
       return createTask(state, action.task.status, action.task, action.projectId)
     case 'DELETE_BOARD_TASK':
