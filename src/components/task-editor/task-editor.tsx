@@ -1,7 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { columnTitles, IExtendedWithProjectIdTask, ITask, priorities } from '../../model/data-types'
 import { IModalState } from '../../redux/reducers/modal-reducer/modal-reducer'
-
 import { useAppDispatch, useAppSelector } from './../../redux/index'
 import { IProject } from './../../model/data-types'
 
@@ -123,6 +122,7 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
         <label>
           <span className='task-editor__label-text'>Column</span>
           <select
+            defaultValue={task?.status}
             onChange={(e) => {
               const value = e.target.value as typeof columnTitles[number]
               setStatus(value)

@@ -5,7 +5,7 @@ import {
   ActionBoardInit,
   ActionBoardUpdateTask
 } from '../reducers/board-reducer/actions'
-import { IProjectsBoard, ITask } from './../../model/data-types'
+import { IProjectsBoard, ITask, ITaskPosition } from './../../model/data-types'
 
 // GET_ALL_TASKS
 
@@ -38,12 +38,20 @@ export function* watchAddTaskAsync(): any {
 
 // UPDATE_TASK
 
-const updateTask = async (projectId: string, task: ITask): Promise<boolean> => {
-  return await TasksApiFacade.boardQueryApi.updateTask(projectId, task, null)
+const updateTask = async (
+  projectId: string,
+  task: ITask,
+  position: ITaskPosition
+): Promise<boolean> => {
+  return await TasksApiFacade.boardQueryApi.updateTask(
+    projectId,
+    { ...task, status: position.moveTo },
+    null
+  )
 }
 
 function* updateTaskAsync(action: ActionBoardUpdateTask): any {
-  yield call(updateTask, action.projectId, action.task)
+  yield call(updateTask, action.projectId, action.task, action.position)
 }
 
 export function* watchUpdateTaskAsync(): any {

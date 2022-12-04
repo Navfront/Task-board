@@ -48,7 +48,8 @@ function updateTask(
       newState[projectId][position.current] = newState[projectId][position.current].filter(
         (t) => t.id !== task.id
       )
-      newState[projectId][position.moveTo].push(task)
+      const newTask = { ...task, status: position.moveTo }
+      newState[projectId][position.moveTo].push(newTask)
     }
     const column = newState[projectId][position.current]
     const taskIndex = column.findIndex((t) => t.id === task.id)

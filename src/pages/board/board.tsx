@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { BoardColumn, Header } from '../../components'
 import { useAppDispatch, useAppSelector } from '../../redux'
 import { columnTitles, IProject } from './../../model/data-types'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 function Board(): JSX.Element {
   const { projectId } = useParams()
@@ -63,4 +63,4 @@ function Board(): JSX.Element {
   )
 }
 
-export default Board
+export default React.memo(Board)

@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useReducer } from 'react'
+import { shallowEqual } from 'react-redux'
 import { columnTitles } from '../../model/data-types'
 import { useAppSelector } from '../../redux'
 
@@ -12,19 +13,16 @@ export interface IColumnTitleProps {
 }
 
 function BoardColumn({ columnTitle, classModificator, projectId }: IColumnTitleProps): JSX.Element {
-  const board = useAppSelector<IProjectsBoard>(
-    (state) => state.boardReducer,
-    (prev, curr) => {
-      if (Object.keys(prev).length > 0 && Object.keys(curr).length > 0) {
-        return prev[projectId][columnTitle].length !== curr[projectId][columnTitle].length
-      } else return prev === curr
-    }
-  )
+  const board = useAppSelector<IProjectsBoard>((state) => state.boardReducer, shallowEqual)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, forceUpdate] = useReducer((x: number): number => x + 1, 0)
+  // usage
 
   if (Object.keys(board).length !== 0) {
     return (
       <section className={`column column__${classModificator}`}>
         <h2 className='column__title'>{columnTitle}</h2>
+        <button onClick={forceUpdate}>Force update</button>
         {board[projectId][columnTitle].length > 0 ? (
           <ul className='column__list'>
             {board[projectId][columnTitle].map((task) => (
