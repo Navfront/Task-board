@@ -10,7 +10,7 @@ interface ITaskEditorProps {
 
 function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
   const modal = useAppSelector<IModalState>((state) => state.modalReducer)
-  const projectId = modal?.data?.id ?? Date.now().toString()
+  const projectId = modal?.data?.id
   const isEdit = mode === 'EDIT'
   const [title, setTitle] = useState(task?.title ?? '')
   const [description, setDescription] = useState(task?.description ?? '')
@@ -32,7 +32,7 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
   const onSubmitHandler = (event: FormEvent): void => {
     event.preventDefault()
 
-    if (mode === 'CREATE') {
+    if (mode === 'CREATE' && projectId != null) {
       const newTask: ITask = {
         description,
         title,
@@ -47,9 +47,8 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
         subTasks: [],
         comments: []
       }
-
       dispatch({ type: 'CREATE_BOARD_TASK', projectId, task: newTask })
-    } else if (task != null) {
+    } else if (task != null && projectId != null) {
       const updateTask: ITask = {
         ...task,
         description,
