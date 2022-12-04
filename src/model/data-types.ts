@@ -49,3 +49,5 @@ export type BoardWithUserId = IBoard & UserId
 export interface IProjectsBoard {
   [projectId: string]: BoardWithUserId
 }
+
+export type ModalData = IProject | ITask | null

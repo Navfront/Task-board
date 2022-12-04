@@ -1,4 +1,4 @@
-import { IProject } from './../../../model/data-types'
+import { ModalData } from './../../../model/data-types'
 export type ModalChildTypes =
   | 'EDITOR_CREATE_PROJECT'
   | 'EDITOR_EDIT_PROJECT'
@@ -8,7 +8,7 @@ export type ModalChildTypes =
 interface IModalActionOpen {
   type: 'OPEN_MODAL'
   childType: ModalChildTypes
-  data: IProject | null
+  data: ModalData
 }
 
 interface IModalActionClose {
