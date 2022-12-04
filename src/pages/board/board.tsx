@@ -1,4 +1,3 @@
-/* eslint-disable multiline-ternary */
 import { Helmet } from 'react-helmet-async'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { BoardColumn, Header } from '../../components'
