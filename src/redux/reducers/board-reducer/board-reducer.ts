@@ -1,10 +1,15 @@
 import { Reducer } from 'react'
-import { columnTitles, IBoard, IProjectsBoard, ITask } from '../../../model/data-types'
+import { columnTitles, IProjectsBoard, ITask } from '../../../model/data-types'
 import { BoardActions } from './actions'
 
-function createTask(state: IBoard, column: typeof columnTitles[number], task: ITask): IBoard {
+function createTask(
+  state: IProjectsBoard,
+  column: typeof columnTitles[number],
+  task: ITask,
+  projectId: string
+): IProjectsBoard {
   const newState = Object.assign({}, state)
-  newState[column].push(task)
+  newState[projectId][column].push(task)
   return newState
 }
 
@@ -13,7 +18,7 @@ export const boardReducer: Reducer<IProjectsBoard, BoardActions> = (state = {}, 
     case 'GET_ALL_BOARDS':
       return state
     case 'CREATE_BOARD_TASK':
-      return state
+      return createTask(state, action.task.status, action.task, action.projectId)
     case 'DELETE_BOARD_TASK':
       return state
     case 'MOVE_BOARD_TASK':
