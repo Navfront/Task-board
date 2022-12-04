@@ -44,7 +44,7 @@ function Board(): JSX.Element {
         <div className='board'>
           <h1 className='visually-hidden'>Task board: {project?.title}</h1>
 
-          {projectId != null
+          {projectId != null && Object.hasOwn(columnTitles, 'Done')
             ? columnTitles.map((title) => (
                 <BoardColumn
                   key={title}
