@@ -4,11 +4,13 @@ import { useDialogHandling } from './hooks/use-dialog-handling'
 import { IModalState } from '../../../redux/reducers/modal-reducer/modal-reducer'
 import ProjectEditor from '../../project-editor/project-editor'
 import { TaskEditor } from '../..'
+import { IProject, ITask } from './../../../model/data-types'
 
 const portal = document.getElementById('portal')
 
 function Modal(): JSX.Element {
   const modalState = useAppSelector<IModalState>((state) => state.modalReducer)
+  const data = modalState.data
 
   const { modalRef } = useDialogHandling()
 
@@ -17,9 +19,11 @@ function Modal(): JSX.Element {
       case 'EDITOR_CREATE_PROJECT':
         return <ProjectEditor mode='CREATE' />
       case 'EDITOR_EDIT_PROJECT':
-        return <ProjectEditor mode='EDIT' project={modalState.data ?? undefined} />
+        return <ProjectEditor mode='EDIT' project={data as IProject} />
       case 'EDITOR_CREATE_TASK':
         return <TaskEditor mode='CREATE' />
+      case 'EDITOR_EDIT_TASK':
+        return <TaskEditor mode='EDIT' task={data as ITask} />
       default:
         return <></>
     }
