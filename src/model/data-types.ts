@@ -55,3 +55,8 @@ export interface IExtendedWithProjectIdTask extends ITask {
 }
 
 export type ModalData = IProject | IExtendedWithProjectIdTask | null
+
+export interface ITaskPosition {
+  current: typeof columnTitles[number]
+  moveTo: typeof columnTitles[number]
+}
