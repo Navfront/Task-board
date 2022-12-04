@@ -22,7 +22,7 @@ interface ActionBoardMoveTask {
 
 interface ActionBoardUpdateTask {
   type: 'UPDATE_BOARD_TASK'
-  board: ITask
+  task: ITask
   projectId: string
 }
 
