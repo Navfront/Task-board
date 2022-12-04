@@ -1,5 +1,5 @@
 import { Reducer } from 'react'
-import { columnTitles, IProjectsBoard, ITask } from '../../../model/data-types'
+import { columnTitles, IProjectsBoard, ITask, ITaskPosition } from '../../../model/data-types'
 import { BoardActions } from './actions'
 
 function createTask(
@@ -36,12 +36,22 @@ function deleteBoardById(state: IProjectsBoard, projectId: string): IProjectsBoa
   return state
 }
 
-function updateTask(state: IProjectsBoard, task: ITask, projectId: string): IProjectsBoard {
+function updateTask(
+  state: IProjectsBoard,
+  task: ITask,
+  projectId: string,
+  position: ITaskPosition
+): IProjectsBoard {
   if (Object.keys(state).length > 0) {
     const newState = Object.assign({}, state)
-    console.log(newState, projectId, task.status)
-
-    const column = newState[projectId][task.status]
+    if (position.current !== position.moveTo) {
+      console.log('OLD', newState, projectId, task.status)
+      newState[projectId][position.current] = newState[projectId][position.current].filter(
+        (t) => t.id !== task.id
+      )
+      newState[projectId][position.moveTo].push(task)
+    }
+    const column = newState[projectId][position.current]
     const taskIndex = column.findIndex((t) => t.id === task.id)
     if (taskIndex >= 0) {
       const newColumn = [...column.slice(1, taskIndex), task, ...column.slice(taskIndex + 1)]
@@ -70,7 +80,7 @@ export const boardReducer: Reducer<IProjectsBoard, BoardActions> = (state = {}, 
     case 'MOVE_BOARD_TASK':
       return state
     case 'UPDATE_BOARD_TASK':
-      return updateTask(state, action.task, action.projectId)
+      return updateTask(state, action.task, action.projectId, action.position)
     default:
       return state
   }
