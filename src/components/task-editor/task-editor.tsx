@@ -3,6 +3,7 @@ import { columnTitles, IExtendedWithProjectIdTask, ITask, priorities } from '../
 import { IModalState } from '../../redux/reducers/modal-reducer/modal-reducer'
 
 import { useAppDispatch, useAppSelector } from './../../redux/index'
+import { IProject } from './../../model/data-types'
 
 interface ITaskEditorProps {
   mode: 'CREATE' | 'EDIT'
@@ -11,9 +12,7 @@ interface ITaskEditorProps {
 
 function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
   const modal = useAppSelector<IModalState>((state) => state.modalReducer)
-  const data = modal?.data as IExtendedWithProjectIdTask
-  console.log(data)
-  const projectId = data.projectId
+
   const isEdit = mode === 'EDIT'
   const [title, setTitle] = useState(task?.title ?? '')
   const [description, setDescription] = useState(task?.description ?? '')
@@ -34,7 +33,10 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
 
   const onSubmitHandler = (event: FormEvent): void => {
     event.preventDefault()
-    if (mode === 'CREATE' && projectId != null) {
+
+    if (mode === 'CREATE') {
+      const data = modal?.data as IProject
+      const projectId = data.id
       const newTask: ITask = {
         description,
         title,
@@ -49,9 +51,10 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
         subTasks: [],
         comments: []
       }
-
       dispatch({ type: 'CREATE_BOARD_TASK', projectId, task: newTask })
-    } else if (task != null && projectId != null) {
+    } else if (task != null) {
+      const data = modal?.data as IExtendedWithProjectIdTask
+      const projectId = data.projectId
       const updateTask: ITask = {
         ...task,
         description,
