@@ -1,10 +1,10 @@
 import { columnTitles, IProjectsBoard, ITask } from '../../../model/data-types'
-interface ActionBoardCreateEmpty {
+export interface ActionBoardCreateEmpty {
   type: 'CREATE_BOARD_TEMPLATE_BY_PROJECT_ID'
   projectId: string
 }
 
-interface ActionBoardDeleteBoard {
+export interface ActionBoardDeleteBoard {
   type: 'DELETE_BOARD_BY_PROJECT_ID'
   projectId: string
 }
@@ -15,13 +15,13 @@ export interface ActionBoardCreateTask {
   task: ITask
 }
 
-interface ActionBoardDeleteTask {
+export interface ActionBoardDeleteTask {
   type: 'DELETE_BOARD_TASK'
   projectId: string
   taskId: Pick<ITask, 'id'>
 }
 
-interface ActionBoardMoveTask {
+export interface ActionBoardMoveTask {
   type: 'MOVE_BOARD_TASK'
   taskId: Pick<ITask, 'id'>
   projectId: string
@@ -29,7 +29,7 @@ interface ActionBoardMoveTask {
   to: typeof columnTitles[number]
 }
 
-interface ActionBoardUpdateTask {
+export interface ActionBoardUpdateTask {
   type: 'UPDATE_BOARD_TASK'
   task: ITask
   projectId: string
