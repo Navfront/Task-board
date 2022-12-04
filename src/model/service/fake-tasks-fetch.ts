@@ -1,17 +1,23 @@
 import { ITask } from '../data-types'
+import { FetchBoardApiInterface } from './boards-query-api'
 import { LocalStorageApi } from './local-storage-api'
-import { FetchApiInterface } from './query-api'
 
-export class FakeTasksFetch implements FetchApiInterface<ITask, 'tasks'> {
-  itemType: 'tasks'
+export class FakeTasksFetch implements FetchBoardApiInterface {
   timeout: number
 
   constructor() {
-    this.itemType = 'tasks'
     this.timeout = 500
   }
 
-  async add(): Promise<boolean> {
+  async getTasksByProjectId(projectId: string, userId: string | null): Promise<ITask[]> {
+    return await new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(LocalStorageApi.getInstance().getItems(projectId))
+      }, this.timeout)
+    })
+  }
+
+  async addTask(task: ITask, projectId: string, userId: string | null): Promise<boolean> {
     return await new Promise((resolve) => {
       setTimeout(() => {
         resolve(true)
@@ -19,15 +25,7 @@ export class FakeTasksFetch implements FetchApiInterface<ITask, 'tasks'> {
     })
   }
 
-  async get(): Promise<ITask[]> {
-    return await new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(LocalStorageApi.getInstance().getItems(this.itemType))
-      }, this.timeout)
-    })
-  }
-
-  async update(): Promise<boolean> {
+  async updateTask(task: ITask, projectId: string, userId: string | null): Promise<boolean> {
     return await new Promise((resolve) => {
       setTimeout(() => {
         resolve(true)
@@ -35,7 +33,7 @@ export class FakeTasksFetch implements FetchApiInterface<ITask, 'tasks'> {
     })
   }
 
-  async delete(): Promise<boolean> {
+  async deleteTask(task: ITask, projectId: string, userId: string | null): Promise<boolean> {
     return await new Promise((resolve) => {
       setTimeout(() => {
         resolve(true)
