@@ -45,7 +45,6 @@ function updateTask(
   if (Object.keys(state).length > 0) {
     const newState = Object.assign({}, state)
     if (position.current !== position.moveTo) {
-      console.log('OLD', newState, projectId, task.status)
       newState[projectId][position.current] = newState[projectId][position.current].filter(
         (t) => t.id !== task.id
       )
