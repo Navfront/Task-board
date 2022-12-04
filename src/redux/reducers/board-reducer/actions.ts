@@ -9,7 +9,7 @@ interface ActionBoardDeleteBoard {
   projectId: string
 }
 
-interface ActionBoardCreateTask {
+export interface ActionBoardCreateTask {
   type: 'CREATE_BOARD_TASK'
   projectId: string
   task: ITask
@@ -35,9 +35,15 @@ interface ActionBoardUpdateTask {
   projectId: string
 }
 
-interface ActionBoardGetAll {
-  type: 'GET_ALL_BOARDS'
-  projectsBoard: IProjectsBoard
+export interface ActionBoardInit {
+  type: 'INIT_BOARD'
+  projectId: string
+}
+
+export interface ActionBoardSetAll {
+  type: 'SET_BOARD'
+  projectId: string
+  board: IProjectsBoard
 }
 
 export type BoardActions =
@@ -45,8 +51,9 @@ export type BoardActions =
   | ActionBoardDeleteTask
   | ActionBoardUpdateTask
   | ActionBoardMoveTask
-  | ActionBoardGetAll
+  | ActionBoardInit
   | ActionBoardCreateEmpty
   | ActionBoardDeleteBoard
+  | ActionBoardSetAll
 
 export type BoardActionTypes = BoardActions[keyof Pick<BoardActions, 'type'>]

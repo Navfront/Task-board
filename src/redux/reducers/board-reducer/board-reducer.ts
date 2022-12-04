@@ -42,8 +42,10 @@ export const boardReducer: Reducer<IProjectsBoard, BoardActions> = (state = {}, 
       return createBoardById(state, action.projectId)
     case 'DELETE_BOARD_BY_PROJECT_ID':
       return deleteBoardById(state, action.projectId)
-    case 'GET_ALL_BOARDS':
+    case 'INIT_BOARD':
       return state
+    case 'SET_BOARD':
+      return action.board
     case 'CREATE_BOARD_TASK':
       return createTask(state, action.task.status, action.task, action.projectId)
     case 'DELETE_BOARD_TASK':

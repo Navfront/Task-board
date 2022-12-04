@@ -14,7 +14,7 @@ export class TasksApiFacade {
 
   static get boardQueryApi(): BoardsQueryApi {
     if (this.INSTANCE === undefined) {
-      this.INSTANCE = new BoardsQueryApi(new LocalStorageApi(), new FakeTasksFetch())
+      this.INSTANCE = new BoardsQueryApi(LocalStorageApi.getInstance(), new FakeTasksFetch())
     }
     return this.INSTANCE
   }
