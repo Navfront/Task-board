@@ -42,6 +42,7 @@ function BoardColumn({ columnTitle, classModificator, projectId }: IColumnTitleP
                   status={task.status}
                   subTasks={task.subTasks}
                   comments={task.comments}
+                  projectId={projectId}
                 />
               </li>
             ))}

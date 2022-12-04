@@ -50,4 +50,8 @@ export interface IProjectsBoard {
   [projectId: string]: BoardWithUserId
 }
 
-export type ModalData = IProject | ITask | null
+export interface IExtendedWithProjectIdTask extends ITask {
+  projectId: string
+}
+
+export type ModalData = IProject | IExtendedWithProjectIdTask | null

@@ -1,16 +1,19 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
-import { columnTitles, ITask, priorities } from '../../model/data-types'
+import { columnTitles, IExtendedWithProjectIdTask, ITask, priorities } from '../../model/data-types'
 import { IModalState } from '../../redux/reducers/modal-reducer/modal-reducer'
+
 import { useAppDispatch, useAppSelector } from './../../redux/index'
 
 interface ITaskEditorProps {
   mode: 'CREATE' | 'EDIT'
-  task?: ITask
+  task?: IExtendedWithProjectIdTask
 }
 
 function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
   const modal = useAppSelector<IModalState>((state) => state.modalReducer)
-  const projectId = modal?.data?.id
+  const data = modal?.data as IExtendedWithProjectIdTask
+  console.log(data)
+  const projectId = data.projectId
   const isEdit = mode === 'EDIT'
   const [title, setTitle] = useState(task?.title ?? '')
   const [description, setDescription] = useState(task?.description ?? '')

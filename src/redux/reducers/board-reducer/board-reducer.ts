@@ -36,6 +36,23 @@ function deleteBoardById(state: IProjectsBoard, projectId: string): IProjectsBoa
   return state
 }
 
+function updateTask(state: IProjectsBoard, task: ITask, projectId: string): IProjectsBoard {
+  if (Object.keys(state).length > 0) {
+    const newState = Object.assign({}, state)
+    console.log(newState, projectId, task.status)
+
+    const column = newState[projectId][task.status]
+    const taskIndex = column.findIndex((t) => t.id === task.id)
+    if (taskIndex >= 0) {
+      const newColumn = [...column.slice(1, taskIndex), task, ...column.slice(taskIndex + 1)]
+      newState[projectId][task.status] = newColumn
+      return newState
+    }
+    return state
+  }
+  return state
+}
+
 export const boardReducer: Reducer<IProjectsBoard, BoardActions> = (state = {}, action) => {
   switch (action.type) {
     case 'CREATE_BOARD_TEMPLATE_BY_PROJECT_ID':
@@ -53,7 +70,7 @@ export const boardReducer: Reducer<IProjectsBoard, BoardActions> = (state = {}, 
     case 'MOVE_BOARD_TASK':
       return state
     case 'UPDATE_BOARD_TASK':
-      return state
+      return updateTask(state, action.task, action.projectId)
     default:
       return state
   }

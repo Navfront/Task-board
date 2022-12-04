@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { columnTitles, ITask } from '../../model/data-types'
+import { useAppDispatch } from './../../redux/index'
 
 interface ITaskProps extends ITask {
   id: string
@@ -12,12 +13,15 @@ interface ITaskProps extends ITask {
   files: FileReader[]
   status: typeof columnTitles[number]
   subTasks: string[]
+  projectId: string
 }
 
 function Task(task: ITaskProps): JSX.Element {
   const [isExpand, setIsExpand] = useState<boolean>(false)
   const expanderRef = React.createRef<HTMLDivElement>()
   const contentRef = React.createRef<HTMLDivElement>()
+  const dispatch = useAppDispatch()
+
   const onExpandClickHandler = (): void => {
     setIsExpand(!isExpand)
     if (expanderRef.current !== null && contentRef.current !== null) {
@@ -29,8 +33,16 @@ function Task(task: ITaskProps): JSX.Element {
     }
   }
 
+  const onEditorOpenHandler = (): void => {
+    dispatch({
+      type: 'OPEN_MODAL',
+      data: { ...task, projectId: task.projectId },
+      childType: 'EDITOR_EDIT_TASK'
+    })
+  }
+
   return (
-    <article className={`task task--priority-${task.priority}`} onClick={onExpandClickHandler}>
+    <article className={`task task--priority-${task.priority}`}>
       <h3 className='task__title'>{task.title}</h3>
       <p className='task__description'>{task.description}</p>
       <button
@@ -39,6 +51,9 @@ function Task(task: ITaskProps): JSX.Element {
         onClick={onExpandClickHandler}
       >
         {isExpand ? 'Свернуть' : 'Развернуть'}
+      </button>
+      <button className='task__edit-button' type='button' onClick={onEditorOpenHandler}>
+        ...
       </button>
       <div
         ref={expanderRef}
