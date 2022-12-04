@@ -1,34 +1,34 @@
 import { put, takeEvery, call } from 'redux-saga/effects'
 import { TasksApiFacade } from '../../model/service/tasks-api-facade'
-import { AllActionTypes } from '../reducers/types'
-import { ITask } from './../../model/data-types'
+import { ActionBoardCreateTask, ActionBoardInit } from '../reducers/board-reducer/actions'
+import { IProjectsBoard, ITask } from './../../model/data-types'
 
 // GET_ALL_TASKS
 
-const fetchTasks = async (): Promise<ITask[]> => {
-  return await TasksApiFacade.tasksQueryApi.get()
+const fetchTasks = async (projectId: string, userId: string | null): Promise<IProjectsBoard> => {
+  return await TasksApiFacade.boardQueryApi.getAllTaskByProjectId(projectId, userId)
 }
 
-function* getAllTasksAsync(): any {
-  const Tasks = yield call(fetchTasks)
+function* getAllTasksAsync(action: ActionBoardInit): any {
+  const board = yield call(fetchTasks, action.projectId, null)
 
-  yield put({ type: 'GET_ALL_TASKS', Tasks })
+  yield put({ type: 'SET_BOARD', board })
 }
 
 export function* watchGetAllTasksAsync(): any {
-  yield takeEvery<AllActionTypes>('INIT_BOARD', getAllTasksAsync)
+  yield takeEvery('INIT_BOARD', getAllTasksAsync)
 }
 
 // ADD_TASKS
 
-const addTask = async (task: ITask): Promise<boolean> => {
-  return await TasksApiFacade.tasksQueryApi.add(task)
+const addTask = async (task: ITask, projectId: string): Promise<boolean> => {
+  return await TasksApiFacade.boardQueryApi.addTask(projectId, task, null)
 }
 
-function* addTaskAsync(action: any): any {
-  yield call(addTask, action.task)
+function* addTaskAsync(action: ActionBoardCreateTask): any {
+  yield call(addTask, action.task, action.projectId)
 }
 
 export function* watchAddTaskAsync(): any {
-  yield takeEvery<AllActionTypes>('CREATE_BOARD_TASK', addTaskAsync)
+  yield takeEvery('CREATE_BOARD_TASK', addTaskAsync)
 }
