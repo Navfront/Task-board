@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { columnTitles, ITask, priorities } from '../../model/data-types'
-import { useAppDispatch } from './../../redux/index'
+import { IModalState } from '../../redux/reducers/modal-reducer/modal-reducer'
+import { useAppDispatch, useAppSelector } from './../../redux/index'
 
 interface ITaskEditorProps {
   mode: 'CREATE' | 'EDIT'
@@ -8,6 +9,8 @@ interface ITaskEditorProps {
 }
 
 function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
+  const modal = useAppSelector<IModalState>((state) => state.modalReducer)
+  const projectId = modal?.data?.id ?? Date.now().toString()
   const isEdit = mode === 'EDIT'
   const [title, setTitle] = useState(task?.title ?? '')
   const [description, setDescription] = useState(task?.description ?? '')
@@ -44,9 +47,8 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
         subTasks: [],
         comments: []
       }
-      console.log(newTask)
 
-      dispatch({ type: 'CREATE_TASK', task: newTask })
+      dispatch({ type: 'CREATE_BOARD_TASK', projectId, task: newTask })
     } else if (task != null) {
       const updateTask: ITask = {
         ...task,
@@ -55,7 +57,7 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
         priority,
         status
       }
-      dispatch({ type: 'UPDATE_TASK', task: updateTask })
+      dispatch({ type: 'UPDATE_BOARD_TASK', task: updateTask, projectId })
     }
 
     dispatch({ type: 'CLOSE_MODAL' })
