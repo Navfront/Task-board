@@ -1,25 +1,41 @@
-import { columnTitles, ITask } from '../../../model/data-types'
+import { columnTitles, IProjectsBoard, ITask } from '../../../model/data-types'
 
-interface ActionTaskCreate {
-  type: 'CREATE_TASK'
+interface ActionBoardCreateTask {
+  type: 'CREATE_BOARD_TASK'
+  projectId: string
   task: ITask
 }
 
-interface ActionTaskDelete {
-  type: 'DELETE_TASK'
+interface ActionBoardDeleteTask {
+  type: 'DELETE_BOARD_TASK'
+  projectId: string
   taskId: Pick<ITask, 'id'>
 }
 
-interface ActionTaskMove {
-  type: 'MOVE_TASK'
+interface ActionBoardMoveTask {
+  type: 'MOVE_BOARD_TASK'
   taskId: Pick<ITask, 'id'>
+  projectId: string
   from: typeof columnTitles[number]
   to: typeof columnTitles[number]
 }
 
-interface ActionTaskUpdate {
-  type: 'UPDATE_TASK'
-  task: ITask
+interface ActionBoardUpdateTask {
+  type: 'UPDATE_BOARD_TASK'
+  board: ITask
+  projectId: string
 }
 
-export type BoardActions = ActionTaskCreate | ActionTaskDelete | ActionTaskUpdate | ActionTaskMove
+interface ActionBoardGetAll {
+  type: 'GET_ALL_BOARDS'
+  projectsBoard: IProjectsBoard
+}
+
+export type BoardActions =
+  | ActionBoardCreateTask
+  | ActionBoardDeleteTask
+  | ActionBoardUpdateTask
+  | ActionBoardMoveTask
+  | ActionBoardGetAll
+
+export type BoardActionTypes = BoardActions[keyof Pick<BoardActions, 'type'>]

@@ -1,6 +1,5 @@
 import { Reducer } from 'react'
-import { columnTitles, IBoard, ITask } from '../../../model/data-types'
-
+import { columnTitles, IBoard, IProjectsBoard, ITask } from '../../../model/data-types'
 import { BoardActions } from './actions'
 
 function createTask(state: IBoard, column: typeof columnTitles[number], task: ITask): IBoard {
@@ -9,18 +8,17 @@ function createTask(state: IBoard, column: typeof columnTitles[number], task: IT
   return newState
 }
 
-export const boardReducer: Reducer<IBoard, BoardActions> = (
-  state = { Queue: [], Development: [], Done: [] },
-  action
-) => {
+export const boardReducer: Reducer<IProjectsBoard, BoardActions> = (state = {}, action) => {
   switch (action.type) {
-    case 'CREATE_TASK':
-      return createTask(state, action.task.status, action.task)
-    case 'DELETE_TASK':
+    case 'GET_ALL_BOARDS':
       return state
-    case 'MOVE_TASK':
+    case 'CREATE_BOARD_TASK':
       return state
-    case 'UPDATE_TASK':
+    case 'DELETE_BOARD_TASK':
+      return state
+    case 'MOVE_BOARD_TASK':
+      return state
+    case 'UPDATE_BOARD_TASK':
       return state
     default:
       return state
