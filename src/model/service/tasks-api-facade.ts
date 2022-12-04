@@ -1,13 +1,21 @@
-import { ITask } from './../data-types'
+import { BoardsQueryApi } from './boards-query-api'
 import { FakeTasksFetch } from './fake-tasks-fetch'
 import { LocalStorageApi } from './local-storage-api'
-import { QueryApi } from './query-api'
 
 export class TasksApiFacade {
-  static tasksQueryApi = new QueryApi<ITask, 'tasks'>(
-    LocalStorageApi.getInstance(),
-    new FakeTasksFetch()
-  )
+  private static INSTANCE: BoardsQueryApi | undefined
+  boardQueryApi: BoardsQueryApi
+  localStorageApi: LocalStorageApi
 
-  hello(): void {}
+  private constructor(boardsQueryApi: BoardsQueryApi, localStorageApi: LocalStorageApi) {
+    this.boardQueryApi = boardsQueryApi
+    this.localStorageApi = localStorageApi
+  }
+
+  static get boardQueryApi(): BoardsQueryApi {
+    if (this.INSTANCE === undefined) {
+      this.INSTANCE = new BoardsQueryApi(new LocalStorageApi(), new FakeTasksFetch())
+    }
+    return this.INSTANCE
+  }
 }
