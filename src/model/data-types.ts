@@ -40,3 +40,12 @@ export interface ITask {
 export type IBoard = {
   [column in typeof columnTitles[number]]: ITask[]
 }
+
+export interface UserId {
+  userId: string | null
+}
+export type BoardWithUserId = IBoard & UserId
+
+export interface IProjectsBoard {
+  [projectId: string]: BoardWithUserId
+}
