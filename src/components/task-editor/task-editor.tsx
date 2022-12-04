@@ -60,9 +60,16 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
         description,
         title,
         priority,
-        status
+        status: task.status
       }
-      dispatch({ type: 'UPDATE_BOARD_TASK', task: updateTask, projectId })
+      console.log({ current: task.status, moveTo: status })
+
+      dispatch({
+        type: 'UPDATE_BOARD_TASK',
+        task: updateTask,
+        projectId,
+        position: { current: task.status, moveTo: status }
+      })
     }
 
     dispatch({ type: 'CLOSE_MODAL' })
