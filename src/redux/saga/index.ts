@@ -6,6 +6,7 @@ import {
   watchMoveProject,
   watchUpdateProjectAsync
 } from './projects-saga'
+import { watchGetAllTasksAsync, watchAddTaskAsync } from './tasks-saga'
 
 export function* rootWatcher(): any {
   yield all([
@@ -13,6 +14,8 @@ export function* rootWatcher(): any {
     fork(watchAddProjectAsync),
     fork(watchDeleteProjectAsync),
     fork(watchMoveProject),
-    fork(watchUpdateProjectAsync)
+    fork(watchUpdateProjectAsync),
+    fork(watchGetAllTasksAsync),
+    fork(watchAddTaskAsync)
   ])
 }

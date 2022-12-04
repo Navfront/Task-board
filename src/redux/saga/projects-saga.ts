@@ -29,6 +29,7 @@ const addProject = async (project: IProject): Promise<boolean> => {
 
 function* addProjectAsync(action: any): any {
   yield call(addProject, action.project)
+  yield put({ type: 'CREATE_BOARD_TEMPLATE_BY_PROJECT_ID', projectId: action.project.id })
 }
 
 export function* watchAddProjectAsync(): any {
@@ -43,6 +44,7 @@ const deleteProject = async (project: IProject): Promise<boolean> => {
 
 function* deleteProjectAsync(action: any): any {
   yield call(deleteProject, action.project)
+  yield put({ type: 'DELETE_BOARD_BY_PROJECT_ID', projectId: action.project.id })
 }
 
 export function* watchDeleteProjectAsync(): any {

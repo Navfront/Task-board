@@ -1,4 +1,13 @@
 import { columnTitles, IProjectsBoard, ITask } from '../../../model/data-types'
+interface ActionBoardCreateEmpty {
+  type: 'CREATE_BOARD_TEMPLATE_BY_PROJECT_ID'
+  projectId: string
+}
+
+interface ActionBoardDeleteBoard {
+  type: 'DELETE_BOARD_BY_PROJECT_ID'
+  projectId: string
+}
 
 interface ActionBoardCreateTask {
   type: 'CREATE_BOARD_TASK'
@@ -37,5 +46,7 @@ export type BoardActions =
   | ActionBoardUpdateTask
   | ActionBoardMoveTask
   | ActionBoardGetAll
+  | ActionBoardCreateEmpty
+  | ActionBoardDeleteBoard
 
 export type BoardActionTypes = BoardActions[keyof Pick<BoardActions, 'type'>]
