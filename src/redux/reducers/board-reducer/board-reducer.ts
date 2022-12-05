@@ -58,7 +58,7 @@ function updateTask(
     newState[projectId][position.current] = state[projectId][position.current].filter(
       (t) => t.id !== task.id
     )
-    newState[projectId][position.moveTo].push(task)
+    newState[projectId][position.moveTo].push({ ...task, status: position.moveTo })
   }
 
   return newState
