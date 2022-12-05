@@ -12,6 +12,7 @@
   },
   "plugins": ["react"],
   "rules": {
+    "no-debugger": "off",
     "indent": "off",
     "@typescript-eslint/indent": "off",
     "multiline-ternary": ["off", "never"],
