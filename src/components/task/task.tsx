@@ -1,24 +1,27 @@
 import React, { useState } from 'react'
-import { columnTitles } from './../board-column/board-column'
+import { COLUMN_TITLES, ITask } from '../../model/data-types'
+import { useAppDispatch } from './../../redux/index'
 
-interface ITaskProps {
-  taskId: string
+interface ITaskProps extends ITask {
+  id: string
   order: number
   title: string
   description: string
   createdDate: Date
   inWork: number
   doneDate: null | Date
-  priority: 'low' | 'mid' | 'hi'
   files: FileReader[]
-  status: typeof columnTitles[number]
+  status: typeof COLUMN_TITLES[number]
   subTasks: string[]
+  projectId: string
 }
 
 function Task(task: ITaskProps): JSX.Element {
   const [isExpand, setIsExpand] = useState<boolean>(false)
   const expanderRef = React.createRef<HTMLDivElement>()
   const contentRef = React.createRef<HTMLDivElement>()
+  const dispatch = useAppDispatch()
+
   const onExpandClickHandler = (): void => {
     setIsExpand(!isExpand)
     if (expanderRef.current !== null && contentRef.current !== null) {
@@ -30,9 +33,18 @@ function Task(task: ITaskProps): JSX.Element {
     }
   }
 
+  const onEditorOpenHandler = (): void => {
+    dispatch({
+      type: 'OPEN_MODAL',
+      data: { ...task, projectId: task.projectId },
+      childType: 'EDITOR_EDIT_TASK'
+    })
+  }
+
   return (
-    <article className={`task task--priority-${task.priority}`} onClick={onExpandClickHandler}>
-      <h3 className='task__title'>Title</h3>
+    <article className={`task task--priority-${task.priority}`}>
+      <h3 className='task__title'>{task.title}</h3>
+      <p className='task__description'>{task.description}</p>
       <button
         type='button'
         className={`task__expand-button ${!isExpand ? 'task__expand-button--active' : ''}`}
@@ -40,13 +52,16 @@ function Task(task: ITaskProps): JSX.Element {
       >
         {isExpand ? 'Свернуть' : 'Развернуть'}
       </button>
+      <button className='task__edit-button' type='button' onClick={onEditorOpenHandler}>
+        ...
+      </button>
       <div
         ref={expanderRef}
         className={`task__expander ${!isExpand ? 'task__expander--active' : ''}`}
       >
         <div ref={contentRef} className='task__content'>
           <p>
-            <span>Created: {task.createdDate.toDateString()}</span>
+            <span>Created: {JSON.stringify(task.createdDate)}</span>
             <span>In work: {task.inWork} ms</span>
           </p>
 

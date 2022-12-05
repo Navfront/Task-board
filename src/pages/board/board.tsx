@@ -1,14 +1,24 @@
-/* eslint-disable multiline-ternary */
 import { Helmet } from 'react-helmet-async'
-import { Link, useParams } from 'react-router-dom'
-import { BoardColumn, columnTitles, Header } from '../../components'
-import { useAppSelector } from '../../redux'
-import { IProject } from './../../model/data-types'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import { BoardColumn, Header } from '../../components'
+import { useAppDispatch, useAppSelector } from '../../redux'
+import { COLUMN_TITLES, IProject } from './../../model/data-types'
+import React, { useEffect } from 'react'
 
 function Board(): JSX.Element {
   const { projectId } = useParams()
   const projects = useAppSelector<IProject[]>((state) => state.projectsReducer)
   const project = projects.find((p) => p.id === projectId?.slice(1))
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    if (project === undefined) {
+      navigate('/')
+    } else if (projectId !== undefined) {
+      dispatch({ type: 'INIT_BOARD', projectId: projectId.slice(1) })
+    }
+  }, [])
 
   return (
     <>
@@ -18,32 +28,39 @@ function Board(): JSX.Element {
       </Helmet>
       <Header>
         <Link to={'/'}>To Main</Link>
-        <button type='button'>New Task</button>
+        <button
+          type='button'
+          onClick={() => {
+            dispatch({
+              type: 'OPEN_MODAL',
+              childType: 'EDITOR_CREATE_TASK',
+              data: project ?? null
+            })
+          }}
+        >
+          New Task
+        </button>
         <input className='header__search' type='text' placeholder='SEARCH' />
         <p className='header__project-id'>{project?.title}</p>
       </Header>
       <main className='page__main main main--board'>
         <div className='board'>
           <h1 className='visually-hidden'>Task board: {project?.title}</h1>
-          {project !== undefined ? (
-            <>
-              {columnTitles.map((title) => (
+
+          {projectId != null && COLUMN_TITLES.includes('Queue')
+            ? COLUMN_TITLES.map((title) => (
                 <BoardColumn
                   key={title}
+                  projectId={projectId.slice(1)}
                   columnTitle={title}
                   classModificator={title.toLowerCase()}
                 />
-              ))}
-            </>
-          ) : (
-            <p style={{ justifySelf: 'center', gridColumn: 'span 3' }}>
-              Error! Project is not created yet!
-            </p>
-          )}
+              ))
+            : ''}
         </div>
       </main>
     </>
   )
 }
 
-export default Board
+export default React.memo(Board)

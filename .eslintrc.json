@@ -12,9 +12,10 @@
   },
   "plugins": ["react"],
   "rules": {
+    "no-debugger": "off",
     "indent": "off",
     "@typescript-eslint/indent": "off",
-    "multiline-ternary": ["error", "always-multiline"],
+    "multiline-ternary": ["off", "never"],
     "generator-star-spacing": ["off", "after"],
     "no-extra-semi": "off",
     "space-before-function-paren": "off",

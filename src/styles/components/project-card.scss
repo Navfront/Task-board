@@ -1,38 +1,73 @@
 .project-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr 30%;
+  min-height: 110px;
   padding: 15px;
   background-color: $color-card-bg;
   height: 100%;
   box-shadow: $shadow-light;
 
+  &:hover,
+  &:focus {
+    outline: 2px solid $color-text-light;
+    outline-offset: -2px;
+  }
+
   &__link {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-row: 1;
+    grid-column: 3;
+    text-align: center;
     text-decoration: none;
     color: $color-text-light;
   }
 
   &__title {
+    text-align: center;
+    grid-column: span 2;
     color: $color-text-light;
-    font-size: 1.2rem;
-    margin: 0;
+    font-size: 1.2em;
+    margin: 0 15px 8px;
+
+    word-wrap: break-word;
   }
 
   &__description {
-    font-size: 1rem;
+    text-align: center;
+    font-size: 0.8em;
     grid-column: span 2;
+    word-wrap: break-word;
+    color: $color-text-light;
+    margin: 0;
   }
 
   &__time {
+    grid-column: 3;
+    grid-row: 2;
     justify-self: end;
     font-size: 0.8rem;
   }
 
   &__button {
     background-color: transparent;
-    border: 2px solid $color-border-light;
+
     color: inherit;
     justify-self: center;
     padding: 2px 15px;
     cursor: pointer;
+  }
+
+  &__controls-wrapper {
+    display: flex;
+    justify-content: center;
+    grid-column: 3;
+    grid-row: 3;
+  }
+
+  &__controls {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(100px);
+    transition: ease 0.3s;
   }
 }

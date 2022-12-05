@@ -47,8 +47,6 @@ export const useEditorHandlers = ({
         project: newProject
       })
     } else if (mode === 'EDIT' && project != null) {
-      console.log('newDATA = ', { ...project, title, description })
-
       dispatch({ type: 'UPDATE_PROJECT', project: { ...project, title, description } })
     }
 

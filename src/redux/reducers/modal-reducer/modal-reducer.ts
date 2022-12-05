@@ -1,11 +1,11 @@
 import { Reducer } from 'react'
 import { ModalActions, ModalChildTypes } from './actions'
-import { IProject } from './../../../model/data-types'
+import { ModalData } from './../../../model/data-types'
 
 export interface IModalState {
   isOpen: boolean
   childType: ModalChildTypes | null
-  data?: IProject | null
+  data?: ModalData
 }
 
 export const modalReducer: Reducer<IModalState, ModalActions> = (

@@ -1,5 +1,7 @@
 import { Reducer } from 'react'
 import { IProject } from '../../../model/data-types'
+import { moveItem } from '../../utils'
+
 import { ProjectsActions } from './actions'
 
 export const projectsReducer: Reducer<IProject[], ProjectsActions> = (
@@ -20,7 +22,8 @@ export const projectsReducer: Reducer<IProject[], ProjectsActions> = (
         }
         return p
       })
-
+    case 'MOVE_PROJECT':
+      return moveItem(state, action.move.fromId, action.move.toId)
     default:
       return state
   }

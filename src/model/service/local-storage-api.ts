@@ -1,5 +1,4 @@
-import { Item } from '../data-types'
-
+import { Item, LocalStorageApiTypes } from '../data-types'
 type Cb = any
 
 /**
@@ -30,7 +29,7 @@ export class LocalStorageApi {
    * @returns возвращает item
    */
 
-  addItem<T extends Item>(type: string, item: T, cb: Cb = () => {}): T {
+  addItem<T extends Item>(type: LocalStorageApiTypes, item: T, cb: Cb = () => {}): T {
     const items = this.getItems(type)
     items.push(item)
     this.setItems(type, items)
@@ -41,22 +40,23 @@ export class LocalStorageApi {
   /**
    * Записывает в LocalStorage
    * @param type строка, описывающая тип создаваемого обьекта
-   * @param items Принимает массив проектов
+   * @param items Принимает массив items
    * @param cb Исполняет cb(items)
    */
-  setItems<T extends Item>(type: string, items: T[], cb: Cb = () => {}): T[] {
+  setItems<T extends Item>(type: LocalStorageApiTypes, items: T[], cb: Cb = () => {}): T[] {
     localStorage.setItem(type, JSON.stringify(items))
     cb(items)
+
     return items
   }
 
   /**
-   * Метод берет из LocalStorage все проекты если они есть.
+   * Метод берет из LocalStorage все items если они есть.
    * @param type строка, описывающая тип создаваемого обьекта
    * @param cb Исполняет cb(items)
-   * @returns Возвращает массив с проектами пустой массив если данных нет
+   * @returns Возвращает массив с items пустой массив если данных нет
    */
-  getItems<T extends Item>(type: string, cb: Cb = () => {}): T[] {
+  getItems<T extends Item>(type: LocalStorageApiTypes, cb: Cb = () => {}): T[] {
     const response = localStorage.getItem(type)
     if (response !== null) {
       const parsed = JSON.parse(response) as T[]
@@ -70,15 +70,15 @@ export class LocalStorageApi {
   }
 
   /**
-   * Метод обновляет данные проекта на представленные, либо удаляет проект при shallDelete = true. Принимает колбэк на исполнение при удаче.
+   * Метод обновляет данные item на представленные, либо удаляет item при shallDelete = true. Принимает колбэк на исполнение при удаче.
    * @param type строка, описывающая тип создаваемого обьекта
-   * @param Item Обьект проекта, обязательное поле id
-   * @param shallDelete Удалить проект если true
-   * @param Cb Выполнится при успехе cb(items)
+   * @param Item Обьект item, обязательное поле id
+   * @param shallDelete Удалить items если true
+   * @param Cb Выполнится при успехе cb(item)
    * @returns boolean в зависимости от успеха
    */
   updateItemById<T extends Item>(
-    type: string,
+    type: LocalStorageApiTypes,
     item: T,
     shallDelete: boolean = false,
     cb: Cb = () => {}

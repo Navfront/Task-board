@@ -23,6 +23,9 @@ export const appReducer: Reducer<IAppState, AppActions> = (
     case 'INIT_APP':
       return state
 
+    case 'INIT_BOARD':
+      return state
+
     case 'SET_APP_USER':
       return { ...state, user: action.user }
 

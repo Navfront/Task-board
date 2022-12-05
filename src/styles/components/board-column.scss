@@ -11,6 +11,14 @@
       0 0 1px rgba(0, 0, 0, 0.14);
   }
 
+  &__item {
+    padding: 5px;
+  }
+
+  &__item + &__item {
+    margin-top: 5px;
+  }
+
   &__queue {
     background-color: lightyellow;
   }

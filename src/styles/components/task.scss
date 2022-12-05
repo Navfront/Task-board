@@ -1,6 +1,6 @@
 .task {
   display: grid;
-  padding: 5px;
+  padding: 5px 15px;
   color: $color-text-dark;
   background-color: $color-task-bg;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.04),
@@ -9,6 +9,7 @@
 
   &__title {
     color: $color-text-dark;
+    margin-bottom: 10px;
   }
 
   & + & {

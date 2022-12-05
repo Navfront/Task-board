@@ -1,61 +1,49 @@
 import Task from '../task/task'
+import { COLUMN_TITLES } from '../../model/data-types'
+import { useAppSelector } from '../../redux'
+import { IProjectsBoard } from './../../model/data-types'
 
-export const columnTitles = ['Queue', 'Development', 'Done'] as const
-
-interface IColumnTitleProps {
-  columnTitle: typeof columnTitles[number]
+export interface IColumnTitleProps {
+  columnTitle: typeof COLUMN_TITLES[number]
   classModificator: string
+  projectId: string
 }
 
-function BoardColumn({ columnTitle, classModificator }: IColumnTitleProps): JSX.Element {
-  return (
-    <section className={`column column__${classModificator}`}>
-      <h2 className='column__title'>{columnTitle}</h2>
-      <ul className='column__list'>
-        <li className='column__item'>
-          <Task
-            taskId={'111'}
-            order={0}
-            title={'The Biggest Task'}
-            description={'nothing..'}
-            createdDate={new Date()}
-            inWork={1246}
-            doneDate={null}
-            priority={'low'}
-            files={[]}
-            status={columnTitle}
-            subTasks={[]}
-          />
-          <Task
-            taskId={'222'}
-            order={0}
-            title={'The Easyest Task'}
-            description={'nothing..'}
-            createdDate={new Date()}
-            inWork={1246}
-            doneDate={null}
-            priority={'low'}
-            files={[]}
-            status={columnTitle}
-            subTasks={[]}
-          />
-          <Task
-            taskId={'333'}
-            order={0}
-            title={'The Hardest Task'}
-            description={'nothing..'}
-            createdDate={new Date()}
-            inWork={1246}
-            doneDate={null}
-            priority={'low'}
-            files={[]}
-            status={columnTitle}
-            subTasks={[]}
-          />
-        </li>
-      </ul>
-    </section>
-  )
+function BoardColumn({ columnTitle, classModificator, projectId }: IColumnTitleProps): JSX.Element {
+  const board = useAppSelector<IProjectsBoard>((state) => state.boardReducer)
+  if (Object.keys(board).length !== 0) {
+    return (
+      <section className={`column column__${classModificator}`}>
+        <h2 className='column__title'>{columnTitle}</h2>
+        {board[projectId][columnTitle].length > 0 ? (
+          <ul className='column__list'>
+            {board[projectId][columnTitle].map((task) => (
+              <li key={task.id} className='column__item'>
+                <Task
+                  id={task.id}
+                  order={task.order}
+                  title={task.title !== '' ? task.title : 'No-name'}
+                  description={task.description !== '' ? task.description : 'nothing..'}
+                  createdDate={task.createdDate}
+                  inWork={task.inWork}
+                  doneDate={task.doneDate}
+                  priority={task.priority}
+                  files={task.files}
+                  status={task.status}
+                  subTasks={task.subTasks}
+                  comments={task.comments}
+                  projectId={projectId}
+                />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          ''
+        )}
+      </section>
+    )
+  }
+  return <></>
 }
 
 export default BoardColumn

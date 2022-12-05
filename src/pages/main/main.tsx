@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { Header, Menu, Modal, ProjectsList } from '../../components'
+import { Header, Menu, ProjectsList } from '../../components'
 import { useAppDispatch } from '../../redux'
 
 function Main(): JSX.Element {
@@ -23,7 +23,6 @@ function Main(): JSX.Element {
         <h1 className='visually-hidden'>Todo board system</h1>
         <ProjectsList />
       </main>
-      <Modal />
     </>
   )
 }

@@ -1,7 +1,9 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
-import { IProject } from '../../model/data-types'
+import { IProject, LocalStorageApiTypes } from '../../model/data-types'
+import { LocalStorageApi } from '../../model/service/local-storage-api'
 import { ProjectsApiFacade } from '../../model/service/projects-api-facade'
 import { AllActionTypes } from '../reducers/types'
+import { moveItem } from './../utils'
 
 // GET_ALL_PROJECTS
 
@@ -27,6 +29,7 @@ const addProject = async (project: IProject): Promise<boolean> => {
 
 function* addProjectAsync(action: any): any {
   yield call(addProject, action.project)
+  yield put({ type: 'CREATE_BOARD_TEMPLATE_BY_PROJECT_ID', projectId: action.project.id })
 }
 
 export function* watchAddProjectAsync(): any {
@@ -41,8 +44,43 @@ const deleteProject = async (project: IProject): Promise<boolean> => {
 
 function* deleteProjectAsync(action: any): any {
   yield call(deleteProject, action.project)
+  yield put({ type: 'DELETE_BOARD_BY_PROJECT_ID', projectId: action.project.id })
 }
 
 export function* watchDeleteProjectAsync(): any {
   yield takeEvery<AllActionTypes>('DELETE_PROJECT', deleteProjectAsync)
+}
+
+// UPDATE_PROJECT
+
+const updateProject = async (project: IProject): Promise<boolean> => {
+  console.log(project)
+
+  return await ProjectsApiFacade.projectsQueryApi.update(project)
+}
+
+function* updateProjectAsync(action: any): any {
+  yield call(updateProject, action.project)
+}
+
+export function* watchUpdateProjectAsync(): any {
+  yield takeEvery<AllActionTypes>('UPDATE_PROJECT', updateProjectAsync)
+}
+
+// SHUFFLE_PROJECTS
+
+const setToLocalStorage = async (action: any): Promise<IProject[]> => {
+  const localStorageItemType: LocalStorageApiTypes = 'projects'
+  const lApi = LocalStorageApi.getInstance()
+  const prev = lApi.getItems<IProject>(localStorageItemType)
+  const shuffled = moveItem(prev, action.move.fromId, action.move.toId)
+  return lApi.setItems<IProject>(localStorageItemType, shuffled)
+}
+
+function* shuffleProjects(action: any): any {
+  yield call(setToLocalStorage, action)
+}
+
+export function* watchMoveProject(): any {
+  yield takeEvery<AllActionTypes>('MOVE_PROJECT', shuffleProjects)
 }
