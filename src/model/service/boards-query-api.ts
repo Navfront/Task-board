@@ -39,7 +39,7 @@ export class BoardsQueryApi {
   /**
    * Удалить задачу
    * @param projectId Принимает id проекта
-   * @param task Принимает новую задачу
+   * @param task Принимает задачу на удаление
    * @param userId Принимает id Юзера или null
    * @returns Возвразает true в случае успешного удаления задачи на стороне сервера
    */
