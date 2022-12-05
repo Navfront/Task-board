@@ -1,5 +1,5 @@
 import { LocalStorageApi } from './local-storage-api'
-import { columnTitles, IProjectsBoard, ITask } from '../data-types'
+import { COLUMN_TITLES, IProjectsBoard, ITask } from '../data-types'
 
 export interface FetchBoardApiInterface {
   getTasksByProjectId: (projectId: string, userId: string | null) => Promise<ITask[]>
@@ -81,9 +81,9 @@ export class BoardsQueryApi {
     const board: IProjectsBoard = {
       [projectId]: {
         userId,
-        [columnTitles[0]]: [],
-        [columnTitles[1]]: [],
-        [columnTitles[2]]: []
+        [COLUMN_TITLES[0]]: [],
+        [COLUMN_TITLES[1]]: [],
+        [COLUMN_TITLES[2]]: []
       }
     }
     const resp = await this.fetchBoardApi.getTasksByProjectId(projectId, userId)

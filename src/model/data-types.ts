@@ -19,8 +19,8 @@ export interface Item {
   [k: string]: any
 }
 
-export const columnTitles = ['Queue', 'Development', 'Done'] as const
-export const priorities = ['Low', 'Middle', 'Hight'] as const
+export const COLUMN_TITLES = ['Queue', 'Development', 'Done'] as const
+export const PRIORITIES = ['Low', 'Middle', 'Hight'] as const
 
 export interface ITask {
   id: string
@@ -30,15 +30,15 @@ export interface ITask {
   createdDate: Date
   inWork: number
   doneDate: null | Date
-  priority: typeof priorities[number]
+  priority: typeof PRIORITIES[number]
   files: FileReader[]
-  status: typeof columnTitles[number]
+  status: typeof COLUMN_TITLES[number]
   subTasks: string[]
   comments: string[]
 }
 
 export type IBoard = {
-  [column in typeof columnTitles[number]]: ITask[]
+  [column in typeof COLUMN_TITLES[number]]: ITask[]
 }
 
 export interface UserId {
@@ -57,6 +57,6 @@ export interface IExtendedWithProjectIdTask extends ITask {
 export type ModalData = IProject | IExtendedWithProjectIdTask | null
 
 export interface ITaskPosition {
-  current: typeof columnTitles[number]
-  moveTo: typeof columnTitles[number]
+  current: typeof COLUMN_TITLES[number]
+  moveTo: typeof COLUMN_TITLES[number]
 }

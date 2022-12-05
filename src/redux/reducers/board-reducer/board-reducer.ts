@@ -1,11 +1,11 @@
 /* eslint-disable no-debugger */
 import { Reducer } from 'react'
-import { columnTitles, IProjectsBoard, ITask, ITaskPosition } from '../../../model/data-types'
+import { COLUMN_TITLES, IProjectsBoard, ITask, ITaskPosition } from '../../../model/data-types'
 import { BoardActions } from './actions'
 
 function createTask(
   state: IProjectsBoard,
-  column: typeof columnTitles[number],
+  column: typeof COLUMN_TITLES[number],
   task: ITask,
   projectId: string
 ): IProjectsBoard {
@@ -20,9 +20,9 @@ function createBoardById(state: IProjectsBoard, projectId: string): IProjectsBoa
   if (!Object.hasOwn(state, projectId)) {
     const newState: IProjectsBoard = Object.assign({}, state, {
       [projectId]: {
-        [columnTitles[0]]: [],
-        [columnTitles[1]]: [],
-        [columnTitles[2]]: []
+        [COLUMN_TITLES[0]]: [],
+        [COLUMN_TITLES[1]]: [],
+        [COLUMN_TITLES[2]]: []
       }
     })
     return newState
@@ -68,7 +68,7 @@ function deleteTask(
   state: IProjectsBoard,
   projectId: string,
   taskId: string,
-  taskStatus: typeof columnTitles[number]
+  taskStatus: typeof COLUMN_TITLES[number]
 ): IProjectsBoard {
   const newState = { ...state }
   newState[projectId] = { ...state[projectId] }

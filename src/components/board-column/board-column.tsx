@@ -1,10 +1,10 @@
 import Task from '../task/task'
-import { columnTitles } from '../../model/data-types'
+import { COLUMN_TITLES } from '../../model/data-types'
 import { useAppSelector } from '../../redux'
 import { IProjectsBoard } from './../../model/data-types'
 
 export interface IColumnTitleProps {
-  columnTitle: typeof columnTitles[number]
+  columnTitle: typeof COLUMN_TITLES[number]
   classModificator: string
   projectId: string
 }

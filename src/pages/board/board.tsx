@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { BoardColumn, Header } from '../../components'
 import { useAppDispatch, useAppSelector } from '../../redux'
-import { columnTitles, IProject } from './../../model/data-types'
+import { COLUMN_TITLES, IProject } from './../../model/data-types'
 import React, { useEffect } from 'react'
 
 function Board(): JSX.Element {
@@ -47,8 +47,8 @@ function Board(): JSX.Element {
         <div className='board'>
           <h1 className='visually-hidden'>Task board: {project?.title}</h1>
 
-          {projectId != null && columnTitles.includes('Queue')
-            ? columnTitles.map((title) => (
+          {projectId != null && COLUMN_TITLES.includes('Queue')
+            ? COLUMN_TITLES.map((title) => (
                 <BoardColumn
                   key={title}
                   projectId={projectId.slice(1)}

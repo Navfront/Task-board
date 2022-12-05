@@ -1,5 +1,10 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
-import { columnTitles, IExtendedWithProjectIdTask, ITask, priorities } from '../../model/data-types'
+import {
+  COLUMN_TITLES,
+  IExtendedWithProjectIdTask,
+  ITask,
+  PRIORITIES
+} from '../../model/data-types'
 import { IModalState } from '../../redux/reducers/modal-reducer/modal-reducer'
 import { useAppDispatch, useAppSelector } from './../../redux/index'
 import { IProject } from './../../model/data-types'
@@ -87,12 +92,12 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
           <span className='task-editor__label-text'>Priority</span>
           <select
             onChange={(e) => {
-              const value = e.target.value as typeof priorities[number]
+              const value = e.target.value as typeof PRIORITIES[number]
               setPriority(value)
             }}
           >
             <optgroup label='Priority'>
-              {priorities.map((pri) => (
+              {PRIORITIES.map((pri) => (
                 <option key={'priority' + pri} value={pri}>
                   {pri}
                 </option>
@@ -124,12 +129,12 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
           <select
             defaultValue={task?.status}
             onChange={(e) => {
-              const value = e.target.value as typeof columnTitles[number]
+              const value = e.target.value as typeof COLUMN_TITLES[number]
               setStatus(value)
             }}
           >
             <optgroup label='Column'>
-              {columnTitles.map((colTitle) => (
+              {COLUMN_TITLES.map((colTitle) => (
                 <option key={'option' + colTitle} value={colTitle}>
                   {colTitle}
                 </option>

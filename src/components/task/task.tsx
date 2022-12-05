@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { columnTitles, ITask } from '../../model/data-types'
+import { COLUMN_TITLES, ITask } from '../../model/data-types'
 import { useAppDispatch } from './../../redux/index'
 
 interface ITaskProps extends ITask {
@@ -11,7 +11,7 @@ interface ITaskProps extends ITask {
   inWork: number
   doneDate: null | Date
   files: FileReader[]
-  status: typeof columnTitles[number]
+  status: typeof COLUMN_TITLES[number]
   subTasks: string[]
   projectId: string
 }
