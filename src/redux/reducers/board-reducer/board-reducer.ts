@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 import { Reducer } from 'react'
 import { columnTitles, IProjectsBoard, ITask, ITaskPosition } from '../../../model/data-types'
 import { BoardActions } from './actions'
@@ -8,7 +9,9 @@ function createTask(
   task: ITask,
   projectId: string
 ): IProjectsBoard {
-  const newState = Object.assign({}, state)
+  const newState = { ...state }
+  newState[projectId] = { ...state[projectId] }
+  newState[projectId][column] = [...state[projectId][column]]
   newState[projectId][column].push(task)
   return newState
 }
@@ -28,11 +31,6 @@ function createBoardById(state: IProjectsBoard, projectId: string): IProjectsBoa
 }
 
 function deleteBoardById(state: IProjectsBoard, projectId: string): IProjectsBoard {
-  if (Object.hasOwn(state, projectId)) {
-    const newState = Object.assign({}, state)
-    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-    delete newState[projectId]
-  }
   return state
 }
 
@@ -42,25 +40,28 @@ function updateTask(
   projectId: string,
   position: ITaskPosition
 ): IProjectsBoard {
-  if (Object.keys(state).length > 0) {
-    const newState = Object.assign({}, state)
-    if (position.current !== position.moveTo) {
-      newState[projectId][position.current] = newState[projectId][position.current].filter(
-        (t) => t.id !== task.id
-      )
-      const newTask = { ...task, status: position.moveTo }
-      newState[projectId][position.moveTo].push(newTask)
-    }
-    const column = newState[projectId][position.current]
-    const taskIndex = column.findIndex((t) => t.id === task.id)
-    if (taskIndex >= 0) {
-      const newColumn = [...column.slice(1, taskIndex), task, ...column.slice(taskIndex + 1)]
-      newState[projectId][task.status] = newColumn
-      return newState
-    }
-    return state
+  // debugger
+  const newState = { ...state }
+  newState[projectId] = { ...state[projectId] }
+
+  const index = newState[projectId][position.current].findIndex((t) => t.id === task.id)
+  if (index === -1) return state
+
+  newState[projectId][position.current] = [
+    ...state[projectId][position.current].slice(0, index),
+    task,
+    ...state[projectId][position.current].slice(index + 1)
+  ]
+
+  if (position.current !== position.moveTo) {
+    newState[projectId][position.moveTo] = [...state[projectId][position.moveTo]]
+    newState[projectId][position.current] = state[projectId][position.current].filter(
+      (t) => t.id !== task.id
+    )
+    newState[projectId][position.moveTo].push(task)
   }
-  return state
+
+  return newState
 }
 
 export const boardReducer: Reducer<IProjectsBoard, BoardActions> = (state = {}, action) => {
@@ -85,3 +86,4 @@ export const boardReducer: Reducer<IProjectsBoard, BoardActions> = (state = {}, 
       return state
   }
 }
+/* eslint-disable no-debugger */
