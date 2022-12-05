@@ -46,4 +46,4 @@ function BoardColumn({ columnTitle, classModificator, projectId }: IColumnTitleP
   return <></>
 }
 
-export default React.memo(BoardColumn)
+export default BoardColumn
