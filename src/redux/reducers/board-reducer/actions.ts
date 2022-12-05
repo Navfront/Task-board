@@ -1,4 +1,4 @@
-import { IProjectsBoard, ITask, ITaskPosition } from '../../../model/data-types'
+import { columnTitles, IProjectsBoard, ITask, ITaskPosition } from '../../../model/data-types'
 export interface ActionBoardCreateEmpty {
   type: 'CREATE_BOARD_TEMPLATE_BY_PROJECT_ID'
   projectId: string
@@ -18,7 +18,8 @@ export interface ActionBoardCreateTask {
 export interface ActionBoardDeleteTask {
   type: 'DELETE_BOARD_TASK'
   projectId: string
-  taskId: Pick<ITask, 'id'>
+  taskId: string
+  taskStatus: typeof columnTitles[number]
 }
 
 export interface ActionBoardMoveTask {

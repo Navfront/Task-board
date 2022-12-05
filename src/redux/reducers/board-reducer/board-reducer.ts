@@ -64,6 +64,18 @@ function updateTask(
   return newState
 }
 
+function deleteTask(
+  state: IProjectsBoard,
+  projectId: string,
+  taskId: string,
+  taskStatus: typeof columnTitles[number]
+): IProjectsBoard {
+  const newState = { ...state }
+  newState[projectId] = { ...state[projectId] }
+  newState[projectId][taskStatus] = newState[projectId][taskStatus].filter((t) => t.id !== taskId)
+  return newState
+}
+
 export const boardReducer: Reducer<IProjectsBoard, BoardActions> = (state = {}, action) => {
   switch (action.type) {
     case 'CREATE_BOARD_TEMPLATE_BY_PROJECT_ID':
@@ -77,7 +89,7 @@ export const boardReducer: Reducer<IProjectsBoard, BoardActions> = (state = {}, 
     case 'CREATE_BOARD_TASK':
       return createTask(state, action.task.status, action.task, action.projectId)
     case 'DELETE_BOARD_TASK':
-      return state
+      return deleteTask(state, action.projectId, action.taskId, action.taskStatus)
     case 'MOVE_BOARD_TASK':
       return state
     case 'UPDATE_BOARD_TASK':
