@@ -35,6 +35,17 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
     setDescription(event.target.value)
   }
 
+  const onDeleteClickHandler = (): void => {
+    if (task != null) {
+      dispatch({
+        type: 'DELETE_BOARD_TASK',
+        projectId: task?.projectId,
+        task
+      })
+    }
+    dispatch({ type: 'CLOSE_MODAL' })
+  }
+
   const onSubmitHandler = (event: FormEvent): void => {
     event.preventDefault()
 
@@ -155,6 +166,9 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
         <p className='task-editor__submit-controls'>
           <button className='task-editor__control-btn' type='submit'>
             {isEdit ? 'Edit' : 'Create'}
+          </button>
+          <button className='task-editor__control-btn' type='button' onClick={onDeleteClickHandler}>
+            Delete
           </button>
           <button className='task-editor__control-btn' type='button' onClick={onCancelClickHandler}>
             Close

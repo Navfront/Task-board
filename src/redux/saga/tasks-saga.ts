@@ -2,6 +2,7 @@ import { put, takeEvery, call } from 'redux-saga/effects'
 import { TasksApiFacade } from '../../model/service/tasks-api-facade'
 import {
   ActionBoardCreateTask,
+  ActionBoardDeleteTask,
   ActionBoardInit,
   ActionBoardUpdateTask
 } from '../reducers/board-reducer/actions'
@@ -56,4 +57,18 @@ function* updateTaskAsync(action: ActionBoardUpdateTask): any {
 
 export function* watchUpdateTaskAsync(): any {
   yield takeEvery('UPDATE_BOARD_TASK', updateTaskAsync)
+}
+
+// DELETE_TASK
+
+const deleteTask = async (projectId: string, task: ITask): Promise<boolean> => {
+  return await TasksApiFacade.boardQueryApi.deleteTask(projectId, task, null)
+}
+
+function* deleteTaskAsync(action: ActionBoardDeleteTask): any {
+  yield call(deleteTask, action.projectId, action.task)
+}
+
+export function* watchDeleteTaskAsync(): any {
+  yield takeEvery('DELETE_BOARD_TASK', deleteTaskAsync)
 }
