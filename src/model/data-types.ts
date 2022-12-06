@@ -60,3 +60,7 @@ export interface ITaskPosition {
   current: typeof COLUMN_TITLES[number]
   moveTo: typeof COLUMN_TITLES[number]
 }
+
+export interface ITaskPositionWithElementIndex extends ITaskPosition {
+  toIndex: number
+}
