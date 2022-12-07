@@ -35,10 +35,9 @@ function Task(task: ITaskProps): JSX.Element {
   const [{ isDragging }, drag] = useDrag(() => ({
     end(item, monitor) {
       const dropResult = monitor.getDropResult<BoardItems>()
-      console.log('end->', dropResult)
+
       if (dropResult !== null) {
         if (!isITask(dropResult)) {
-          console.log('COL')
           dispatch({
             type: 'MOVE_BOARD_TASK',
             projectId: dropResult.projectId,
@@ -46,7 +45,6 @@ function Task(task: ITaskProps): JSX.Element {
             position: { current: task.status, moveTo: dropResult.columnTitle }
           })
         } else {
-          console.log('TASK')
           dispatch({
             type: 'MOVE_BOARD_TASK',
             task,
