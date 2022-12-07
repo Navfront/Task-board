@@ -29,7 +29,7 @@ export class LocalStorageApi {
    * Счетчик item's
    * @returns возвращает текущее значение order
    */
-  private getLastOrder(type: LocalStorageApiTypes): number {
+  getLastOrder(type: LocalStorageApiTypes): number {
     const name = this.namePrefix + type
     let num
     if (typeof this.order[name] === 'undefined') {
