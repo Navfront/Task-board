@@ -8,9 +8,11 @@ type Cb = any
 export class LocalStorageApi {
   private static _instance: LocalStorageApi = new LocalStorageApi()
   order: { [key: string]: number }
+  private readonly namePrefix: string
 
   constructor() {
     this.order = {}
+    this.namePrefix = 'lastOrderOf'
     if (LocalStorageApi._instance !== undefined) {
       throw new Error(
         'Error: Instantiation failed: Use LocalStorageApi.getInstance() instead of new.'
@@ -28,10 +30,8 @@ export class LocalStorageApi {
    * @returns возвращает текущее значение order
    */
   private getLastOrder(type: LocalStorageApiTypes): number {
-    const name = 'lastOrderOf' + type
+    const name = this.namePrefix + type
     let num
-    console.log(typeof this.order[name])
-
     if (typeof this.order[name] === 'undefined') {
       const str = localStorage.getItem(name)
       if (str === null) {
@@ -59,8 +59,6 @@ export class LocalStorageApi {
 
   addItem<T extends Item>(type: LocalStorageApiTypes, item: T, cb: Cb = () => {}): T {
     const items = this.getItems(type)
-    console.log(this.order)
-
     const newItem = { ...item, order: this.getLastOrder(type) }
     items.push(newItem)
     this.setItems(type, items)
@@ -91,6 +89,17 @@ export class LocalStorageApi {
     const response = localStorage.getItem(type)
     if (response !== null) {
       const parsed = JSON.parse(response) as T[]
+
+      let maxOrder = 0
+      for (const i of parsed) {
+        if (Boolean(i.order) && typeof i.order === 'number' && i.order > maxOrder) {
+          maxOrder = i.order
+        }
+      }
+      if (this.order[this.namePrefix + type] < maxOrder) {
+        this.order[this.namePrefix + type] = maxOrder
+      }
+
       cb(parsed)
       return parsed.map((it) => ({
         ...it,
