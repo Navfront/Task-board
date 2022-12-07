@@ -44,7 +44,8 @@ describe('Testing LocalStorageApi', () => {
 
   test('Method addItem works', () => {
     expect(locStoreInstance.addItem('test', { id: 'id123' })).toEqual({
-      id: 'id123'
+      id: 'id123',
+      order: 0
     })
     expect(locStoreInstance.updateItemById('test', { id: 'id123' })).toBeTruthy()
   })

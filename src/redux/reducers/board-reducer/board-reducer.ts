@@ -1,6 +1,12 @@
 /* eslint-disable no-debugger */
 import { Reducer } from 'react'
-import { COLUMN_TITLES, IProjectsBoard, ITask, ITaskPosition } from '../../../model/data-types'
+import {
+  COLUMN_TITLES,
+  IProjectsBoard,
+  ITask,
+  ITaskPosition,
+  ITaskPositionWithTarget
+} from '../../../model/data-types'
 import { BoardActions } from './actions'
 
 function createTask(
@@ -40,10 +46,8 @@ function updateTask(
   projectId: string,
   position: ITaskPosition
 ): IProjectsBoard {
-  // debugger
   const newState = { ...state }
   newState[projectId] = { ...state[projectId] }
-
   const index = newState[projectId][position.current].findIndex((t) => t.id === task.id)
   if (index === -1) return state
 
@@ -61,6 +65,35 @@ function updateTask(
     newState[projectId][position.moveTo].push({ ...task, status: position.moveTo })
   }
 
+  return newState
+}
+
+function moveTask(
+  state: IProjectsBoard,
+  task: ITask,
+  projectId: string,
+  position: ITaskPositionWithTarget
+): IProjectsBoard {
+  const newState = { ...state }
+  newState[projectId] = { ...state[projectId] }
+  newState[projectId][position.current] = newState[projectId][position.current].filter(
+    (t) => t.id !== task.id
+  )
+  const toIndex = newState[projectId][position.moveTo].findIndex((t) => position.toTaskId)
+  if (position.toTaskId !== undefined) {
+    const targetTask = newState[projectId][position.moveTo][toIndex]
+    newState[projectId][position.moveTo] = [
+      ...newState[projectId][position.moveTo].slice(0, toIndex),
+      { ...task, status: position.moveTo },
+      { ...targetTask },
+      ...newState[projectId][position.moveTo].slice(toIndex + 1)
+    ]
+  }
+  newState[projectId][position.moveTo] = [
+    ...newState[projectId][position.moveTo].slice(0, toIndex),
+    { ...task, status: position.moveTo },
+    ...newState[projectId][position.moveTo].slice(toIndex + 1)
+  ]
   return newState
 }
 
@@ -88,7 +121,7 @@ export const boardReducer: Reducer<IProjectsBoard, BoardActions> = (state = {}, 
     case 'DELETE_BOARD_TASK':
       return deleteTask(state, action.projectId, action.task)
     case 'MOVE_BOARD_TASK':
-      return state
+      return moveTask(state, action.task, action.projectId, action.position)
     case 'UPDATE_BOARD_TASK':
       return updateTask(state, action.task, action.projectId, action.position)
     default:

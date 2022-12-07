@@ -60,3 +60,13 @@ export interface ITaskPosition {
   current: typeof COLUMN_TITLES[number]
   moveTo: typeof COLUMN_TITLES[number]
 }
+
+export interface ITaskPositionWithTarget extends ITaskPosition {
+  toTaskId?: string
+}
+
+export interface ColumnItem {
+  columnTitle: typeof COLUMN_TITLES[number]
+  projectId: string
+}
+export type BoardItems = ColumnItem | ITask

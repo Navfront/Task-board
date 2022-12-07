@@ -8,6 +8,7 @@ import {
 import { IModalState } from '../../redux/reducers/modal-reducer/modal-reducer'
 import { useAppDispatch, useAppSelector } from './../../redux/index'
 import { IProject } from './../../model/data-types'
+import { LocalStorageApi } from './../../model/service/local-storage-api'
 
 interface ITaskEditorProps {
   mode: 'CREATE' | 'EDIT'
@@ -56,7 +57,7 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
         description,
         title,
         id: Date.now().toString(),
-        order: 0,
+        order: LocalStorageApi.getInstance().getLastOrder('tasks'),
         createdDate: new Date(),
         inWork: 0,
         doneDate: null,

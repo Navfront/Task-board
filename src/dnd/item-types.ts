@@ -1,3 +1,4 @@
 export const dNDItemTypes = {
-  PROJECT: 'project'
+  PROJECT: 'project',
+  TASK: 'task'
 }

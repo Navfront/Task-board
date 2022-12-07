@@ -7,8 +7,12 @@ type Cb = any
  */
 export class LocalStorageApi {
   private static _instance: LocalStorageApi = new LocalStorageApi()
+  order: { [key: string]: number }
+  private readonly namePrefix: string
 
   constructor() {
+    this.order = {}
+    this.namePrefix = 'lastOrderOf'
     if (LocalStorageApi._instance !== undefined) {
       throw new Error(
         'Error: Instantiation failed: Use LocalStorageApi.getInstance() instead of new.'
@@ -22,6 +26,30 @@ export class LocalStorageApi {
   }
 
   /**
+   * Счетчик item's
+   * @returns возвращает текущее значение order
+   */
+  getLastOrder(type: LocalStorageApiTypes): number {
+    const name = this.namePrefix + type
+    let num
+    if (typeof this.order[name] === 'undefined') {
+      const str = localStorage.getItem(name)
+      if (str === null) {
+        num = 0
+      } else {
+        num = parseInt(str)
+      }
+      if (!isNaN(num)) {
+        this.order[name] = num
+      } else {
+        this.order[name] = 0
+      }
+    }
+    localStorage.setItem(name, String(this.order[name] + 1))
+    return this.order[name]++
+  }
+
+  /**
    * Добавляет новый item в Localstorage
    * @param type строка, описывающая тип создаваемого обьекта
    * @param item сам обьект item
@@ -31,10 +59,11 @@ export class LocalStorageApi {
 
   addItem<T extends Item>(type: LocalStorageApiTypes, item: T, cb: Cb = () => {}): T {
     const items = this.getItems(type)
-    items.push(item)
+    const newItem = { ...item, order: this.getLastOrder(type) }
+    items.push(newItem)
     this.setItems(type, items)
     cb(items)
-    return item
+    return newItem
   }
 
   /**
@@ -60,6 +89,17 @@ export class LocalStorageApi {
     const response = localStorage.getItem(type)
     if (response !== null) {
       const parsed = JSON.parse(response) as T[]
+
+      let maxOrder = 0
+      for (const i of parsed) {
+        if (Boolean(i.order) && typeof i.order === 'number' && i.order > maxOrder) {
+          maxOrder = i.order
+        }
+      }
+      if (this.order[this.namePrefix + type] < maxOrder) {
+        this.order[this.namePrefix + type] = maxOrder
+      }
+
       cb(parsed)
       return parsed.map((it) => ({
         ...it,
