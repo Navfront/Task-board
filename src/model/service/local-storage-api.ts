@@ -7,8 +7,10 @@ type Cb = any
  */
 export class LocalStorageApi {
   private static _instance: LocalStorageApi = new LocalStorageApi()
+  order: { [key: string]: number }
 
   constructor() {
+    this.order = {}
     if (LocalStorageApi._instance !== undefined) {
       throw new Error(
         'Error: Instantiation failed: Use LocalStorageApi.getInstance() instead of new.'
@@ -22,6 +24,32 @@ export class LocalStorageApi {
   }
 
   /**
+   * Счетчик item's
+   * @returns возвращает текущее значение order
+   */
+  private getLastOrder(type: LocalStorageApiTypes): number {
+    const name = 'lastOrderOf' + type
+    let num
+    console.log(typeof this.order[name])
+
+    if (typeof this.order[name] === 'undefined') {
+      const str = localStorage.getItem(name)
+      if (str === null) {
+        num = 0
+      } else {
+        num = parseInt(str)
+      }
+      if (!isNaN(num)) {
+        this.order[name] = num
+      } else {
+        this.order[name] = 0
+      }
+    }
+    localStorage.setItem(name, String(this.order[name] + 1))
+    return this.order[name]++
+  }
+
+  /**
    * Добавляет новый item в Localstorage
    * @param type строка, описывающая тип создаваемого обьекта
    * @param item сам обьект item
@@ -31,10 +59,13 @@ export class LocalStorageApi {
 
   addItem<T extends Item>(type: LocalStorageApiTypes, item: T, cb: Cb = () => {}): T {
     const items = this.getItems(type)
-    items.push(item)
+    console.log(this.order)
+
+    const newItem = { ...item, order: this.getLastOrder(type) }
+    items.push(newItem)
     this.setItems(type, items)
     cb(items)
-    return item
+    return newItem
   }
 
   /**
