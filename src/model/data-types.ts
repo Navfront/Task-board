@@ -64,3 +64,9 @@ export interface ITaskPosition {
 export interface ITaskPositionWithTarget extends ITaskPosition {
   toTaskId?: string
 }
+
+export interface ColumnItem {
+  columnTitle: typeof COLUMN_TITLES[number]
+  projectId: string
+}
+export type BoardItems = ColumnItem | ITask
