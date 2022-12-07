@@ -5,7 +5,7 @@ import {
   IProjectsBoard,
   ITask,
   ITaskPosition,
-  ITaskPositionWithElementIndex
+  ITaskPositionWithTarget
 } from '../../../model/data-types'
 import { BoardActions } from './actions'
 
@@ -72,17 +72,27 @@ function moveTask(
   state: IProjectsBoard,
   task: ITask,
   projectId: string,
-  position: ITaskPositionWithElementIndex
+  position: ITaskPositionWithTarget
 ): IProjectsBoard {
   const newState = { ...state }
   newState[projectId] = { ...state[projectId] }
   newState[projectId][position.current] = newState[projectId][position.current].filter(
     (t) => t.id !== task.id
   )
+  const toIndex = newState[projectId][position.moveTo].findIndex((t) => position.toTaskId)
+  if (position.toTaskId !== undefined) {
+    const targetTask = newState[projectId][position.moveTo][toIndex]
+    newState[projectId][position.moveTo] = [
+      ...newState[projectId][position.moveTo].slice(0, toIndex),
+      { ...task, status: position.moveTo },
+      { ...targetTask },
+      ...newState[projectId][position.moveTo].slice(toIndex + 1)
+    ]
+  }
   newState[projectId][position.moveTo] = [
-    ...newState[projectId][position.moveTo].slice(0, position.toIndex),
-    task,
-    ...newState[projectId][position.moveTo].slice(position.toIndex + 1)
+    ...newState[projectId][position.moveTo].slice(0, toIndex),
+    { ...task, status: position.moveTo },
+    ...newState[projectId][position.moveTo].slice(toIndex + 1)
   ]
   return newState
 }

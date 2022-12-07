@@ -61,6 +61,6 @@ export interface ITaskPosition {
   moveTo: typeof COLUMN_TITLES[number]
 }
 
-export interface ITaskPositionWithElementIndex extends ITaskPosition {
-  toIndex: number
+export interface ITaskPositionWithTarget extends ITaskPosition {
+  toTaskId?: string
 }
