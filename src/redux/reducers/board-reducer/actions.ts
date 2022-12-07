@@ -2,7 +2,7 @@ import {
   IProjectsBoard,
   ITask,
   ITaskPosition,
-  ITaskPositionWithElementIndex
+  ITaskPositionWithTarget
 } from '../../../model/data-types'
 export interface ActionBoardCreateEmpty {
   type: 'CREATE_BOARD_TEMPLATE_BY_PROJECT_ID'
@@ -30,7 +30,7 @@ export interface ActionBoardMoveTask {
   type: 'MOVE_BOARD_TASK'
   task: ITask
   projectId: string
-  position: ITaskPositionWithElementIndex
+  position: ITaskPositionWithTarget
 }
 
 export interface ActionBoardUpdateTask {
