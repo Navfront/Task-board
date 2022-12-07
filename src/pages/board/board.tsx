@@ -4,6 +4,9 @@ import { BoardColumn, Header } from '../../components'
 import { useAppDispatch, useAppSelector } from '../../redux'
 import { COLUMN_TITLES, IProject } from './../../model/data-types'
 import React, { useEffect } from 'react'
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+import { TouchBackend } from 'react-dnd-touch-backend'
 
 function Board(): JSX.Element {
   const { projectId } = useParams()
@@ -11,6 +14,10 @@ function Board(): JSX.Element {
   const project = projects.find((p) => p.id === projectId?.slice(1))
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+
+  const isMobile = window.innerWidth < 600
+  const userAgent = navigator.userAgent ?? navigator.vendor
+  const isIOS = /iPad|iPhone|iPod/.test(userAgent)
 
   useEffect(() => {
     if (project === undefined) {
@@ -46,17 +53,18 @@ function Board(): JSX.Element {
       <main className='page__main main main--board'>
         <div className='board'>
           <h1 className='visually-hidden'>Task board: {project?.title}</h1>
-
-          {projectId != null && COLUMN_TITLES.includes('Queue')
-            ? COLUMN_TITLES.map((title) => (
-                <BoardColumn
-                  key={title}
-                  projectId={projectId.slice(1)}
-                  columnTitle={title}
-                  classModificator={title.toLowerCase()}
-                />
-              ))
-            : ''}
+          <DndProvider backend={isMobile && !isIOS ? TouchBackend : HTML5Backend}>
+            {projectId != null && COLUMN_TITLES.includes('Queue')
+              ? COLUMN_TITLES.map((title) => (
+                  <BoardColumn
+                    key={title}
+                    projectId={projectId.slice(1)}
+                    columnTitle={title}
+                    classModificator={title.toLowerCase()}
+                  />
+                ))
+              : ''}
+          </DndProvider>
         </div>
       </main>
     </>
