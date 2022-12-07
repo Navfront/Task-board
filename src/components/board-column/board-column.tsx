@@ -45,25 +45,27 @@ function BoardColumn({ columnTitle, classModificator, projectId }: IColumnTitleP
         <h2 className='column__title'>{columnTitle}</h2>
         {board[projectId][columnTitle].length > 0 ? (
           <ul className='column__list'>
-            {board[projectId][columnTitle].map((task) => (
-              <li key={task.id} className='column__item'>
-                <Task
-                  id={task.id}
-                  order={task.order}
-                  title={task.title !== '' ? task.title : 'No-name'}
-                  description={task.description !== '' ? task.description : 'nothing..'}
-                  createdDate={task.createdDate}
-                  inWork={task.inWork}
-                  doneDate={task.doneDate}
-                  priority={task.priority}
-                  files={task.files}
-                  status={task.status}
-                  subTasks={task.subTasks}
-                  comments={task.comments}
-                  projectId={projectId}
-                />
-              </li>
-            ))}
+            {board[projectId][columnTitle]
+              .sort((a, b) => b.order - a.order)
+              .map((task) => (
+                <li key={task.id} className='column__item'>
+                  <Task
+                    id={task.id}
+                    order={task.order}
+                    title={task.title !== '' ? task.title : 'No-name'}
+                    description={task.description !== '' ? task.description : 'nothing..'}
+                    createdDate={task.createdDate}
+                    inWork={task.inWork}
+                    doneDate={task.doneDate}
+                    priority={task.priority}
+                    files={task.files}
+                    status={task.status}
+                    subTasks={task.subTasks}
+                    comments={task.comments}
+                    projectId={projectId}
+                  />
+                </li>
+              ))}
           </ul>
         ) : (
           ''
