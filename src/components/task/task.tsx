@@ -1,7 +1,13 @@
 import React, { useState } from 'react'
-import { COLUMN_TITLES, ITask } from '../../model/data-types'
+import { useDrag, useDrop } from 'react-dnd'
+import { BoardItems, COLUMN_TITLES, ITask } from '../../model/data-types'
 import { useAppDispatch } from './../../redux/index'
+import { dNDItemTypes } from './../../dnd/item-types'
 
+export interface TaskItemDnd {
+  taskId: string
+  currentStatus: string
+}
 interface ITaskProps extends ITask {
   id: string
   order: number
@@ -16,11 +22,64 @@ interface ITaskProps extends ITask {
   projectId: string
 }
 
+const isITask = (item: BoardItems): item is ITask => {
+  return Object.hasOwn(item, 'status')
+}
+
 function Task(task: ITaskProps): JSX.Element {
   const [isExpand, setIsExpand] = useState<boolean>(false)
   const expanderRef = React.createRef<HTMLDivElement>()
   const contentRef = React.createRef<HTMLDivElement>()
   const dispatch = useAppDispatch()
+
+  const [{ isDragging }, drag] = useDrag(() => ({
+    end(item, monitor) {
+      const dropResult = monitor.getDropResult<BoardItems>()
+      console.log('end->', dropResult)
+      if (dropResult !== null) {
+        if (!isITask(dropResult)) {
+          console.log('COL')
+          dispatch({
+            type: 'MOVE_BOARD_TASK',
+            projectId: dropResult.projectId,
+            task,
+            position: { current: task.status, moveTo: dropResult.columnTitle }
+          })
+        } else {
+          console.log('TASK')
+          dispatch({
+            type: 'MOVE_BOARD_TASK',
+            task,
+            projectId: task.projectId,
+            position: { current: task.status, moveTo: dropResult.status, toTaskId: dropResult.id }
+          })
+        }
+      }
+    },
+    item: task,
+    type: dNDItemTypes.TASK,
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+      item: monitor.getDropResult<ITask>()
+    })
+  }))
+
+  const [{ isOver, canDrop }, drop] = useDrop(() => ({
+    accept: dNDItemTypes.TASK,
+    drop() {
+      return task
+    },
+    canDrop(item) {
+      const i = item as ITask
+      return task.id !== i.id
+    },
+    collect: (monitor) => {
+      return {
+        isOver: !!monitor.isOver(),
+        canDrop: !!monitor.canDrop()
+      }
+    }
+  }))
 
   const onExpandClickHandler = (): void => {
     setIsExpand(!isExpand)
@@ -42,7 +101,15 @@ function Task(task: ITaskProps): JSX.Element {
   }
 
   return (
-    <article className={`task task--priority-${task.priority}`}>
+    <article
+      ref={(node) => drag(drop(node))}
+      className={`task task--priority-${task.priority}`}
+      style={{
+        opacity: isDragging ? 0.3 : 1,
+        outlineOffset: '-3px',
+        outline: isOver ? `3px solid ${canDrop ? 'lightgreen' : 'red'}` : 'none'
+      }}
+    >
       <h3 className='task__title'>{task.title}</h3>
       <p className='task__description'>{task.description}</p>
       <button
