@@ -10,7 +10,8 @@ import {
   watchGetAllTasksAsync,
   watchAddTaskAsync,
   watchUpdateTaskAsync,
-  watchDeleteTaskAsync
+  watchDeleteTaskAsync,
+  watchMoveTaskAsync
 } from './tasks-saga'
 
 export function* rootWatcher(): any {
@@ -23,6 +24,7 @@ export function* rootWatcher(): any {
     fork(watchGetAllTasksAsync),
     fork(watchAddTaskAsync),
     fork(watchUpdateTaskAsync),
-    fork(watchDeleteTaskAsync)
+    fork(watchDeleteTaskAsync),
+    fork(watchMoveTaskAsync)
   ])
 }
