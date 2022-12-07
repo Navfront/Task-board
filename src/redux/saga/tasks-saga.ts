@@ -4,6 +4,7 @@ import {
   ActionBoardCreateTask,
   ActionBoardDeleteTask,
   ActionBoardInit,
+  ActionBoardMoveTask,
   ActionBoardUpdateTask
 } from '../reducers/board-reducer/actions'
 import { IProjectsBoard, ITask, ITaskPosition } from './../../model/data-types'
@@ -71,4 +72,14 @@ function* deleteTaskAsync(action: ActionBoardDeleteTask): any {
 
 export function* watchDeleteTaskAsync(): any {
   yield takeEvery('DELETE_BOARD_TASK', deleteTaskAsync)
+}
+
+// MOVE_TASK
+
+function* moveTaskAsync(action: ActionBoardMoveTask): any {
+  yield call(updateTask, action.projectId, action.task, action.position)
+}
+
+export function* watchMoveTaskAsync(): any {
+  yield takeEvery('MOVE_BOARD_TASK', moveTaskAsync)
 }
