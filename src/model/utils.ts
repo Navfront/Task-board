@@ -10,6 +10,12 @@ export const HumanizeLastDate = (date: Date | null): string => {
   return ''
 }
 
+/**
+ * Пост эффект обработки массива тасков. Всем таскам с большим ордером уменьшает его на -1
+ * @param tasks Массив тасков
+ * @param currentOrder Текущий ордер
+ * @returns
+ */
 export const deleteOrderEffect = (tasks: ITask[], currentOrder: number): ITask[] => {
   return tasks.map((task) => {
     if (task.order > currentOrder) {
@@ -21,6 +27,12 @@ export const deleteOrderEffect = (tasks: ITask[], currentOrder: number): ITask[]
   })
 }
 
+/**
+ * Пост эффект обработки массива тасков. Всем таскам с большим или равным ордером увеличивает его на +1
+ * @param tasks Массив тасков
+ * @param currentOrder Текущий ордер
+ * @returns
+ */
 export const addOrderEffect = (tasks: ITask[], currentOrder: number): ITask[] => {
   return tasks.map((task) => {
     if (task.order >= currentOrder) {
