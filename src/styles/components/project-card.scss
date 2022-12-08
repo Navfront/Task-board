@@ -48,7 +48,7 @@
     grid-column: span 2;
     color: $color-text-light;
     font-size: 1.2em;
-    margin: 0 15px 8px;
+    margin: 15px 15px 10px;
     word-wrap: break-word;
   }
 
@@ -93,6 +93,7 @@
     &:hover,
     &:focus {
       color: $color-other;
+      animation: rotating 3s infinite linear;
     }
   }
 

@@ -6,8 +6,15 @@ function Menu(): JSX.Element {
   return (
     <ul className='menu'>
       <li>
-        <button type='button' className='menu__button' onClick={onCreateClickHandler}>
-          Create New Project
+        <button
+          type='button'
+          className='menu__button menu__button--new'
+          onClick={onCreateClickHandler}
+        >
+          New
+          <svg className='svg' width='42' height='42'>
+            <use xlinkHref='img/sprite.svg#icon-add'></use>
+          </svg>
         </button>
       </li>
     </ul>
