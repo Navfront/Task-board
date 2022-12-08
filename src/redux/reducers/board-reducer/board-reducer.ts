@@ -105,12 +105,12 @@ function moveTask(
       order: targetOrder
     })
   } else {
-    // newState[projectId][position.current] = deleteOrderEffect(
-    //   newState[projectId][position.current],
-    //   task.order
-    // )
-    // newState[projectId][position.moveTo] = addOrderEffect(newState[projectId][position.moveTo], 0)
-    // newState[projectId][position.moveTo].push({ ...task, status: position.moveTo, order: 0 })
+    newState[projectId][position.current] = deleteOrderEffect(
+      newState[projectId][position.current],
+      task.order
+    )
+    newState[projectId][position.moveTo] = addOrderEffect(newState[projectId][position.moveTo], 0)
+    newState[projectId][position.moveTo].push({ ...task, status: position.moveTo, order: 0 })
   }
 
   return newState
