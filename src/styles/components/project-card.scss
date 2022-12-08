@@ -19,6 +19,7 @@
     text-align: center;
     text-decoration: none;
     color: $color-text-light;
+    font-size: 0.6em;
   }
 
   &__title {
@@ -27,7 +28,6 @@
     color: $color-text-light;
     font-size: 1.2em;
     margin: 0 15px 8px;
-
     word-wrap: break-word;
   }
 
@@ -44,12 +44,11 @@
     grid-column: 3;
     grid-row: 2;
     justify-self: end;
-    font-size: 0.8rem;
+    font-size: 0.8em;
   }
 
   &__button {
     background-color: transparent;
-
     color: inherit;
     justify-self: center;
     padding: 2px 15px;
@@ -61,6 +60,7 @@
     justify-content: center;
     grid-column: 3;
     grid-row: 3;
+    font-size: 0.7em;
   }
 
   &__controls {

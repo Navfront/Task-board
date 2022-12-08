@@ -35,6 +35,10 @@ function ProjectsCard({ project }: IProjectsCardProps): JSX.Element {
   const [{ isOver, canDrop }, drop] = useDrop(() => ({
     accept: dNDItemTypes.PROJECT,
     drop: () => projectItem,
+    canDrop(item, monitor) {
+      const i = item as typeof projectItem
+      return i.id !== project.id
+    },
     collect: (monitor) => ({
       item: monitor.getItem(),
       isOver: !!monitor.isOver(),
