@@ -35,6 +35,10 @@ function ProjectsCard({ project }: IProjectsCardProps): JSX.Element {
   const [{ isOver, canDrop }, drop] = useDrop(() => ({
     accept: dNDItemTypes.PROJECT,
     drop: () => projectItem,
+    canDrop(item, monitor) {
+      const i = item as typeof projectItem
+      return i.id !== project.id
+    },
     collect: (monitor) => ({
       item: monitor.getItem(),
       isOver: !!monitor.isOver(),
@@ -63,25 +67,33 @@ function ProjectsCard({ project }: IProjectsCardProps): JSX.Element {
         onClick={onLinkClickHandler}
         style={{ display: isDragging ? 'contents' : 'block' }}
       >
-        Open&nbsp;🔼
+        <svg className='svg' width='42' height='42'>
+          <use xlinkHref='img/sprite.svg#icon-forward'></use>
+        </svg>
       </Link>
 
       <div className='project-card__controls-wrapper'>
         <button
-          className='project-card__button'
+          className='project-card__button project-card__button--settings'
           type='button'
           title='edit'
           onClick={onEditClickHandler}
         >
-          ⚙️ <span className='visually-hidden'>Edit</span>
+          <svg className='svg' width='42' height='42'>
+            <use xlinkHref='img/sprite.svg#icon-settings'></use>
+          </svg>
+          <span className='visually-hidden'>Edit</span>
         </button>
         <button
-          className='project-card__button'
+          className='project-card__button project-card__button--delete'
           title='delete'
           type='button'
           onClick={onDeleteHandler}
         >
-          ⭕ <span className='visually-hidden'>Delete</span>
+          <svg className='svg' width='42' height='42'>
+            <use xlinkHref='img/sprite.svg#icon-delete'></use>
+          </svg>
+          <span className='visually-hidden'>Delete</span>
         </button>
       </div>
     </article>

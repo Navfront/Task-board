@@ -7,6 +7,8 @@ import {
   ITaskPosition,
   ITaskPositionWithTarget
 } from '../../../model/data-types'
+import { deleteOrderEffect, addOrderEffect } from '../../../model/utils'
+
 import { BoardActions } from './actions'
 
 function createTask(
@@ -79,21 +81,38 @@ function moveTask(
   newState[projectId][position.current] = newState[projectId][position.current].filter(
     (t) => t.id !== task.id
   )
-  const toIndex = newState[projectId][position.moveTo].findIndex((t) => position.toTaskId)
-  if (position.toTaskId !== undefined) {
-    const targetTask = newState[projectId][position.moveTo][toIndex]
-    newState[projectId][position.moveTo] = [
-      ...newState[projectId][position.moveTo].slice(0, toIndex),
-      { ...task, status: position.moveTo },
-      { ...targetTask },
-      ...newState[projectId][position.moveTo].slice(toIndex + 1)
-    ]
+
+  // Две варианта: перемещение в колонку position.moveTo или на место таска position.toTaskId
+  if (position.toTaskId !== 'undefined') {
+    const target = newState[projectId][position.moveTo].find(
+      (t) => t.id === position.toTaskId
+    ) as ITask
+
+    const targetOrder = target.order
+
+    newState[projectId][position.current] = deleteOrderEffect(
+      newState[projectId][position.current],
+      task.order
+    )
+
+    newState[projectId][position.moveTo] = addOrderEffect(
+      newState[projectId][position.moveTo],
+      targetOrder
+    )
+    newState[projectId][position.moveTo].push({
+      ...task,
+      status: position.moveTo,
+      order: targetOrder
+    })
+  } else {
+    newState[projectId][position.current] = deleteOrderEffect(
+      newState[projectId][position.current],
+      task.order
+    )
+    newState[projectId][position.moveTo] = addOrderEffect(newState[projectId][position.moveTo], 0)
+    newState[projectId][position.moveTo].push({ ...task, status: position.moveTo, order: 0 })
   }
-  newState[projectId][position.moveTo] = [
-    ...newState[projectId][position.moveTo].slice(0, toIndex),
-    { ...task, status: position.moveTo },
-    ...newState[projectId][position.moveTo].slice(toIndex + 1)
-  ]
+
   return newState
 }
 
