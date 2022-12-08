@@ -46,7 +46,7 @@ function BoardColumn({ columnTitle, classModificator, projectId }: IColumnTitleP
         {board[projectId][columnTitle].length > 0 ? (
           <ul className='column__list'>
             {board[projectId][columnTitle]
-              .sort((a, b) => b.order - a.order)
+              .sort((a, b) => a.order - b.order)
               .map((task) => (
                 <li key={task.id} className='column__item'>
                   <Task

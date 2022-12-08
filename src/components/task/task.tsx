@@ -109,7 +109,7 @@ function Task(task: ITaskProps): JSX.Element {
       }}
     >
       <h3 className='task__title'>{task.title}</h3>
-      <p className='task__description'>{task.description}</p>
+      <p className='task__description'>{`o${task.order} - ${task.description}`}</p>
       <button
         type='button'
         className={`task__expand-button ${!isExpand ? 'task__expand-button--active' : ''}`}

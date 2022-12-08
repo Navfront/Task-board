@@ -57,7 +57,7 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
         description,
         title,
         id: Date.now().toString(),
-        order: LocalStorageApi.getInstance().getLastOrder('tasks'),
+        order: LocalStorageApi.getInstance().getLastOrder('tasks') + 1,
         createdDate: new Date(),
         inWork: 0,
         doneDate: null,
