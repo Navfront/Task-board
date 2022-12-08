@@ -9,6 +9,7 @@
   box-shadow: $shadow-light;
   transition: ease 0.4s;
   border: 2px solid $color-project-border;
+  container-type: inline-size;
 
   &__link {
     grid-row: 1;
@@ -56,8 +57,8 @@
     font-size: 0.8em;
     grid-column: span 2;
     word-wrap: break-word;
-    color: $color-text-light;
-    margin: 0;
+    color: $color-text-light-2;
+    margin: 0 15px 8px;
   }
 
   &__time {
@@ -98,9 +99,16 @@
   &__controls-wrapper {
     display: flex;
     justify-content: center;
+    align-self: flex-end;
     grid-column: 3;
     grid-row: 3;
     font-size: 0.7em;
+  }
+
+  @container (min-width: 200px) {
+    &__controls-wrapper {
+      font-size: 0.8em;
+    }
   }
 
   &__controls {
