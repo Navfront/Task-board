@@ -5,21 +5,41 @@
   padding: 15px;
   background-color: $color-card-bg;
   height: 100%;
+  border-radius: 10px;
   box-shadow: $shadow-light;
-
-  &:hover,
-  &:focus {
-    outline: 2px solid $color-text-light;
-    outline-offset: -2px;
-  }
+  transition: ease 0.4s;
+  border: 2px solid $color-project-border;
 
   &__link {
     grid-row: 1;
     grid-column: 3;
+    margin-top: 10px;
+    display: flex;
+    justify-self: end;
+    align-self: flex-start;
+    outline-offset: -2px;
     text-align: center;
     text-decoration: none;
     color: $color-text-light;
     font-size: 0.6em;
+    transition: ease 0.3s;
+    &:focus {
+      animation: horizontal-shaking 2s ease infinite;
+    }
+  }
+
+  &:hover &__link {
+    color: $color-success;
+    animation: horizontal-shaking 2s ease infinite;
+  }
+
+  &:hover,
+  &:focus {
+    background: linear-gradient(-45deg, #6f3726, #6f1e3d, #12566f, #10614e);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    transform: scale(1.03);
+    border-color: $color-other;
   }
 
   &__title {
@@ -51,8 +71,28 @@
     background-color: transparent;
     color: inherit;
     justify-self: center;
-    padding: 2px 15px;
+    padding: 10px;
     cursor: pointer;
+    transition: ease 0.3s;
+    & .svg {
+      display: block;
+      width: 1.6em;
+      height: 1.6em;
+    }
+  }
+
+  &__button--delete {
+    &:hover,
+    &:focus {
+      color: $color-error;
+    }
+  }
+
+  &__button--settings {
+    &:hover,
+    &:focus {
+      color: $color-other;
+    }
   }
 
   &__controls-wrapper {
