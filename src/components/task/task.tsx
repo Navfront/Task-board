@@ -3,6 +3,7 @@ import { useDrag, useDrop } from 'react-dnd'
 import { BoardItems, COLUMN_TITLES, ITask } from '../../model/data-types'
 import { useAppDispatch } from './../../redux/index'
 import { dNDItemTypes } from './../../dnd/item-types'
+import SubTask from './../sub-task/sub-task'
 
 export interface TaskItemDnd {
   taskId: string
@@ -140,9 +141,12 @@ function Task(task: ITaskProps): JSX.Element {
       >
         <div ref={contentRef} className='task__content'>
           <ul className='task__sub-list'>
-            <li className='task__sub-item'>Subtask 1</li>
-            <li className='task__sub-item'>Subtask 2</li>
-            <li className='task__sub-item'>Subtask 3</li>
+            <li className='task__sub-item'>
+              <SubTask taskId={task.id} index={1} text={'Сделать дело'} canModify={false} />
+            </li>
+            <li className='task__sub-item'>
+              <SubTask taskId={task.id} index={2} text={'Гулять смело'} canModify={true} />
+            </li>
           </ul>
 
           <ul className='task__files files'>
