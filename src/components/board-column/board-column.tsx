@@ -4,6 +4,8 @@ import { useAppSelector } from '../../redux'
 import { IProjectsBoard } from './../../model/data-types'
 import { useDrop } from 'react-dnd'
 import { dNDItemTypes } from './../../dnd/item-types'
+import { SearchState } from '../../redux/reducers/search-reducer/search-reducer'
+import { filterTasksBySearchString } from '../../model/utils'
 
 export interface IColumnTitleProps {
   columnTitle: typeof COLUMN_TITLES[number]
@@ -13,7 +15,7 @@ export interface IColumnTitleProps {
 
 function BoardColumn({ columnTitle, classModificator, projectId }: IColumnTitleProps): JSX.Element {
   const board = useAppSelector<IProjectsBoard>((state) => state.boardReducer)
-
+  const search = useAppSelector<SearchState>((state) => state.searchReducer)
   const [{ isOver, canDrop }, drop] = useDrop(() => ({
     accept: dNDItemTypes.TASK,
     drop(item, monitor) {
@@ -45,28 +47,29 @@ function BoardColumn({ columnTitle, classModificator, projectId }: IColumnTitleP
         <h2 className='column__title'>{columnTitle}</h2>
         {board[projectId][columnTitle].length > 0 ? (
           <ul className='column__list'>
-            {board[projectId][columnTitle]
-              .sort((a, b) => a.order - b.order)
-              .map((task) => (
-                <li key={task.id} className='column__item'>
-                  <Task
-                    id={task.id}
-                    index={task.index}
-                    order={task.order}
-                    title={task.title !== '' ? task.title : 'No-name'}
-                    description={task.description !== '' ? task.description : 'nothing..'}
-                    createdDate={task.createdDate}
-                    inWork={task.inWork}
-                    doneDate={task.doneDate}
-                    priority={task.priority}
-                    files={task.files}
-                    status={task.status}
-                    subTasks={task.subTasks}
-                    comments={task.comments}
-                    projectId={projectId}
-                  />
-                </li>
-              ))}
+            {filterTasksBySearchString(
+              search.value,
+              board[projectId][columnTitle].sort((a, b) => a.order - b.order)
+            ).map((task) => (
+              <li key={task.id} className='column__item'>
+                <Task
+                  id={task.id}
+                  index={task.index}
+                  order={task.order}
+                  title={task.title !== '' ? task.title : 'No-name'}
+                  description={task.description !== '' ? task.description : 'nothing..'}
+                  createdDate={task.createdDate}
+                  inWork={task.inWork}
+                  doneDate={task.doneDate}
+                  priority={task.priority}
+                  files={task.files}
+                  status={task.status}
+                  subTasks={task.subTasks}
+                  comments={task.comments}
+                  projectId={projectId}
+                />
+              </li>
+            ))}
           </ul>
         ) : (
           ''

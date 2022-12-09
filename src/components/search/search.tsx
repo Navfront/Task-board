@@ -7,11 +7,6 @@ function Search(): JSX.Element {
 
   const onSearchChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
     setSearchValue(event.target.value)
-    if (searchValue.length > 0) {
-      dispatch({ type: 'SEARCH_SET_VALUE', value: searchValue })
-    } else {
-      dispatch({ type: 'SEARCH_EMPTY' })
-    }
   }
 
   const onSubmitHandler = (event: FormEvent<HTMLFormElement>): void => {
@@ -21,6 +16,10 @@ function Search(): JSX.Element {
     } else {
       dispatch({ type: 'SEARCH_EMPTY' })
     }
+  }
+
+  const onInputChangeHandler = (event: any): void => {
+    dispatch({ type: 'SEARCH_SET_VALUE', value: event.target.value })
   }
 
   return (
@@ -38,6 +37,7 @@ function Search(): JSX.Element {
         type='search'
         value={searchValue}
         onChange={onSearchChangeHandler}
+        onInput={onInputChangeHandler}
         placeholder='SEARCH'
       />
       <button type='submit' className='visually-hidden'>
