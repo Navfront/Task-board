@@ -4,14 +4,9 @@
   background-color: $color-task-bg;
   padding: 30px;
 
-  &__header {
-  }
-
-  &__title {
-  }
-
   &__label-text {
-    width: 150px;
+    margin-right: 15px;
+    font-weight: 500;
   }
 
   &__submit-controls {
@@ -42,5 +37,6 @@
     padding: 10px;
     margin-left: auto;
     flex-grow: 1;
+    width: 100%;
   }
 }
