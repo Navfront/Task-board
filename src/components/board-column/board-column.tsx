@@ -51,6 +51,7 @@ function BoardColumn({ columnTitle, classModificator, projectId }: IColumnTitleP
                 <li key={task.id} className='column__item'>
                   <Task
                     id={task.id}
+                    index={task.index}
                     order={task.order}
                     title={task.title !== '' ? task.title : 'No-name'}
                     description={task.description !== '' ? task.description : 'nothing..'}

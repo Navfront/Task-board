@@ -53,11 +53,13 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
     if (mode === 'CREATE') {
       const data = modal?.data as IProject
       const projectId = data.id
+      const index = LocalStorageApi.getInstance().getLastOrder('tasks') + 1
       const newTask: ITask = {
         description,
         title,
         id: Date.now().toString(),
-        order: LocalStorageApi.getInstance().getLastOrder('tasks') + 1,
+        order: index,
+        index,
         createdDate: new Date(),
         inWork: 0,
         doneDate: null,

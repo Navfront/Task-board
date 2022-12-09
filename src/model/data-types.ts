@@ -24,6 +24,7 @@ export const PRIORITIES = ['Low', 'Middle', 'Hight'] as const
 
 export interface ITask {
   id: string
+  index: number
   order: number
   title: string
   description: string

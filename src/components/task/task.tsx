@@ -109,28 +109,36 @@ function Task(task: ITaskProps): JSX.Element {
         outline: isOver ? `3px solid ${canDrop ? 'lightgreen' : 'red'}` : 'none'
       }}
     >
+      <header className='task__header'>
+        <span className='task__index'>{`#${task.index}`}</span>
+        <time className='task__time' dateTime={new Date(task.createdDate).toISOString()}>
+          Created: {new Date(task.createdDate).toLocaleString()}
+        </time>
+        <span className='task__in-work'>In work: {task.inWork} ms</span>
+      </header>
+      <button className='task__edit-button' type='button' onClick={onEditorOpenHandler}>
+        <svg className='svg' width='42' height='42'>
+          <use xlinkHref='img/sprite.svg#icon-more'></use>
+        </svg>
+      </button>
       <h3 className='task__title'>{task.title}</h3>
       <p className='task__description'>{`o${task.order} - ${task.description}`}</p>
+
       <button
         type='button'
         className={`task__expand-button ${!isExpand ? 'task__expand-button--active' : ''}`}
         onClick={onExpandClickHandler}
       >
-        {isExpand ? 'Свернуть' : 'Развернуть'}
-      </button>
-      <button className='task__edit-button' type='button' onClick={onEditorOpenHandler}>
-        ...
+        <svg className='svg' width='42' height='42'>
+          <use xlinkHref='img/sprite.svg#icon-expand'></use>
+        </svg>
+        <span className='visually-hidden'> {isExpand ? 'Свернуть' : 'Развернуть'}</span>
       </button>
       <div
         ref={expanderRef}
         className={`task__expander ${!isExpand ? 'task__expander--active' : ''}`}
       >
         <div ref={contentRef} className='task__content'>
-          <p>
-            <span>Created: {JSON.stringify(task.createdDate)}</span>
-            <span>In work: {task.inWork} ms</span>
-          </p>
-
           <ul className='task__sub-list'>
             <li className='task__sub-item'>Subtask 1</li>
             <li className='task__sub-item'>Subtask 2</li>
