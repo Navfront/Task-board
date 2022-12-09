@@ -1,14 +1,30 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
+import { useAppDispatch } from './../../redux/index'
 
 function Search(): JSX.Element {
   const [searchValue, setSearchValue] = useState<string>('')
+  const dispatch = useAppDispatch()
 
   const onSearchChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
     setSearchValue(event.target.value)
+    if (searchValue.length > 0) {
+      dispatch({ type: 'SEARCH_SET_VALUE', value: searchValue })
+    } else {
+      dispatch({ type: 'SEARCH_EMPTY' })
+    }
+  }
+
+  const onSubmitHandler = (event: FormEvent<HTMLFormElement>): void => {
+    event.preventDefault()
+    if (searchValue.length > 0) {
+      dispatch({ type: 'SEARCH_SET_VALUE', value: searchValue })
+    } else {
+      dispatch({ type: 'SEARCH_EMPTY' })
+    }
   }
 
   return (
-    <div className='board-search'>
+    <form className='board-search' onSubmit={onSubmitHandler}>
       <label className='board-search__label' htmlFor='board-search__input'>
         <svg className='svg' width='42' height='42'>
           <use xlinkHref='img/sprite.svg#icon-search'></use>
@@ -24,7 +40,10 @@ function Search(): JSX.Element {
         onChange={onSearchChangeHandler}
         placeholder='SEARCH'
       />
-    </div>
+      <button type='submit' className='visually-hidden'>
+        search
+      </button>
+    </form>
   )
 }
 export default Search
