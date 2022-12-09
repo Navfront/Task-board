@@ -14,15 +14,19 @@ function ProjectsList(): JSX.Element {
 
   return (
     <DndProvider backend={isMobile && !isIOS ? TouchBackend : HTML5Backend}>
-      <ul className='projects-list'>
-        {projects.map((project) => {
-          return (
-            <li key={'project' + project.id}>
-              <ProjectsCard project={project} />
-            </li>
-          )
-        })}
-      </ul>
+      {projects.length > 0 ? (
+        <ul className='projects-list'>
+          {projects.map((project) => {
+            return (
+              <li key={'project' + project.id}>
+                <ProjectsCard project={project} />
+              </li>
+            )
+          })}
+        </ul>
+      ) : (
+        <p className='projects-list-empty'>Create new Project</p>
+      )}
     </DndProvider>
   )
 }

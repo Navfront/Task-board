@@ -60,7 +60,6 @@ function Board(): JSX.Element {
                 })
               }}
             >
-              New
               <svg className='svg' width='42' height='42'>
                 <use xlinkHref='img/sprite.svg#icon-add'></use>
               </svg>
@@ -72,7 +71,9 @@ function Board(): JSX.Element {
           </li>
         </ul>
 
-        <p className='header__project-id'>{project?.title}</p>
+        <p className='header__project-id'>
+          <span>Project&nbsp;name:</span> <span>{project?.title}</span>
+        </p>
       </Header>
       <main className='page__main main main--board'>
         <div className='board'>

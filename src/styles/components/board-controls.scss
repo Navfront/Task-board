@@ -1,22 +1,18 @@
 .board-controls {
   display: flex;
+  flex-wrap: wrap-reverse;
   list-style: none;
   align-items: center;
   margin: 0;
-  margin-left: 10px;
-  padding: 0;
+  padding: 0 20px;
 
   &__item + &__item {
     margin-left: 5px;
   }
 
-  &__search {
-    font-size: 0.7em;
-    padding: 4px;
-  }
-
   &__add-btn {
     display: flex;
+    padding: 2px 5px;
     align-items: center;
     color: $color-success;
     will-change: transform;

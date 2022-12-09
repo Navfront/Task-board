@@ -20,3 +20,11 @@
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }
+
+.projects-list-empty {
+  text-align: center;
+  font-weight: 700;
+  color: $color-board-bg;
+  opacity: 0.3;
+  font-size: 2em;
+}

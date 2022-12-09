@@ -6,6 +6,10 @@
     transform-origin: left;
     opacity: 0;
     transition: ease 0.3s;
+    width: 100%;
+    font-size: 0.7em;
+    border-radius: 15px;
+    padding: 4px 7px;
 
     &:hover,
     &:focus,

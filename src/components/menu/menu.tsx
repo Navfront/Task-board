@@ -11,7 +11,7 @@ function Menu(): JSX.Element {
           className='menu__button menu__button--new'
           onClick={onCreateClickHandler}
         >
-          New
+          New Project
           <svg className='svg' width='42' height='42'>
             <use xlinkHref='img/sprite.svg#icon-add'></use>
           </svg>
