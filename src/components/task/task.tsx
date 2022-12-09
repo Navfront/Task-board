@@ -35,6 +35,7 @@ function Task(task: ITaskProps): JSX.Element {
   const [{ isDragging }, drag] = useDrag(() => ({
     end(item, monitor) {
       const dropResult = monitor.getDropResult<BoardItems>()
+      console.log(123)
 
       if (dropResult !== null) {
         if (!isITask(dropResult)) {

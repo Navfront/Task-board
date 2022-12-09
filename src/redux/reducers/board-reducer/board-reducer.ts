@@ -83,7 +83,8 @@ function moveTask(
   )
 
   // Две варианта: перемещение в колонку position.moveTo или на место таска position.toTaskId
-  if (position.toTaskId !== 'undefined') {
+
+  if (position.toTaskId != null) {
     const target = newState[projectId][position.moveTo].find(
       (t) => t.id === position.toTaskId
     ) as ITask
