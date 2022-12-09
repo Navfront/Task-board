@@ -7,6 +7,7 @@ import React, { useEffect } from 'react'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { TouchBackend } from 'react-dnd-touch-backend'
+import Search from '../../components/search/search'
 
 function Board(): JSX.Element {
   const { projectId } = useParams()
@@ -67,7 +68,7 @@ function Board(): JSX.Element {
             </button>
           </li>
           <li className='board-controls__item'>
-            <input className='board-controls__search' type='text' placeholder='SEARCH' />
+            <Search />
           </li>
         </ul>
 

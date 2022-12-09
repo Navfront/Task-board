@@ -1,0 +1,38 @@
+.board-search {
+  display: flex;
+  align-self: center;
+
+  &__input {
+    transform-origin: left;
+    opacity: 0;
+    transition: ease 0.3s;
+
+    &:hover,
+    &:focus,
+    &:active {
+      opacity: 1;
+    }
+  }
+
+  &__input--active {
+    opacity: 1;
+  }
+
+  &__label {
+    cursor: pointer;
+    &:hover,
+    &:focus {
+      opacity: 0.8;
+    }
+    &:active {
+      opacity: 0.7;
+    }
+  }
+
+  &__label {
+    &:hover + input,
+    &:focus + input {
+      opacity: 1;
+    }
+  }
+}
