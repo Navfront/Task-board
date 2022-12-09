@@ -16,10 +16,7 @@ export interface IColumnTitleProps {
 function BoardColumn({ columnTitle, classModificator, projectId }: IColumnTitleProps): JSX.Element {
   const board = useAppSelector<IProjectsBoard>((state) => state.boardReducer)
   const search = useAppSelector<SearchState>((state) => state.searchReducer)
-  const filtredSortefTasks = filterTasksBySearchString(
-    search.value,
-    board[projectId][columnTitle].sort((a, b) => a.order - b.order)
-  )
+
   const [{ isOver, canDrop }, drop] = useDrop(() => ({
     accept: dNDItemTypes.TASK,
     drop(item, monitor) {
@@ -39,6 +36,10 @@ function BoardColumn({ columnTitle, classModificator, projectId }: IColumnTitleP
   }))
 
   if (Object.keys(board).length !== 0) {
+    const filtredSortefTasks = filterTasksBySearchString(
+      search.value,
+      board[projectId][columnTitle].sort((a, b) => a.order - b.order)
+    )
     return (
       <section
         className={`column column__${classModificator}`}
