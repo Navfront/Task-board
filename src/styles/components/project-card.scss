@@ -9,6 +9,9 @@
   box-shadow: $shadow-light;
   transition: ease 0.4s;
   border: 2px solid $color-project-border;
+  user-select: none;
+  will-change: all;
+
   container-type: inline-size;
 
   &__link {

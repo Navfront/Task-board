@@ -3,10 +3,22 @@
   display: grid;
   background-color: $color-task-bg;
   padding: 30px;
+  overflow: hidden;
+  @media (max-width: 400px) {
+    padding: 10px;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: center;
+  }
 
   &__label-text {
     margin-right: 15px;
     font-weight: 500;
+    @media (max-width: 400px) {
+      margin-right: 0;
+    }
   }
 
   &__submit-controls {
@@ -20,6 +32,9 @@
   }
   &__control-btn + &__control-btn {
     margin-left: 30px;
+    @media (max-width: 400px) {
+      margin-left: 8px;
+    }
   }
 
   label {
@@ -35,12 +50,18 @@
   label + label {
     margin-top: 20px;
   }
+  label > input,
+  label > select {
+    margin-top: 10px;
+  }
 
   input,
   select {
     padding: 10px;
-    margin-left: auto;
     flex-grow: 1;
-    width: 100%;
+    width: 70%;
+    @media (max-width: 400px) {
+      flex-grow: 0;
+    }
   }
 }
