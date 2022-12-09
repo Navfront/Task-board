@@ -46,20 +46,31 @@ function Board(): JSX.Element {
             </li>
           </ul>
         </nav>
+        <ul className='board-controls'>
+          <li className='board-controls__item'>
+            <button
+              className='board-controls__add-btn'
+              type='button'
+              onClick={() => {
+                dispatch({
+                  type: 'OPEN_MODAL',
+                  childType: 'EDITOR_CREATE_TASK',
+                  data: project ?? null
+                })
+              }}
+            >
+              New
+              <svg className='svg' width='42' height='42'>
+                <use xlinkHref='img/sprite.svg#icon-add'></use>
+              </svg>
+              <span className='visually-hidden'>Add new task</span>
+            </button>
+          </li>
+          <li className='board-controls__item'>
+            <input className='board-controls__search' type='text' placeholder='SEARCH' />
+          </li>
+        </ul>
 
-        <button
-          type='button'
-          onClick={() => {
-            dispatch({
-              type: 'OPEN_MODAL',
-              childType: 'EDITOR_CREATE_TASK',
-              data: project ?? null
-            })
-          }}
-        >
-          New Task
-        </button>
-        <input className='header__search' type='text' placeholder='SEARCH' />
         <p className='header__project-id'>{project?.title}</p>
       </Header>
       <main className='page__main main main--board'>

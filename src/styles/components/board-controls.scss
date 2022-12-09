@@ -1,0 +1,33 @@
+.board-controls {
+  display: flex;
+  list-style: none;
+  align-items: center;
+  margin: 0;
+  margin-left: 10px;
+  padding: 0;
+
+  &__item + &__item {
+    margin-left: 5px;
+  }
+
+  &__search {
+    font-size: 0.7em;
+    padding: 4px;
+  }
+
+  &__add-btn {
+    display: flex;
+    align-items: center;
+    color: $color-success;
+    will-change: transform;
+    transition: ease 0.2s;
+
+    &:hover,
+    &:focus {
+      animation: pulse 0.2s infinite ease-in-out alternate;
+    }
+    &:active {
+      opacity: 0.5;
+    }
+  }
+}
