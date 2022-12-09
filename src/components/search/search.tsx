@@ -9,7 +9,7 @@ function Search(): JSX.Element {
 
   return (
     <div className='board-search'>
-      <label className='board-search__label' htmlFor='board-search__input' tabIndex={0}>
+      <label className='board-search__label' htmlFor='board-search__input'>
         <svg className='svg' width='42' height='42'>
           <use xlinkHref='img/sprite.svg#icon-search'></use>
         </svg>
