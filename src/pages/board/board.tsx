@@ -34,7 +34,19 @@ function Board(): JSX.Element {
         <title>Tasks board: {project?.title ?? 'undefined'} </title>
       </Helmet>
       <Header>
-        <Link to={'/'}>To Main</Link>
+        <nav className='navigation'>
+          <ul className='navigation__list'>
+            <li className='navigation__item'>
+              <Link to={'/'} className='navigation__link'>
+                <svg className='svg' width='42' height='42'>
+                  <use xlinkHref='img/sprite.svg#icon-home'></use>
+                </svg>
+                <span className='visually-hidden'>To main page</span>
+              </Link>
+            </li>
+          </ul>
+        </nav>
+
         <button
           type='button'
           onClick={() => {
