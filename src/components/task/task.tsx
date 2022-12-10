@@ -142,6 +142,7 @@ function Task(task: ITaskProps): JSX.Element {
         {task.subTasks.length > 0 ? (
           <div ref={contentRef} className='task__content'>
             <ul className='task__sub-list'>
+              <br />
               {task.subTasks.map((subtask, index) => (
                 <li className='task__sub-item' key={subtask.id}>
                   <SubTask

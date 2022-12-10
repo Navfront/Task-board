@@ -2,10 +2,12 @@
   &__label {
     position: relative;
     display: flex;
-    font-size: 1em;
-    padding-left: 2rem;
+    font-size: 0.8em;
+    padding-left: 2.8rem;
     max-width: 80%;
-    align-items: center;
+    min-height: 40px;
+    color: $color-other;
+    align-items: flex-start;
     cursor: pointer;
 
     &::before {
@@ -16,7 +18,7 @@
       top: 0.1em;
       width: 1em;
       height: 1em;
-      border: 2px solid $color-border-light;
+      border: 2px solid $color-other;
       border-radius: 5px;
     }
 
