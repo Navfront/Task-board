@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
+import SubTask from './../sub-task/sub-task'
+
 import { useDrag, useDrop } from 'react-dnd'
 import { BoardItems, COLUMN_TITLES, ISubTask, ITask } from '../../model/data-types'
 import { useAppDispatch } from './../../redux/index'
 import { dNDItemTypes } from './../../dnd/item-types'
-import SubTask from './../sub-task/sub-task'
+import WorkCounter from './work-counter'
 
 export interface TaskItemDnd {
   taskId: string
@@ -21,6 +23,7 @@ export interface ITaskProps extends ITask {
   status: typeof COLUMN_TITLES[number]
   subTasks: ISubTask[]
   projectId: string
+  index: number
 }
 
 const isITask = (item: BoardItems): item is ITask => {
@@ -36,7 +39,6 @@ function Task(task: ITaskProps): JSX.Element {
   const [{ isDragging }, drag] = useDrag(() => ({
     end(item, monitor) {
       const dropResult = monitor.getDropResult<BoardItems>()
-      console.log(123)
 
       if (dropResult !== null) {
         if (!isITask(dropResult)) {
@@ -115,7 +117,9 @@ function Task(task: ITaskProps): JSX.Element {
         <time className='task__time' dateTime={new Date(task.createdDate).toISOString()}>
           Created: {new Date(task.createdDate).toLocaleString()}
         </time>
-        <span className='task__in-work'>In work: {task.inWork} ms</span>
+        <span className='task__in-work'>
+          <WorkCounter inWorkStartTime={0} inWorkAcc={0} inDevColumn={false} />
+        </span>
       </header>
       <button className='task__edit-button' type='button' onClick={onEditorOpenHandler}>
         <svg className='svg' width='42' height='42'>
