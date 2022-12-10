@@ -118,7 +118,7 @@ function Task(task: ITaskProps): JSX.Element {
           Created: {new Date(task.createdDate).toLocaleString()}
         </time>
         <span className='task__in-work'>
-          <WorkCounter inWorkStartTime={0} inWorkAcc={0} inDevColumn={false} />
+          <WorkCounter inWorkStartTime={1670701684291} inWorkAcc={100000} inDevColumn={true} />
         </span>
       </header>
       <button className='task__edit-button' type='button' onClick={onEditorOpenHandler}>

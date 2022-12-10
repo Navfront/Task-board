@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import { useEffect, useState } from 'react'
+import { useEffect, useReducer } from 'react'
 
 dayjs.extend(relativeTime)
 
@@ -11,15 +11,18 @@ interface IWorkCounterProps {
 }
 
 function WorkCounter({ inWorkStartTime, inWorkAcc, inDevColumn }: IWorkCounterProps): JSX.Element {
-  const [dateNow, setDateNow] = useState<number>(Date.now())
+  const [, forceUpdate] = useReducer((x: number) => x + 1, 0)
   const startMsTime = new Date(inWorkStartTime).getTime()
-  const fromTime = dateNow - startMsTime - inWorkAcc
+  const fromTime = startMsTime + inWorkAcc
+
   useEffect(() => {
     let interval: NodeJS.Timer
     if (inDevColumn) {
+      console.log('force update')
+
       interval = setInterval(() => {
-        setDateNow(Date.now())
-      }, 1000)
+        forceUpdate()
+      }, 60000)
     }
 
     return () => {
@@ -31,7 +34,7 @@ function WorkCounter({ inWorkStartTime, inWorkAcc, inDevColumn }: IWorkCounterPr
 
   return (
     <time className='task__time'>
-      {`In work: ${fromTime > 0 ? 'not yet' : dayjs(new Date(fromTime).toISOString()).toNow()}`}
+      {`In work: ${fromTime === 0 ? 'not yet' : dayjs(new Date(fromTime).toISOString()).fromNow()}`}
     </time>
   )
 }
