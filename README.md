@@ -1,3 +1,3 @@
 # Getting Started
 
-Open Deploy [LINK](http://80.249.147.157)
+Ссылка на проект [http://80.249.147.157](http://80.249.147.157)
