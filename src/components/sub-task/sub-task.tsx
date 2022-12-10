@@ -1,4 +1,4 @@
-interface ISubTaskProps {
+export interface ISubTaskProps {
   taskId: string
   index: number
   text: string

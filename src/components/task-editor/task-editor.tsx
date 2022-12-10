@@ -9,6 +9,7 @@ import { IModalState } from '../../redux/reducers/modal-reducer/modal-reducer'
 import { useAppDispatch, useAppSelector } from './../../redux/index'
 import { IProject } from './../../model/data-types'
 import { LocalStorageApi } from './../../model/service/local-storage-api'
+import { ISubTaskProps } from '../sub-task/sub-task'
 
 interface ITaskEditorProps {
   mode: 'CREATE' | 'EDIT'
@@ -23,6 +24,7 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
   const [description, setDescription] = useState(task?.description ?? '')
   const [status, setStatus] = useState(task?.status ?? 'Queue')
   const [priority, setPriority] = useState(task?.priority ?? 'Middle')
+  const [subTasks, setSubTasks] = useState<ISubTaskProps[]>([])
   const dispatch = useAppDispatch()
 
   const onCancelClickHandler = (): void => {
@@ -156,11 +158,32 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
             </optgroup>
           </select>
         </label>
-        <label>
-          <p>Add sub tasks:</p>
-          <input type='text' />
-        </label>
-
+        <button
+          type='button'
+          onClick={() => {
+            const newSubTask: ISubTaskProps = {
+              index: 0,
+              text: '',
+              taskId: task?.id ?? '',
+              canModify: true
+            }
+            setSubTasks([...subTasks, newSubTask])
+          }}
+        >
+          Add sub-task
+        </button>
+        <ul className='task-editor__sub-tasks'>
+          {subTasks.map((s) => (
+            <li key={'sub' + s.index.toString()}>
+              <button type='button'>
+                <span className='visually-hidden'>add sub-task </span>{' '}
+                <svg className='svg' width='42' height='42'>
+                  <use xlinkHref='img/sprite.svg#icon-add'></use>
+                </svg>
+              </button>
+            </li>
+          ))}
+        </ul>
         <label>
           <span className='task-editor__label-text'>Files</span>
           <input type='file' multiple />
