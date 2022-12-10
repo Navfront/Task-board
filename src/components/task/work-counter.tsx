@@ -30,15 +30,19 @@ function WorkCounter({ inWorkStartTime, inWorkAcc, inDevColumn }: IWorkCounterPr
     }
   }, [])
 
-  return (
-    <time className='task__time'>
-      {`In work: ${
-        fromTime === 0
-          ? 'not yet'
-          : dayjs(new Date(fromTime).toISOString()).fromNow().replace(/ago/gi, '')
-      }`}
-    </time>
-  )
+  if (fromTime > 1000000000) {
+    return (
+      <span className='task__time'>
+        {`In work: ${
+          fromTime <= 0 || isNaN(fromTime)
+            ? 'not yet'
+            : dayjs(new Date(fromTime).toISOString()).fromNow().replace(/ago/gi, '')
+        }`}
+      </span>
+    )
+  } else {
+    return <></>
+  }
 }
 
 export default WorkCounter

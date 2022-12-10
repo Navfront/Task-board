@@ -53,19 +53,30 @@ function updateTask(
   const index = newState[projectId][position.current].findIndex((t) => t.id === task.id)
   if (index === -1) return state
 
-  newState[projectId][position.current] = [
-    ...state[projectId][position.current].slice(0, index),
-    task,
-    ...state[projectId][position.current].slice(index + 1)
-  ]
-
   if (position.current !== position.moveTo) {
     newState[projectId][position.moveTo] = [...state[projectId][position.moveTo]]
     newState[projectId][position.current] = state[projectId][position.current].filter(
       (t) => t.id !== task.id
     )
-    newState[projectId][position.moveTo].push({ ...task, status: position.moveTo })
+
+    let newTask: ITask
+    if (position.current === 'Development' && position.moveTo !== 'Development') {
+      const inWorkAcc = Date.now() - task.inWorkStartTime + task.inWorkAcc
+      newTask = { ...task, status: position.moveTo, inWorkAcc, inWorkStartTime: 0 }
+    } else if (position.current !== 'Development' && position.moveTo === 'Development') {
+      newTask = { ...task, status: position.moveTo, inWorkStartTime: Date.now() }
+    } else {
+      newTask = { ...task, status: position.moveTo }
+    }
+    newState[projectId][position.moveTo].push(newTask)
+    return newState
   }
+
+  newState[projectId][position.current] = [
+    ...state[projectId][position.current].slice(0, index),
+    task,
+    ...state[projectId][position.current].slice(index + 1)
+  ]
 
   return newState
 }
@@ -100,18 +111,64 @@ function moveTask(
       newState[projectId][position.moveTo],
       targetOrder
     )
-    newState[projectId][position.moveTo].push({
-      ...task,
-      status: position.moveTo,
-      order: targetOrder
-    })
+
+    let newTask: ITask
+
+    if (position.current === 'Development' && position.moveTo !== 'Development') {
+      newTask = {
+        ...task,
+        status: position.moveTo,
+        order: targetOrder,
+        inWorkAcc: Date.now() - task.inWorkStartTime + task.inWorkAcc,
+        inWorkStartTime: 0
+      }
+    } else if (position.current !== 'Development' && position.moveTo === 'Development') {
+      newTask = {
+        ...task,
+        status: position.moveTo,
+        order: targetOrder,
+        inWorkStartTime: Date.now()
+      }
+    } else {
+      newTask = {
+        ...task,
+        status: position.moveTo,
+        order: targetOrder
+      }
+    }
+
+    newState[projectId][position.moveTo].push(newTask)
   } else {
+    let newTask: ITask
+    if (position.current === 'Development' && position.moveTo !== 'Development') {
+      newTask = {
+        ...task,
+        status: position.moveTo,
+        order: 0,
+        inWorkAcc: Date.now() - task.inWorkStartTime + task.inWorkAcc,
+        inWorkStartTime: 0
+      }
+    } else if (position.current !== 'Development' && position.moveTo === 'Development') {
+      newTask = {
+        ...task,
+        status: position.moveTo,
+        order: 0,
+        inWorkStartTime: Date.now()
+      }
+    } else {
+      newTask = {
+        ...task,
+        status: position.moveTo,
+        order: 0
+      }
+    }
+
     newState[projectId][position.current] = deleteOrderEffect(
       newState[projectId][position.current],
       task.order
     )
     newState[projectId][position.moveTo] = addOrderEffect(newState[projectId][position.moveTo], 0)
-    newState[projectId][position.moveTo].push({ ...task, status: position.moveTo, order: 0 })
+    newState[projectId][position.moveTo].push(newTask)
   }
 
   return newState
