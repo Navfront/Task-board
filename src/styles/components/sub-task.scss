@@ -2,8 +2,9 @@
   &__label {
     position: relative;
     display: flex;
-    font-size: 1.5rem;
+    font-size: 1em;
     padding-left: 2rem;
+    max-width: 80%;
     align-items: center;
     cursor: pointer;
 
@@ -23,8 +24,8 @@
       position: absolute;
       content: '';
       display: none;
-      left: 0.35em;
-      top: 0.15em;
+      left: 0.43em;
+      top: 0.2em;
       width: 0.3em;
       height: 0.6em;
       border-bottom: 0.15em solid $color-success;

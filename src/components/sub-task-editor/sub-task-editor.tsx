@@ -7,16 +7,17 @@ function SubTaskEditor(): JSX.Element {
   const dispatch = useAppDispatch()
 
   return (
-    <fieldset>
-      <legend>Add subTask</legend>
+    <section className='sub-task-editor'>
+      <h3 className='sub-task-editor__title'>Add Sub-Tasks</h3>
 
-      <ol>
+      <ol className='sub-task-editor__list'>
         {subTasks.map((sT, i) => (
-          <li key={`est-${i}`}>
+          <li className='sub-task-editor__item' key={`est-${i}`}>
             <SubTaskEditorItem subTask={sT} />
           </li>
         ))}
         <button
+          className='sub-task-editor__add-btn'
           type='button'
           onClick={() => {
             dispatch({
@@ -25,10 +26,13 @@ function SubTaskEditor(): JSX.Element {
             })
           }}
         >
-          +
+          <svg className='svg' width='42' height='42'>
+            <use xlinkHref='img/sprite.svg#icon-add'></use>
+          </svg>
+          <span className='visually-hidden'>add new subtask</span>
         </button>
       </ol>
-    </fieldset>
+    </section>
   )
 }
 export default SubTaskEditor

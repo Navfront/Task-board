@@ -21,7 +21,7 @@ function ProjectEditor({ project, mode }: IProjectEditorProps): JSX.Element {
 
   return (
     <form className='project-editor' onSubmit={onSubmitHandler}>
-      <fieldset className='project-editor__fieldset'>
+      <div className='project-editor__wrapper'>
         <label htmlFor='project-editor__title-input' className='project-editor__label'>
           Title
         </label>
@@ -42,14 +42,19 @@ function ProjectEditor({ project, mode }: IProjectEditorProps): JSX.Element {
           placeholder='Description of your project'
           value={description ?? ''}
           onChange={onChangeDescriptionHandler}
+          style={{ resize: 'none' }}
         ></textarea>
-        <button type='submit' className='project-editor__button'>
-          {project?.title != null ? 'Edit' : 'Create'}
+        <button type='submit' className='project-editor__button project-editor__button--save'>
+          {project?.title != null ? 'Save' : 'Create'}
         </button>
-        <button type='button' className='project-editor__button' onClick={onCancelClickHandler}>
+        <button
+          type='button'
+          className='project-editor__button project-editor__button--cancel'
+          onClick={onCancelClickHandler}
+        >
           Cancel
         </button>
-      </fieldset>
+      </div>
     </form>
   )
 }

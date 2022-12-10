@@ -96,7 +96,6 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
         status: task.status,
         subTasks
       }
-      console.log({ current: task.status, moveTo: status })
 
       dispatch({
         type: 'UPDATE_BOARD_TASK',
@@ -113,29 +112,10 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
     <form className='task-editor' onSubmit={onSubmitHandler}>
       <header className='task-editor__header'>
         <h2 className='task-editor__title'>
-          <span>{task?.id ?? ''}</span>
-          {task?.title ?? 'Create new task'}
+          {task?.title != null ? task.title : 'Create new task'}
         </h2>
       </header>
       <main>
-        <label className='task-editor__label'>
-          <span className='task-editor__label-text'>Priority</span>
-          <select
-            onChange={(e) => {
-              const value = e.target.value as typeof PRIORITIES[number]
-              setPriority(value)
-            }}
-          >
-            <optgroup label='Priority'>
-              {PRIORITIES.map((pri) => (
-                <option key={'priority' + pri} value={pri}>
-                  {pri}
-                </option>
-              ))}
-            </optgroup>
-          </select>
-        </label>
-
         <label className='task-editor__label'>
           <span className='task-editor__label-text'>Title</span>
           <input
@@ -155,6 +135,24 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
             value={description}
             onChange={onChangeDescriptionHandler}
           />
+        </label>
+        <label className='task-editor__label'>
+          <span className='task-editor__label-text'>Priority</span>
+          <select
+            className='task-editor__select'
+            onChange={(e) => {
+              const value = e.target.value as typeof PRIORITIES[number]
+              setPriority(value)
+            }}
+          >
+            <optgroup label='Priority'>
+              {PRIORITIES.map((pri) => (
+                <option key={'priority' + pri} value={pri}>
+                  {pri}
+                </option>
+              ))}
+            </optgroup>
+          </select>
         </label>
         <label className='task-editor__label'>
           <span className='task-editor__label-text'>Column</span>
@@ -183,13 +181,21 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
         </label>
 
         <p className='task-editor__submit-controls'>
-          <button className='task-editor__control-btn' type='submit'>
-            {isEdit ? 'Edit' : 'Create'}
+          <button className='task-editor__control-btn task-editor__control-btn--save' type='submit'>
+            {isEdit ? 'Save' : 'Create'}
           </button>
-          <button className='task-editor__control-btn' type='button' onClick={onDeleteClickHandler}>
+          <button
+            className='task-editor__control-btn task-editor__control-btn--delete'
+            type='button'
+            onClick={onDeleteClickHandler}
+          >
             Delete
           </button>
-          <button className='task-editor__control-btn' type='button' onClick={onCancelClickHandler}>
+          <button
+            className='task-editor__control-btn task-editor__control-btn--cancel'
+            type='button'
+            onClick={onCancelClickHandler}
+          >
             Close
           </button>
         </p>

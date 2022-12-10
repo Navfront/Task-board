@@ -1,0 +1,57 @@
+.subtask-editor-item {
+  &__label {
+    display: flex;
+    align-items: center;
+  }
+
+  &__input {
+    display: block;
+    width: 40%;
+    height: 2em;
+    margin: auto 0;
+    margin-right: auto;
+
+    border: none;
+    background-color: transparent;
+    z-index: 99;
+    color: $color-text-light;
+  }
+  &__input:hover,
+  &__input:focus {
+    outline-offset: -2px;
+    opacity: 1;
+  }
+  &__button {
+    opacity: 0;
+    transition: ease 0.3s;
+  }
+
+  &__button:hover,
+  &__button:focus {
+    opacity: 1;
+  }
+
+  &__input:hover ~ &__button,
+  &__input:focus ~ &__button {
+    opacity: 1;
+  }
+
+  &__button--update {
+    color: $color-success;
+  }
+
+  &__button--delete {
+    color: $color-error;
+  }
+
+  &__svg {
+    transition: ease 0.3s;
+    &:hover,
+    &:focus {
+      opacity: 0.7;
+    }
+    &:active {
+      opacity: 0.4;
+    }
+  }
+}

@@ -45,7 +45,7 @@ function BoardColumn({ columnTitle, classModificator, projectId }: IColumnTitleP
         className={`column column__${classModificator}`}
         style={{
           outlineOffset: '-5px',
-          outline: isOver ? `5px solid ${canDrop ? 'lightgreen' : 'red'}` : 'none'
+          outline: isOver ? `5px solid ${canDrop ? '#48a77b87' : '#ff000070'}` : 'none'
         }}
         ref={(node) => drop(node)}
       >

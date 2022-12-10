@@ -64,6 +64,14 @@
     transition: ease 0.3s;
     transform: rotate(180deg);
     will-change: transform;
+
+    &:hover,
+    &:focus {
+      color: $color-other-2;
+    }
+    &:active {
+      opacity: 0.5;
+    }
   }
   &__expand-button--active {
     transform: rotate(0deg);
@@ -75,6 +83,14 @@
     right: 5px;
     top: 1.45em;
     font-size: 0.6em;
+
+    &:hover,
+    &:focus {
+      color: $color-other-2;
+    }
+    &:active {
+      opacity: 0.5;
+    }
   }
 
   &__sub-list {
