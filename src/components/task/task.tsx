@@ -17,7 +17,8 @@ export interface ITaskProps extends ITask {
   title: string
   description: string
   createdDate: Date
-  inWork: number
+  inWorkAcc: number
+  inWorkStartTime: number
   doneDate: null | Date
   files: FileReader[]
   status: typeof COLUMN_TITLES[number]

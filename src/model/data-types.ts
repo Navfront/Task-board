@@ -29,7 +29,8 @@ export interface ITask {
   title: string
   description: string
   createdDate: Date
-  inWork: number
+  inWorkAcc: number
+  inWorkStartTime: number
   doneDate: null | Date
   priority: typeof PRIORITIES[number]
   files: FileReader[]
