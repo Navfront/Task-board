@@ -1,7 +1,8 @@
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import {
   COLUMN_TITLES,
   IExtendedWithProjectIdTask,
+  ISubTask,
   ITask,
   PRIORITIES
 } from '../../model/data-types'
@@ -9,7 +10,7 @@ import { IModalState } from '../../redux/reducers/modal-reducer/modal-reducer'
 import { useAppDispatch, useAppSelector } from './../../redux/index'
 import { IProject } from './../../model/data-types'
 import { LocalStorageApi } from './../../model/service/local-storage-api'
-import { ISubTaskProps } from '../sub-task/sub-task'
+import SubTaskEditor from '../sub-task-editor/sub-task-editor'
 
 interface ITaskEditorProps {
   mode: 'CREATE' | 'EDIT'
@@ -18,14 +19,26 @@ interface ITaskEditorProps {
 
 function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
   const modal = useAppSelector<IModalState>((state) => state.modalReducer)
+  const subTasks = useAppSelector<ISubTask[]>((state) => state.subTaskReducer)
 
   const isEdit = mode === 'EDIT'
   const [title, setTitle] = useState(task?.title ?? '')
   const [description, setDescription] = useState(task?.description ?? '')
   const [status, setStatus] = useState(task?.status ?? 'Queue')
   const [priority, setPriority] = useState(task?.priority ?? 'Middle')
-  const [subTasks, setSubTasks] = useState<ISubTaskProps[]>([])
+
   const dispatch = useAppDispatch()
+  const newTaskId = Date.now().toString()
+
+  useEffect(() => {
+    if (task?.subTasks != null) {
+      dispatch({ type: 'SUBTASK_INIT_SET', subTasks: task.subTasks })
+    }
+
+    return () => {
+      dispatch({ type: 'SUBTASK_CLEAR_ALL' })
+    }
+  }, [])
 
   const onCancelClickHandler = (): void => {
     dispatch({ type: 'CLOSE_MODAL', payload: { isOpen: false } })
@@ -59,7 +72,7 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
       const newTask: ITask = {
         description,
         title,
-        id: Date.now().toString(),
+        id: newTaskId,
         order: index,
         index,
         createdDate: new Date(),
@@ -68,7 +81,7 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
         priority,
         files: [],
         status,
-        subTasks: [],
+        subTasks,
         comments: []
       }
       dispatch({ type: 'CREATE_BOARD_TASK', projectId, task: newTask })
@@ -80,7 +93,8 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
         description,
         title,
         priority,
-        status: task.status
+        status: task.status,
+        subTasks
       }
       console.log({ current: task.status, moveTo: status })
 
@@ -104,7 +118,7 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
         </h2>
       </header>
       <main>
-        <label>
+        <label className='task-editor__label'>
           <span className='task-editor__label-text'>Priority</span>
           <select
             onChange={(e) => {
@@ -122,27 +136,30 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
           </select>
         </label>
 
-        <label>
+        <label className='task-editor__label'>
           <span className='task-editor__label-text'>Title</span>
           <input
+            className='task-editor__input'
             type='text'
             placeholder='Write title here..'
             value={title}
             onChange={onChangeTitleHandler}
           />
         </label>
-        <label>
+        <label className='task-editor__label'>
           <span className='task-editor__label-text'>Description</span>
           <input
+            className='task-editor__input'
             type='text'
             placeholder='Write description here..'
             value={description}
             onChange={onChangeDescriptionHandler}
           />
         </label>
-        <label>
+        <label className='task-editor__label'>
           <span className='task-editor__label-text'>Column</span>
           <select
+            className='task-editor__select'
             defaultValue={task?.status}
             onChange={(e) => {
               const value = e.target.value as typeof COLUMN_TITLES[number]
@@ -158,35 +175,11 @@ function TaskEditor({ mode, task }: ITaskEditorProps): JSX.Element {
             </optgroup>
           </select>
         </label>
-        <button
-          type='button'
-          onClick={() => {
-            const newSubTask: ISubTaskProps = {
-              index: 0,
-              text: '',
-              taskId: task?.id ?? '',
-              canModify: true
-            }
-            setSubTasks([...subTasks, newSubTask])
-          }}
-        >
-          Add sub-task
-        </button>
-        <ul className='task-editor__sub-tasks'>
-          {subTasks.map((s) => (
-            <li key={'sub' + s.index.toString()}>
-              <button type='button'>
-                <span className='visually-hidden'>add sub-task </span>{' '}
-                <svg className='svg' width='42' height='42'>
-                  <use xlinkHref='img/sprite.svg#icon-add'></use>
-                </svg>
-              </button>
-            </li>
-          ))}
-        </ul>
-        <label>
+
+        <SubTaskEditor />
+        <label className='task-editor__label'>
           <span className='task-editor__label-text'>Files</span>
-          <input type='file' multiple />
+          <input className='task-editor__input' type='file' multiple />
         </label>
 
         <p className='task-editor__submit-controls'>

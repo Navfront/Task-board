@@ -1,4 +1,5 @@
 import {
+  COLUMN_TITLES,
   IProjectsBoard,
   ITask,
   ITaskPosition,
@@ -51,6 +52,15 @@ export interface ActionBoardSetAll {
   board: IProjectsBoard
 }
 
+export interface ActionBoardToggleSubtask {
+  type: 'TOGGLE_SUB_TASK'
+  projectId: string
+  column: typeof COLUMN_TITLES[number]
+  taskId: string
+  subTaskId: string
+  task: ITask
+}
+
 export type BoardActions =
   | ActionBoardCreateTask
   | ActionBoardDeleteTask
@@ -60,5 +70,5 @@ export type BoardActions =
   | ActionBoardCreateEmpty
   | ActionBoardDeleteBoard
   | ActionBoardSetAll
-
+  | ActionBoardToggleSubtask
 export type BoardActionTypes = BoardActions[keyof Pick<BoardActions, 'type'>]

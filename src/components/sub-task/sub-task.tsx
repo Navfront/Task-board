@@ -1,16 +1,44 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { ITaskProps } from '../task/task'
+import { useAppDispatch } from './../../redux/index'
+
 export interface ISubTaskProps {
-  taskId: string
+  subTaskId: string
   index: number
   text: string
-  canModify: boolean
+  isDisabled: boolean
+  checked: boolean
+  taskData: ITaskProps
 }
 
-function SubTask({ index, taskId, text, canModify = true }: ISubTaskProps): JSX.Element {
-  const id = 'checkbox' + taskId + '-' + String(index)
+function SubTask({
+  subTaskId,
+  text,
+  isDisabled = false,
+  taskData,
+  checked
+}: ISubTaskProps): JSX.Element {
+  const dispatch = useAppDispatch()
   return (
     <div className='sub-task'>
-      <input className='visually-hidden' type='checkbox' id={id} disabled={!canModify} />
-      <label className='sub-task__label' htmlFor={id} tabIndex={0}>
+      <input
+        className='sub-task__input visually-hidden'
+        type='checkbox'
+        id={'checkbox' + subTaskId}
+        disabled={isDisabled}
+        checked={checked}
+        onChange={() => {
+          dispatch({
+            type: 'TOGGLE_SUB_TASK',
+            column: taskData.status,
+            projectId: taskData.projectId,
+            subTaskId,
+            taskId: taskData.id,
+            task: taskData
+          })
+        }}
+      />
+      <label className='sub-task__label' htmlFor={'checkbox' + subTaskId} tabIndex={0}>
         {text}
       </label>
     </div>

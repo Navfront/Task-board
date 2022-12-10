@@ -2,7 +2,8 @@
   &__label {
     position: relative;
     display: flex;
-    padding-left: 1.5em;
+    font-size: 1.5rem;
+    padding-left: 2rem;
     align-items: center;
     cursor: pointer;
 
@@ -31,17 +32,17 @@
       transform: rotate(50deg);
     }
   }
-  input[type='checkbox']:disabled ~ &__label {
+  &__input:disabled + &__label {
     opacity: 0.3;
   }
-  input[type='checkbox']:checked ~ &__label {
+  &__input:checked + &__label {
     color: $color-success;
   }
-  input[type='checkbox']:checked ~ &__label::before {
+  &__input:checked + &__label::before {
     border-color: $color-success;
   }
 
-  input[type='checkbox']:checked ~ &__label::after {
+  &__input:checked + &__label::after {
     display: block;
   }
 }

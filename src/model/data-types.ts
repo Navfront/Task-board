@@ -34,7 +34,7 @@ export interface ITask {
   priority: typeof PRIORITIES[number]
   files: FileReader[]
   status: typeof COLUMN_TITLES[number]
-  subTasks: string[]
+  subTasks: ISubTask[]
   comments: string[]
 }
 
@@ -71,3 +71,9 @@ export interface ColumnItem {
   projectId: string
 }
 export type BoardItems = ColumnItem | ITask
+
+export interface ISubTask {
+  id: string
+  text: string
+  isDone: boolean
+}

@@ -126,6 +126,35 @@ function deleteTask(state: IProjectsBoard, projectId: string, task: ITask): IPro
   return newState
 }
 
+function toggleSubTask(
+  state: IProjectsBoard,
+  taskId: string,
+  subTaskId: string,
+  projectId: string,
+  column: typeof COLUMN_TITLES[number]
+): IProjectsBoard {
+  const newState = { ...state }
+  newState[projectId] = { ...newState[projectId] }
+  newState[projectId][column] = [
+    ...newState[projectId][column].map((t) => {
+      if (t.id === taskId) {
+        const index = t.subTasks.findIndex((subT) => subT.id === subTaskId)
+        if (index !== -1) {
+          const isDone = !t.subTasks[index].isDone
+          t.subTasks = [
+            ...t.subTasks.slice(0, index),
+            { ...t.subTasks[index], isDone },
+            ...t.subTasks.slice(index + 1)
+          ]
+          return { ...t }
+        }
+      }
+      return t
+    })
+  ]
+  return newState
+}
+
 export const boardReducer: Reducer<IProjectsBoard, BoardActions> = (state = {}, action) => {
   switch (action.type) {
     case 'CREATE_BOARD_TEMPLATE_BY_PROJECT_ID':
@@ -144,6 +173,8 @@ export const boardReducer: Reducer<IProjectsBoard, BoardActions> = (state = {}, 
       return moveTask(state, action.task, action.projectId, action.position)
     case 'UPDATE_BOARD_TASK':
       return updateTask(state, action.task, action.projectId, action.position)
+    case 'TOGGLE_SUB_TASK':
+      return toggleSubTask(state, action.taskId, action.subTaskId, action.projectId, action.column)
     default:
       return state
   }

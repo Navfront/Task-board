@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
-import { BoardItems, COLUMN_TITLES, ITask } from '../../model/data-types'
+import { BoardItems, COLUMN_TITLES, ISubTask, ITask } from '../../model/data-types'
 import { useAppDispatch } from './../../redux/index'
 import { dNDItemTypes } from './../../dnd/item-types'
 import SubTask from './../sub-task/sub-task'
@@ -9,7 +9,7 @@ export interface TaskItemDnd {
   taskId: string
   currentStatus: string
 }
-interface ITaskProps extends ITask {
+export interface ITaskProps extends ITask {
   id: string
   order: number
   title: string
@@ -19,7 +19,7 @@ interface ITaskProps extends ITask {
   doneDate: null | Date
   files: FileReader[]
   status: typeof COLUMN_TITLES[number]
-  subTasks: string[]
+  subTasks: ISubTask[]
   projectId: string
 }
 
@@ -139,24 +139,34 @@ function Task(task: ITaskProps): JSX.Element {
         ref={expanderRef}
         className={`task__expander ${!isExpand ? 'task__expander--active' : ''}`}
       >
-        <div ref={contentRef} className='task__content'>
-          <ul className='task__sub-list'>
-            <li className='task__sub-item'>
-              <SubTask taskId={task.id} index={1} text={'Сделать дело'} canModify={false} />
-            </li>
-            <li className='task__sub-item'>
-              <SubTask taskId={task.id} index={2} text={'Гулять смело'} canModify={true} />
-            </li>
-          </ul>
+        {task.subTasks.length > 0 ? (
+          <div ref={contentRef} className='task__content'>
+            <ul className='task__sub-list'>
+              {task.subTasks.map((subtask, index) => (
+                <li className='task__sub-item' key={subtask.id}>
+                  <SubTask
+                    subTaskId={subtask.id}
+                    index={index}
+                    text={subtask.text}
+                    isDisabled={false}
+                    checked={subtask.isDone}
+                    taskData={task}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          ''
+        )}
 
-          <ul className='task__files files'>
-            <li className='files-list__item'>file</li>
-          </ul>
+        <ul className='task__files files'>
+          <li className='files-list__item'>file</li>
+        </ul>
 
-          <p className='task__comments-counter'>
-            Comments: 324 <button type='button'>Read comments</button>
-          </p>
-        </div>
+        <p className='task__comments-counter'>
+          Comments: 324 <button type='button'>Read comments</button>
+        </p>
       </div>
     </article>
   )

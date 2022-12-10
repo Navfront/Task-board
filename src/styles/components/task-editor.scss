@@ -37,7 +37,7 @@
     }
   }
 
-  label {
+  &__label {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -47,16 +47,16 @@
     }
   }
 
-  label + label {
+  &__label + &__label {
     margin-top: 20px;
   }
-  label > input,
-  label > select {
+  &__label > input,
+  &__label > select {
     margin-top: 10px;
   }
 
-  input,
-  select {
+  &__input,
+  &__select {
     padding: 10px;
     flex-grow: 1;
     width: 70%;
