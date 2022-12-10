@@ -5,6 +5,7 @@ import {
   ActionBoardDeleteTask,
   ActionBoardInit,
   ActionBoardMoveTask,
+  ActionBoardToggleSubtask,
   ActionBoardUpdateTask
 } from '../reducers/board-reducer/actions'
 import { IProjectsBoard, ITask, ITaskPosition } from './../../model/data-types'
@@ -82,4 +83,31 @@ function* moveTaskAsync(action: ActionBoardMoveTask): any {
 
 export function* watchMoveTaskAsync(): any {
   yield takeEvery('MOVE_BOARD_TASK', moveTaskAsync)
+}
+
+// TOGGLE_SUBTASK
+const toggleSubTask = async (
+  subtaskId: string,
+  projectId: string,
+  task: ITask
+): Promise<boolean> => {
+  const newSubTasks = task.subTasks.map((sT) => {
+    if (sT.id === subtaskId) {
+      return { ...sT, isDone: !sT.isDone }
+    }
+    return sT
+  })
+  return await TasksApiFacade.boardQueryApi.updateTask(
+    projectId,
+    { ...task, subTasks: newSubTasks },
+    null
+  )
+}
+
+function* toggleSubTaskAsync(action: ActionBoardToggleSubtask): any {
+  yield call(toggleSubTask, action.subTaskId, action.projectId, action.task)
+}
+
+export function* watchToggleSubTaskAsync(): any {
+  yield takeEvery('TOGGLE_SUB_TASK', toggleSubTaskAsync)
 }

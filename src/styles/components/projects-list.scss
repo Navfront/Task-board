@@ -13,10 +13,16 @@
   @media (min-width: 768px) {
     grid-template-columns: 1fr 1fr;
   }
-  @media (min-width: 992px) {
+
+  @media (min-width: 1200px) {
     grid-template-columns: 1fr 1fr 1fr;
   }
-  @media (min-width: 1200px) {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-  }
+}
+
+.projects-list-empty {
+  text-align: center;
+  font-weight: 700;
+  color: $color-board-bg;
+  opacity: 0.3;
+  font-size: 2em;
 }

@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
-import { BoardItems, COLUMN_TITLES, ITask } from '../../model/data-types'
+import { BoardItems, COLUMN_TITLES, ISubTask, ITask } from '../../model/data-types'
 import { useAppDispatch } from './../../redux/index'
 import { dNDItemTypes } from './../../dnd/item-types'
+import SubTask from './../sub-task/sub-task'
 
 export interface TaskItemDnd {
   taskId: string
   currentStatus: string
 }
-interface ITaskProps extends ITask {
+export interface ITaskProps extends ITask {
   id: string
   order: number
   title: string
@@ -18,7 +19,7 @@ interface ITaskProps extends ITask {
   doneDate: null | Date
   files: FileReader[]
   status: typeof COLUMN_TITLES[number]
-  subTasks: string[]
+  subTasks: ISubTask[]
   projectId: string
 }
 
@@ -35,6 +36,7 @@ function Task(task: ITaskProps): JSX.Element {
   const [{ isDragging }, drag] = useDrag(() => ({
     end(item, monitor) {
       const dropResult = monitor.getDropResult<BoardItems>()
+      console.log(123)
 
       if (dropResult !== null) {
         if (!isITask(dropResult)) {
@@ -108,42 +110,64 @@ function Task(task: ITaskProps): JSX.Element {
         outline: isOver ? `3px solid ${canDrop ? 'lightgreen' : 'red'}` : 'none'
       }}
     >
+      <header className='task__header'>
+        <span className='task__index'>{`#${task.index}`}</span>
+        <time className='task__time' dateTime={new Date(task.createdDate).toISOString()}>
+          Created: {new Date(task.createdDate).toLocaleString()}
+        </time>
+        <span className='task__in-work'>In work: {task.inWork} ms</span>
+      </header>
+      <button className='task__edit-button' type='button' onClick={onEditorOpenHandler}>
+        <svg className='svg' width='42' height='42'>
+          <use xlinkHref='img/sprite.svg#icon-more'></use>
+        </svg>
+      </button>
       <h3 className='task__title'>{task.title}</h3>
-      <p className='task__description'>{`o${task.order} - ${task.description}`}</p>
+      <p className='task__description'>{task.description}</p>
+
       <button
         type='button'
         className={`task__expand-button ${!isExpand ? 'task__expand-button--active' : ''}`}
         onClick={onExpandClickHandler}
       >
-        {isExpand ? 'Свернуть' : 'Развернуть'}
-      </button>
-      <button className='task__edit-button' type='button' onClick={onEditorOpenHandler}>
-        ...
+        <svg className='svg' width='42' height='42'>
+          <use xlinkHref='img/sprite.svg#icon-expand'></use>
+        </svg>
+        <span className='visually-hidden'> {isExpand ? 'Свернуть' : 'Развернуть'}</span>
       </button>
       <div
         ref={expanderRef}
         className={`task__expander ${!isExpand ? 'task__expander--active' : ''}`}
       >
-        <div ref={contentRef} className='task__content'>
-          <p>
-            <span>Created: {JSON.stringify(task.createdDate)}</span>
-            <span>In work: {task.inWork} ms</span>
-          </p>
+        {task.subTasks.length > 0 ? (
+          <div ref={contentRef} className='task__content'>
+            <ul className='task__sub-list'>
+              <br />
+              {task.subTasks.map((subtask, index) => (
+                <li className='task__sub-item' key={subtask.id}>
+                  <SubTask
+                    subTaskId={subtask.id}
+                    index={index}
+                    text={subtask.text}
+                    isDisabled={false}
+                    checked={subtask.isDone}
+                    taskData={task}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          ''
+        )}
 
-          <ul className='task__sub-list'>
-            <li className='task__sub-item'>Subtask 1</li>
-            <li className='task__sub-item'>Subtask 2</li>
-            <li className='task__sub-item'>Subtask 3</li>
-          </ul>
+        <ul className='task__files files'>
+          <li className='files-list__item'>file</li>
+        </ul>
 
-          <ul className='task__files files'>
-            <li className='files-list__item'>file</li>
-          </ul>
-
-          <p className='task__comments-counter'>
-            Comments: 324 <button type='button'>Read comments</button>
-          </p>
-        </div>
+        <p className='task__comments-counter'>
+          Comments: 324 <button type='button'>Read comments</button>
+        </p>
       </div>
     </article>
   )

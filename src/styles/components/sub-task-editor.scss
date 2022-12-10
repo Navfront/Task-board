@@ -1,0 +1,33 @@
+.sub-task-editor {
+  padding: 20px 0;
+  border: none;
+
+  &__title {
+    font-size: 1em;
+    font-weight: 500;
+    text-align: center;
+    margin: 0;
+  }
+  &__list {
+    margin: 0;
+    padding: 5px 0px 5px;
+  }
+
+  &__item {
+    margin-left: 30px;
+  }
+  &__add-btn {
+    color: $color-text-light;
+    cursor: pointer;
+    transition: ease 0.3s;
+
+    &:hover,
+    &:focus {
+      color: $color-other;
+      animation: pulse 0.2s infinite ease-in-out alternate;
+    }
+    &:active {
+      opacity: 0.5;
+    }
+  }
+}

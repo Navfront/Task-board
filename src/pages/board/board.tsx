@@ -7,6 +7,7 @@ import React, { useEffect } from 'react'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { TouchBackend } from 'react-dnd-touch-backend'
+import Search from '../../components/search/search'
 
 function Board(): JSX.Element {
   const { projectId } = useParams()
@@ -34,21 +35,45 @@ function Board(): JSX.Element {
         <title>Tasks board: {project?.title ?? 'undefined'} </title>
       </Helmet>
       <Header>
-        <Link to={'/'}>To Main</Link>
-        <button
-          type='button'
-          onClick={() => {
-            dispatch({
-              type: 'OPEN_MODAL',
-              childType: 'EDITOR_CREATE_TASK',
-              data: project ?? null
-            })
-          }}
-        >
-          New Task
-        </button>
-        <input className='header__search' type='text' placeholder='SEARCH' />
-        <p className='header__project-id'>{project?.title}</p>
+        <nav className='navigation'>
+          <ul className='navigation__list'>
+            <li className='navigation__item'>
+              <Link to={'/'} className='navigation__link'>
+                <svg className='svg' width='42' height='42'>
+                  <use xlinkHref='img/sprite.svg#icon-home'></use>
+                </svg>
+                <span className='visually-hidden'>To main page</span>
+              </Link>
+            </li>
+          </ul>
+        </nav>
+        <ul className='board-controls'>
+          <li className='board-controls__item'>
+            <button
+              className='board-controls__add-btn'
+              type='button'
+              onClick={() => {
+                dispatch({
+                  type: 'OPEN_MODAL',
+                  childType: 'EDITOR_CREATE_TASK',
+                  data: project ?? null
+                })
+              }}
+            >
+              <svg className='svg' width='42' height='42'>
+                <use xlinkHref='img/sprite.svg#icon-add'></use>
+              </svg>
+              <span className='visually-hidden'>Add new task</span>
+            </button>
+          </li>
+          <li className='board-controls__item'>
+            <Search />
+          </li>
+        </ul>
+
+        <p className='header__project-id'>
+          <span>Project&nbsp;name:</span> <span>{project?.title}</span>
+        </p>
       </Header>
       <main className='page__main main main--board'>
         <div className='board'>

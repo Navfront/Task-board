@@ -1,0 +1,29 @@
+.board-controls {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  list-style: none;
+  align-items: center;
+  margin: 0;
+  padding: 0 20px;
+
+  &__item + &__item {
+    margin-left: 5px;
+  }
+
+  &__add-btn {
+    display: flex;
+    padding: 2px 5px;
+    align-items: center;
+    color: $color-success;
+    will-change: transform;
+    transition: ease 0.2s;
+
+    &:hover,
+    &:focus {
+      animation: pulse 0.2s infinite ease-in-out alternate;
+    }
+    &:active {
+      opacity: 0.5;
+    }
+  }
+}

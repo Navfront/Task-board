@@ -7,9 +7,14 @@
 
   &__project-id {
     margin-left: auto;
-  }
-
-  &__search {
-    width: 100px;
+    margin-right: 10px;
+    font-size: 18px;
+    display: grid;
+    :nth-child(1) {
+      font-size: 0.8em;
+    }
+    :nth-child(2) {
+      color: $color-other;
+    }
   }
 }

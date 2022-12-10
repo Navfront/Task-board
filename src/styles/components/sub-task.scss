@@ -1,0 +1,51 @@
+.sub-task {
+  &__label {
+    position: relative;
+    display: flex;
+    font-size: 0.8em;
+    padding-left: 2.8rem;
+    max-width: 80%;
+    min-height: 40px;
+    color: $color-other;
+    align-items: flex-start;
+    cursor: pointer;
+
+    &::before {
+      content: '';
+      position: absolute;
+      display: block;
+      left: 0;
+      top: 0.1em;
+      width: 1em;
+      height: 1em;
+      border: 2px solid $color-other;
+      border-radius: 5px;
+    }
+
+    &::after {
+      position: absolute;
+      content: '';
+      display: none;
+      left: 0.43em;
+      top: 0.2em;
+      width: 0.3em;
+      height: 0.6em;
+      border-bottom: 0.15em solid $color-success;
+      border-right: 0.15em solid $color-success;
+      transform: rotate(50deg);
+    }
+  }
+  &__input:disabled + &__label {
+    opacity: 0.3;
+  }
+  &__input:checked + &__label {
+    color: $color-success;
+  }
+  &__input:checked + &__label::before {
+    border-color: $color-success;
+  }
+
+  &__input:checked + &__label::after {
+    display: block;
+  }
+}

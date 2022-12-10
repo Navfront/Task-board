@@ -43,3 +43,13 @@ export const addOrderEffect = (tasks: ITask[], currentOrder: number): ITask[] =>
     return task
   })
 }
+
+export const filterTasksBySearchString = (str: string, tasks: ITask[]): ITask[] => {
+  const rx = new RegExp(str, 'gi')
+  return tasks.filter((task) => {
+    if (rx.test(String(task.index)) || rx.test(task.title)) {
+      return true
+    }
+    return false
+  })
+}

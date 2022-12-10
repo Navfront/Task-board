@@ -1,15 +1,45 @@
 .task {
   display: grid;
+  grid-template-columns: 1fr 1fr;
   padding: 5px 15px;
-  color: $color-text-dark;
-  background-color: $color-task-bg;
+  border-radius: 15px;
+  color: $color-text-light;
+  background-color: $color-card-bg;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.04),
     0 0 1px rgba(0, 0, 0, 0.04);
   position: relative;
+  user-select: none;
+
+  &:hover,
+  &:focus {
+    background: linear-gradient(-45deg, #6f3726, #6f1e3d, #12566f, #10614e);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    border-color: $color-other;
+  }
+
+  &__header {
+    display: grid;
+    grid-column: span 2;
+    color: $color-text-light-2;
+    :nth-child(1) {
+      padding: 5px;
+    }
+    * {
+      font-size: 0.6em;
+    }
+  }
 
   &__title {
-    color: $color-text-dark;
+    grid-column: span 2;
+    color: $color-text-light;
+    margin: 0;
+    padding: 10px;
     margin-bottom: 10px;
+  }
+  &__description {
+    margin: 0;
+    padding: 10px;
   }
 
   & + & {
@@ -19,6 +49,7 @@
   &__expander {
     overflow: hidden;
     transition: ease 0.3s;
+    grid-column: span 2;
   }
 
   &__expander--active {
@@ -26,8 +57,49 @@
   }
   &__expand-button {
     position: absolute;
+    color: $color-text-light;
+    right: 0.4em;
+    bottom: 1.45em;
+    font-size: 0.6em;
+    transition: ease 0.3s;
+    transform: rotate(180deg);
+    will-change: transform;
+
+    &:hover,
+    &:focus {
+      color: $color-other-2;
+    }
+    &:active {
+      opacity: 0.5;
+    }
+  }
+  &__expand-button--active {
+    transform: rotate(0deg);
+  }
+
+  &__edit-button {
+    position: absolute;
+    color: $color-text-light;
     right: 5px;
     top: 1.45em;
     font-size: 0.6em;
+
+    &:hover,
+    &:focus {
+      color: $color-other-2;
+    }
+    &:active {
+      opacity: 0.5;
+    }
+  }
+
+  &__sub-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__sub-item + &__sub-item {
+    margin-top: 0.3em;
   }
 }

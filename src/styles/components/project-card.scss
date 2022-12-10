@@ -9,6 +9,9 @@
   box-shadow: $shadow-light;
   transition: ease 0.4s;
   border: 2px solid $color-project-border;
+  user-select: none;
+  will-change: all;
+
   container-type: inline-size;
 
   &__link {
@@ -19,7 +22,6 @@
     justify-self: end;
     align-self: flex-start;
     outline-offset: -2px;
-    text-align: center;
     text-decoration: none;
     color: $color-text-light;
     font-size: 0.6em;
@@ -44,16 +46,15 @@
   }
 
   &__title {
-    text-align: center;
     grid-column: span 2;
     color: $color-text-light;
     font-size: 1.2em;
+    line-height: 135%;
     margin: 15px 15px 10px;
     word-wrap: break-word;
   }
 
   &__description {
-    text-align: center;
     font-size: 0.8em;
     grid-column: span 2;
     word-wrap: break-word;
