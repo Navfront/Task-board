@@ -46,11 +46,17 @@ const updateTask = async (
   task: ITask,
   position: ITaskPosition
 ): Promise<boolean> => {
-  return await TasksApiFacade.boardQueryApi.updateTask(
-    projectId,
-    { ...task, status: position.moveTo },
-    null
-  )
+  let newTask: ITask
+  if (position.current === 'Development' && position.moveTo !== 'Development') {
+    const accTime = Math.abs(Date.now() - task.inWorkStartTime + task.inWorkAcc)
+    newTask = { ...task, status: position.moveTo, inWorkAcc: accTime, inWorkStartTime: 0 }
+  } else if (position.current !== 'Development' && position.moveTo === 'Development') {
+    newTask = { ...task, status: position.moveTo, inWorkStartTime: Date.now() }
+  } else {
+    newTask = { ...task, status: position.moveTo }
+  }
+
+  return await TasksApiFacade.boardQueryApi.updateTask(projectId, newTask, null)
 }
 
 function* updateTaskAsync(action: ActionBoardUpdateTask): any {
