@@ -13,7 +13,6 @@ const fetchProjects = async (): Promise<IProject[]> => {
 
 function* getAllProjectsAsync(): any {
   const projects = yield call(fetchProjects)
-
   yield put({ type: 'GET_ALL_PROJECTS', projects })
 }
 
@@ -54,8 +53,6 @@ export function* watchDeleteProjectAsync(): any {
 // UPDATE_PROJECT
 
 const updateProject = async (project: IProject): Promise<boolean> => {
-  console.log(project)
-
   return await ProjectsApiFacade.projectsQueryApi.update(project)
 }
 

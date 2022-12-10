@@ -61,7 +61,7 @@ function updateTask(
 
     let newTask: ITask
     if (position.current === 'Development' && position.moveTo !== 'Development') {
-      const inWorkAcc = Date.now() - task.inWorkStartTime + task.inWorkAcc
+      const inWorkAcc = Math.abs(Date.now() - task.inWorkStartTime + task.inWorkAcc)
       newTask = { ...task, status: position.moveTo, inWorkAcc, inWorkStartTime: 0 }
     } else if (position.current !== 'Development' && position.moveTo === 'Development') {
       newTask = { ...task, status: position.moveTo, inWorkStartTime: Date.now() }
@@ -119,7 +119,7 @@ function moveTask(
         ...task,
         status: position.moveTo,
         order: targetOrder,
-        inWorkAcc: Date.now() - task.inWorkStartTime + task.inWorkAcc,
+        inWorkAcc: Math.abs(Date.now() - task.inWorkStartTime + task.inWorkAcc),
         inWorkStartTime: 0
       }
     } else if (position.current !== 'Development' && position.moveTo === 'Development') {
@@ -145,7 +145,7 @@ function moveTask(
         ...task,
         status: position.moveTo,
         order: 0,
-        inWorkAcc: Date.now() - task.inWorkStartTime + task.inWorkAcc,
+        inWorkAcc: Math.abs(Date.now() - task.inWorkStartTime + task.inWorkAcc),
         inWorkStartTime: 0
       }
     } else if (position.current !== 'Development' && position.moveTo === 'Development') {
