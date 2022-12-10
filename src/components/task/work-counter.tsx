@@ -18,8 +18,6 @@ function WorkCounter({ inWorkStartTime, inWorkAcc, inDevColumn }: IWorkCounterPr
   useEffect(() => {
     let interval: NodeJS.Timer
     if (inDevColumn) {
-      console.log('force update')
-
       interval = setInterval(() => {
         forceUpdate()
       }, 60000)
@@ -34,7 +32,11 @@ function WorkCounter({ inWorkStartTime, inWorkAcc, inDevColumn }: IWorkCounterPr
 
   return (
     <time className='task__time'>
-      {`In work: ${fromTime === 0 ? 'not yet' : dayjs(new Date(fromTime).toISOString()).fromNow()}`}
+      {`In work: ${
+        fromTime === 0
+          ? 'not yet'
+          : dayjs(new Date(fromTime).toISOString()).fromNow().replace(/ago/gi, '')
+      }`}
     </time>
   )
 }
