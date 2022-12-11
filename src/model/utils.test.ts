@@ -1,4 +1,4 @@
-import { buildCommentsTree } from '../utils'
+import { buildCommentsTree } from './utils'
 
 const comments = [
   {
