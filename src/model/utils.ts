@@ -56,9 +56,7 @@ export const filterTasksBySearchString = (str: string, tasks: ITask[]): ITask[] 
 
 export const buildCommentsTree = (comments: IComment[], taskId: string): ICommentsState => {
   const tree: ICommentsState = {}
-  if (typeof comments === 'undefined') {
-    return tree
-  }
+  tree[taskId] = []
 
   const helperDict: { [commentId: string]: IComment } = {}
   comments.forEach((c) => {
