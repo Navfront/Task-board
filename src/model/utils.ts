@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import { ITask } from './data-types'
+import { IComment, ICommentsState, IExComment, ITask } from './data-types'
 dayjs.extend(relativeTime)
 
 export const HumanizeLastDate = (date: Date | null): string => {
@@ -52,4 +52,34 @@ export const filterTasksBySearchString = (str: string, tasks: ITask[]): ITask[] 
     }
     return false
   })
+}
+
+export const buildCommentsTree = (comments: IComment[], taskId: string): ICommentsState => {
+  const tree: ICommentsState = {}
+  tree[taskId] = []
+
+  const helperDict: { [commentId: string]: IComment } = {}
+  comments.forEach((c) => {
+    helperDict[c.id] = c
+  })
+
+  const parseComment = (inComment: IComment): IExComment => {
+    const result: IExComment = { ...inComment, children: [], parent: null }
+    if (inComment.children.length === 0) {
+      return result
+    }
+    if (inComment.children !== null) {
+      inComment.children.forEach((c) => {
+        result.children.push(parseComment(helperDict[c]))
+      })
+    }
+
+    return result
+  }
+
+  const roots = comments.filter((c) => c.parent === null)
+  roots.forEach((root) => {
+    tree[taskId].push(parseComment(root))
+  })
+  return tree
 }

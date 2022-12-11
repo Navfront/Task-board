@@ -29,7 +29,8 @@ export interface ITask {
   title: string
   description: string
   createdDate: Date
-  inWork: number
+  inWorkAcc: number
+  inWorkStartTime: number
   doneDate: null | Date
   priority: typeof PRIORITIES[number]
   files: FileReader[]
@@ -55,7 +56,13 @@ export interface IExtendedWithProjectIdTask extends ITask {
   projectId: string
 }
 
-export type ModalData = IProject | IExtendedWithProjectIdTask | null
+export interface ICommentsModalData {
+  projectId: string
+  taskId: string
+  taskTitle: string
+}
+
+export type ModalData = IProject | IExtendedWithProjectIdTask | ICommentsModalData | null
 
 export interface ITaskPosition {
   current: typeof COLUMN_TITLES[number]
@@ -76,4 +83,30 @@ export interface ISubTask {
   id: string
   text: string
   isDone: boolean
+}
+
+export interface IComment {
+  id: string
+  userId: string | null
+  projectId: string
+  taskId: string
+  text: string
+  likes: number
+  children: string[]
+  parent: string | null
+}
+
+export interface IExComment {
+  id: string
+  userId: string | null
+  projectId: string
+  taskId: string
+  text: string
+  likes: number
+  children: IExComment[]
+  parent: string | null
+}
+
+export interface ICommentsState {
+  [taskId: string]: IExComment[]
 }

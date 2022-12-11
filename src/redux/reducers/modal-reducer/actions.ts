@@ -4,6 +4,7 @@ export type ModalChildTypes =
   | 'EDITOR_EDIT_PROJECT'
   | 'EDITOR_CREATE_TASK'
   | 'EDITOR_EDIT_TASK'
+  | 'COMMENTS'
 
 interface IModalActionOpen {
   type: 'OPEN_MODAL'

@@ -35,7 +35,7 @@ function BoardColumn({ columnTitle, classModificator, projectId }: IColumnTitleP
     }
   }))
 
-  if (Object.keys(board).length !== 0) {
+  if (Object.hasOwn(board, projectId) && Object.hasOwn(board[projectId], columnTitle)) {
     const filtredSortefTasks = filterTasksBySearchString(
       search.value,
       board[projectId][columnTitle].sort((a, b) => a.order - b.order)
@@ -61,7 +61,8 @@ function BoardColumn({ columnTitle, classModificator, projectId }: IColumnTitleP
                   title={task.title !== '' ? task.title : 'No-name'}
                   description={task.description !== '' ? task.description : 'nothing..'}
                   createdDate={task.createdDate}
-                  inWork={task.inWork}
+                  inWorkAcc={task.inWorkAcc}
+                  inWorkStartTime={task.inWorkStartTime}
                   doneDate={task.doneDate}
                   priority={task.priority}
                   files={task.files}

@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
+import SubTask from './../sub-task/sub-task'
+
 import { useDrag, useDrop } from 'react-dnd'
 import { BoardItems, COLUMN_TITLES, ISubTask, ITask } from '../../model/data-types'
 import { useAppDispatch } from './../../redux/index'
 import { dNDItemTypes } from './../../dnd/item-types'
-import SubTask from './../sub-task/sub-task'
+import WorkCounter from './work-counter'
+import CommentsButton from '../comments-button/comments-button'
 
 export interface TaskItemDnd {
   taskId: string
@@ -15,12 +18,14 @@ export interface ITaskProps extends ITask {
   title: string
   description: string
   createdDate: Date
-  inWork: number
+  inWorkAcc: number
+  inWorkStartTime: number
   doneDate: null | Date
   files: FileReader[]
   status: typeof COLUMN_TITLES[number]
   subTasks: ISubTask[]
   projectId: string
+  index: number
 }
 
 const isITask = (item: BoardItems): item is ITask => {
@@ -36,7 +41,6 @@ function Task(task: ITaskProps): JSX.Element {
   const [{ isDragging }, drag] = useDrag(() => ({
     end(item, monitor) {
       const dropResult = monitor.getDropResult<BoardItems>()
-      console.log(123)
 
       if (dropResult !== null) {
         if (!isITask(dropResult)) {
@@ -115,26 +119,40 @@ function Task(task: ITaskProps): JSX.Element {
         <time className='task__time' dateTime={new Date(task.createdDate).toISOString()}>
           Created: {new Date(task.createdDate).toLocaleString()}
         </time>
-        <span className='task__in-work'>In work: {task.inWork} ms</span>
+        <span className='task__in-work'>
+          <WorkCounter
+            inWorkStartTime={task.inWorkStartTime}
+            inWorkAcc={task.inWorkAcc}
+            inDevColumn={true}
+          />
+        </span>
       </header>
-      <button className='task__edit-button' type='button' onClick={onEditorOpenHandler}>
-        <svg className='svg' width='42' height='42'>
-          <use xlinkHref='img/sprite.svg#icon-more'></use>
-        </svg>
-      </button>
+      <div className='task__controls'>
+        <button className='task__edit-button' type='button' onClick={onEditorOpenHandler}>
+          <svg className='svg' width='42' height='42'>
+            <use xlinkHref='img/sprite.svg#icon-more'></use>
+          </svg>
+        </button>
+        <CommentsButton
+          className='task__comments-button'
+          projectId={task.projectId}
+          taskId={task.id}
+          taskTitle={task.title}
+        />
+        <button
+          type='button'
+          className={`task__expand-button ${!isExpand ? 'task__expand-button--active' : ''}`}
+          onClick={onExpandClickHandler}
+        >
+          <svg className='svg' width='42' height='42'>
+            <use xlinkHref='img/sprite.svg#icon-expand'></use>
+          </svg>
+          <span className='visually-hidden'> {isExpand ? 'Свернуть' : 'Развернуть'}</span>
+        </button>
+      </div>
       <h3 className='task__title'>{task.title}</h3>
       <p className='task__description'>{task.description}</p>
 
-      <button
-        type='button'
-        className={`task__expand-button ${!isExpand ? 'task__expand-button--active' : ''}`}
-        onClick={onExpandClickHandler}
-      >
-        <svg className='svg' width='42' height='42'>
-          <use xlinkHref='img/sprite.svg#icon-expand'></use>
-        </svg>
-        <span className='visually-hidden'> {isExpand ? 'Свернуть' : 'Развернуть'}</span>
-      </button>
       <div
         ref={expanderRef}
         className={`task__expander ${!isExpand ? 'task__expander--active' : ''}`}
@@ -161,13 +179,7 @@ function Task(task: ITaskProps): JSX.Element {
           ''
         )}
 
-        <ul className='task__files files'>
-          <li className='files-list__item'>file</li>
-        </ul>
-
-        <p className='task__comments-counter'>
-          Comments: 324 <button type='button'>Read comments</button>
-        </p>
+        <p style={{ fontSize: '10px' }}>files base64 soon..</p>
       </div>
     </article>
   )

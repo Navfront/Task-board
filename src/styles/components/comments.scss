@@ -1,0 +1,64 @@
+.comments {
+  color: $color-text-light;
+  background-color: $color-card-bg;
+  padding: 20px 0;
+  border-radius: 15px;
+  min-width: 70vmin;
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li + li {
+      margin-top: 10px;
+    }
+
+    ul {
+      margin-top: 10px;
+    }
+  }
+
+  &__header {
+    padding: 0px 20px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid $color-comments-border;
+  }
+
+  &__content {
+    background-color: $color-card-bg;
+    filter: brightness(1.13);
+    padding: 20px;
+    word-wrap: break-word;
+    position: relative;
+  }
+
+  &__empty {
+    opacity: 0.2;
+    margin: 0;
+    margin-bottom: 25px;
+  }
+
+  &__btn {
+    color: $color-text-light-2;
+
+    &--close,
+    &--add {
+      &:hover,
+      &:focus {
+        color: $color-other-2;
+      }
+      &:active {
+        opacity: 0.6;
+      }
+    }
+
+    &--close {
+      &:hover,
+      &:focus {
+        color: $color-text-light;
+      }
+    }
+  }
+}
