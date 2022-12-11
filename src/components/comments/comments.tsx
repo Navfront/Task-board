@@ -1,6 +1,7 @@
 import { ICommentsModalData, ICommentsState } from '../../model/data-types'
 import { useAppDispatch, useAppSelector } from '../../redux'
 import Comment from '../comment/comment'
+import CommentsEditor from '../comments-editor/comments-editor'
 import { IComment } from './../../model/data-types'
 
 interface ICommentsProps {
@@ -68,6 +69,7 @@ function Comments({ data }: ICommentsProps): JSX.Element {
               ))}
             </ul>
           )}
+          <CommentsEditor />
         </div>
       </main>
     </article>
