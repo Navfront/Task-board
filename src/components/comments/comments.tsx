@@ -1,28 +1,22 @@
-import { ICommentsModalData, ICommentsState } from '../../model/data-types'
+import { useState } from 'react'
+import { ICommentsModalData, ICommentsState, IExComment } from '../../model/data-types'
 import { useAppDispatch, useAppSelector } from '../../redux'
 import Comment from '../comment/comment'
 import CommentsEditor from '../comments-editor/comments-editor'
-import { IComment } from './../../model/data-types'
 
+export interface IEditorState {
+  isShow: boolean
+  currentComment?: IExComment
+}
 interface ICommentsProps {
   data: ICommentsModalData
 }
 
 function Comments({ data }: ICommentsProps): JSX.Element {
   const comments = useAppSelector<ICommentsState>((state) => state.commentsReducer)
+  const [editorState, setEditorState] = useState<IEditorState>({ isShow: false })
   const dispatch = useAppDispatch()
   const { projectId, taskId, taskTitle } = data
-  const emptyComment: IComment = {
-    id: Date.now().toString(),
-    userId: null,
-    projectId,
-    taskId,
-    text: '',
-    likes: 0,
-    children: [],
-    parent: null
-  }
-  console.log(comments)
 
   return (
     <article className='comments'>
@@ -48,7 +42,7 @@ function Comments({ data }: ICommentsProps): JSX.Element {
           <button
             className='comments__btn comments__btn--add'
             onClick={() => {
-              dispatch({ type: 'COMMENT_ADD', projectId, taskId, comment: emptyComment })
+              setEditorState({ isShow: true })
             }}
           >
             <svg className='svg' width='42' height='42'>
@@ -69,7 +63,12 @@ function Comments({ data }: ICommentsProps): JSX.Element {
               ))}
             </ul>
           )}
-          <CommentsEditor />
+          <CommentsEditor
+            projectId={projectId}
+            taskId={taskId}
+            setState={setEditorState}
+            state={editorState}
+          />
         </div>
       </main>
     </article>

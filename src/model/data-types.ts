@@ -104,7 +104,7 @@ export interface IExComment {
   text: string
   likes: number
   children: IExComment[]
-  parent: IComment | null
+  parent: string | null
 }
 
 export interface ICommentsState {
