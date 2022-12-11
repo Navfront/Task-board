@@ -39,6 +39,7 @@ export class LocalStorageCommentsApi {
       return dumb
     }
     const parsed = JSON.parse(comments) as ICommentsStore
+
     return parsed
   }
 
@@ -67,6 +68,15 @@ export class LocalStorageCommentsApi {
         getResult[projectId][taskId][parentIndex].children.push(comment.id)
       }
     }
+
+    if (!Object.hasOwn(getResult, projectId)) {
+      getResult[projectId] = {}
+    }
+    if (!Object.hasOwn(getResult[projectId], taskId)) {
+      getResult[projectId][taskId] = []
+      localStorage.setItem(this.COMMENTS_NAME, JSON.stringify(getResult))
+    }
+
     getResult[projectId][taskId].push(comment)
     localStorage.setItem(this.COMMENTS_NAME, JSON.stringify(getResult))
   }
