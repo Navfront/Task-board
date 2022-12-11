@@ -55,8 +55,6 @@ export const filterTasksBySearchString = (str: string, tasks: ITask[]): ITask[] 
 }
 
 export const buildCommentsTree = (comments: IComment[], taskId: string): ICommentsState => {
-  console.log('ПРИХОДИТ ', comments, taskId)
-
   const tree: ICommentsState = {}
   tree[taskId] = []
 

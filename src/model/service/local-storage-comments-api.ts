@@ -28,8 +28,6 @@ export class LocalStorageCommentsApi {
    * @returns ICommentsStore
    */
   private getStore(projectId: string, taskId: string): ICommentsStore {
-    console.log('GET_STORE', projectId, taskId)
-
     const comments = localStorage.getItem(this.COMMENTS_NAME)
     if (comments === null) {
       const dumb = {
