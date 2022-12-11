@@ -34,7 +34,6 @@ function BoardColumn({ columnTitle, classModificator, projectId }: IColumnTitleP
       }
     }
   }))
-  console.log(board, search)
 
   if (Object.hasOwn(board, projectId) && Object.hasOwn(board[projectId], columnTitle)) {
     const filtredSortefTasks = filterTasksBySearchString(
