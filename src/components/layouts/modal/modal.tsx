@@ -4,7 +4,12 @@ import { useDialogHandling } from './hooks/use-dialog-handling'
 import { IModalState } from '../../../redux/reducers/modal-reducer/modal-reducer'
 import ProjectEditor from '../../project-editor/project-editor'
 import { TaskEditor } from '../..'
-import { IExtendedWithProjectIdTask, IProject } from './../../../model/data-types'
+import {
+  ICommentsModalData,
+  IExtendedWithProjectIdTask,
+  IProject
+} from './../../../model/data-types'
+import Comments from '../../comments/comments'
 
 const portal = document.getElementById('portal')
 
@@ -24,6 +29,8 @@ function Modal(): JSX.Element {
         return <TaskEditor mode='CREATE' />
       case 'EDITOR_EDIT_TASK':
         return <TaskEditor mode='EDIT' task={data as IExtendedWithProjectIdTask} />
+      case 'COMMENTS':
+        return <Comments data={data as ICommentsModalData} />
       default:
         return <></>
     }

@@ -133,7 +133,12 @@ function Task(task: ITaskProps): JSX.Element {
             <use xlinkHref='img/sprite.svg#icon-more'></use>
           </svg>
         </button>
-        <CommentsButton className='task__comments-button' />
+        <CommentsButton
+          className='task__comments-button'
+          projectId={task.projectId}
+          taskId={task.id}
+          taskTitle={task.title}
+        />
         <button
           type='button'
           className={`task__expand-button ${!isExpand ? 'task__expand-button--active' : ''}`}
