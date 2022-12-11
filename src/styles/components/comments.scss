@@ -17,6 +17,7 @@
     background-color: $color-card-bg;
     filter: brightness(1.13);
     padding: 20px;
+    word-wrap: break-word;
   }
 
   &__empty {
@@ -42,7 +43,7 @@
     &--close {
       &:hover,
       &:focus {
-        color: $color-error;
+        color: $color-text-light;
       }
     }
   }
