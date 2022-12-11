@@ -179,9 +179,7 @@ function Task(task: ITaskProps): JSX.Element {
           ''
         )}
 
-        <ul className='task__files files'>
-          <li className='files-list__item'>file</li>
-        </ul>
+        <p style={{ fontSize: '10px' }}>files base64 soon..</p>
       </div>
     </article>
   )
