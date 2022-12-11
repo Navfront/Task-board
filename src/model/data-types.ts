@@ -78,3 +78,29 @@ export interface ISubTask {
   text: string
   isDone: boolean
 }
+
+export interface IComment {
+  id: string
+  userId: string | null
+  projectId: string
+  taskId: string
+  text: string
+  likes: number
+  children: string[]
+  parent: string | null
+}
+
+export interface IExComment {
+  id: string
+  userId: string | null
+  projectId: string
+  taskId: string
+  text: string
+  likes: number
+  children: IExComment[]
+  parent: IComment | null
+}
+
+export interface ICommentsState {
+  [taskId: string]: IExComment[]
+}

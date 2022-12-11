@@ -21,8 +21,6 @@ function ProjectsCard({ project }: IProjectsCardProps): JSX.Element {
     end(draggedItem, monitor) {
       const fromId = draggedItem.id
       const toId = monitor.getDropResult<any>().id as string
-      console.log('end', draggedItem, monitor.getItem())
-      console.log(monitor.getDropResult())
       dispatch({ type: 'MOVE_PROJECT', move: { fromId, toId } })
     },
     type: dNDItemTypes.PROJECT,

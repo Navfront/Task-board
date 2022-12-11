@@ -1,13 +1,4 @@
-interface IComment {
-  id: string
-  userId: string | null
-  projectId: string
-  taskId: string
-  text: string
-  likes: number
-  children: string[]
-  parent: string | null
-}
+import { IComment } from '../data-types'
 
 interface ICommentsStore {
   [projectId: string]: {
@@ -92,15 +83,14 @@ export class LocalStorageCommentsApi {
     const comments = getResult[projectId][taskId]
     let result = comments
     const delIndex = comments.findIndex((c) => c.id === comment.id)
-    console.log('find comment del index', delIndex)
+
     if (delIndex !== -1) {
       const delCondidate = { ...comments[delIndex] }
       const delChildren = delCondidate.children
       const parent = delCondidate.parent
-      console.log('delcond', delCondidate, 'childrens', delChildren, 'parent', parent)
+
       if (parent != null) {
         const parentIndex = comments.findIndex((c) => c.id === parent)
-        console.log('find parent index', parentIndex, '->', comments[parentIndex])
 
         if (parentIndex !== -1) {
           comments[parentIndex].children = comments[parentIndex].children.filter(
