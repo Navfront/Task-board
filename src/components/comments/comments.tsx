@@ -58,7 +58,12 @@ function Comments({ data }: ICommentsProps): JSX.Element {
             <ul className='comments__list'>
               {comments[taskId].map((c) => (
                 <li key={c.id} className='comments__item'>
-                  <Comment className={'comments__comment'} data={c} />
+                  <Comment
+                    className={'comments__comment'}
+                    data={c}
+                    editorState={editorState}
+                    setEditorState={setEditorState}
+                  />
                 </li>
               ))}
             </ul>

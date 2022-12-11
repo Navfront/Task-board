@@ -37,11 +37,16 @@ function CommentsEditor({ state, setState, projectId, taskId }: ICommentsEditorP
           type='button'
           className='comments-editor__button comments-editor__button--save'
           onClick={() => {
+            const parent = state.currentComment?.parent
             dispatch({
               type: 'COMMENT_ADD',
               projectId: emptyComment.projectId,
               taskId: emptyComment.taskId,
-              comment: { ...emptyComment, text: value }
+              comment: {
+                ...emptyComment,
+                text: value,
+                parent: parent != null ? parent : null
+              }
             })
             setValue('')
             setState({ ...state, isShow: false })

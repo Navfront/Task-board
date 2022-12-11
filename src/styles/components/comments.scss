@@ -5,6 +5,19 @@
   border-radius: 15px;
   min-width: 70vmin;
 
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li + li {
+      margin-top: 10px;
+    }
+
+    ul {
+      margin-top: 10px;
+    }
+  }
+
   &__header {
     padding: 0px 20px 10px;
     display: flex;
