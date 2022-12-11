@@ -19,7 +19,7 @@
     grid-column: 3;
     margin-top: 10px;
     display: flex;
-    justify-self: end;
+    justify-self: flex-end;
     align-self: flex-start;
     outline-offset: -2px;
     text-decoration: none;
@@ -65,7 +65,7 @@
   &__time {
     grid-column: 3;
     grid-row: 2;
-    justify-self: end;
+    justify-self: flex-end;
     font-size: 0.8em;
   }
 
