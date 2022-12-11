@@ -5,6 +5,7 @@ import { appReducer } from './app-reducer/app-reducer'
 import { boardReducer } from './board-reducer/board-reducer'
 import { searchReducer } from './search-reducer/search-reducer'
 import { subTaskReducer } from './sub-task-reducer/sub-task-reducer'
+import { commentsReducer } from './comments-reducer/comments-reducer'
 
 export const rootReducer = combineReducers({
   appReducer,
@@ -12,5 +13,6 @@ export const rootReducer = combineReducers({
   modalReducer,
   boardReducer,
   searchReducer,
-  subTaskReducer
+  subTaskReducer,
+  commentsReducer
 })
