@@ -6,6 +6,7 @@ import { BoardItems, COLUMN_TITLES, ISubTask, ITask } from '../../model/data-typ
 import { useAppDispatch } from './../../redux/index'
 import { dNDItemTypes } from './../../dnd/item-types'
 import WorkCounter from './work-counter'
+import CommentsButton from '../comments-button/comments-button'
 
 export interface TaskItemDnd {
   taskId: string
@@ -126,24 +127,27 @@ function Task(task: ITaskProps): JSX.Element {
           />
         </span>
       </header>
-      <button className='task__edit-button' type='button' onClick={onEditorOpenHandler}>
-        <svg className='svg' width='42' height='42'>
-          <use xlinkHref='img/sprite.svg#icon-more'></use>
-        </svg>
-      </button>
+      <div className='task__controls'>
+        <button className='task__edit-button' type='button' onClick={onEditorOpenHandler}>
+          <svg className='svg' width='42' height='42'>
+            <use xlinkHref='img/sprite.svg#icon-more'></use>
+          </svg>
+        </button>
+        <CommentsButton className='task__comments-button' />
+        <button
+          type='button'
+          className={`task__expand-button ${!isExpand ? 'task__expand-button--active' : ''}`}
+          onClick={onExpandClickHandler}
+        >
+          <svg className='svg' width='42' height='42'>
+            <use xlinkHref='img/sprite.svg#icon-expand'></use>
+          </svg>
+          <span className='visually-hidden'> {isExpand ? 'Свернуть' : 'Развернуть'}</span>
+        </button>
+      </div>
       <h3 className='task__title'>{task.title}</h3>
       <p className='task__description'>{task.description}</p>
 
-      <button
-        type='button'
-        className={`task__expand-button ${!isExpand ? 'task__expand-button--active' : ''}`}
-        onClick={onExpandClickHandler}
-      >
-        <svg className='svg' width='42' height='42'>
-          <use xlinkHref='img/sprite.svg#icon-expand'></use>
-        </svg>
-        <span className='visually-hidden'> {isExpand ? 'Свернуть' : 'Развернуть'}</span>
-      </button>
       <div
         ref={expanderRef}
         className={`task__expander ${!isExpand ? 'task__expander--active' : ''}`}
@@ -173,10 +177,6 @@ function Task(task: ITaskProps): JSX.Element {
         <ul className='task__files files'>
           <li className='files-list__item'>file</li>
         </ul>
-
-        <p className='task__comments-counter'>
-          Comments: 324 <button type='button'>Read comments</button>
-        </p>
       </div>
     </article>
   )
