@@ -19,6 +19,8 @@ function CommentsButton({
       type='button'
       className={`${className ?? ''} comments-button`}
       onClick={() => {
+        console.log('init', projectId, taskId)
+
         dispatch({ type: 'COMMENTS_INIT', projectId, taskId })
         dispatch({
           type: 'OPEN_MODAL',

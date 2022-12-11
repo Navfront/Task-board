@@ -21,6 +21,7 @@ function Comments({ data }: ICommentsProps): JSX.Element {
     children: [],
     parent: null
   }
+  console.log(comments)
 
   return (
     <article className='comments'>
@@ -54,8 +55,7 @@ function Comments({ data }: ICommentsProps): JSX.Element {
             </svg>
             <span className='visually-hidden'>add new comment</span>
           </button>
-          {(Object.keys(comments).length < 1 && Object.hasOwn(comments, taskId)) ||
-          typeof comments === 'undefined' ? (
+          {!Object.hasOwn(comments, taskId) || comments[taskId].length < 1 ? (
             <>
               <p className='comments__empty'>No one has commented yet..</p>
             </>
