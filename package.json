@@ -2,6 +2,7 @@
   "name": "uptrader",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://navfront.github.io/Task-board/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -31,7 +32,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prettier": "prettier --check .",
-    "eslint": "eslint ."
+    "eslint": "eslint .",
+    "gh-pages-deploy": "node deploy.js"
   },
   "eslintConfig": {
     "extends": [
@@ -62,6 +64,7 @@
     "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.31.11",
+    "gh-pages": "4.0.0",
     "prettier": "2.8.0",
     "redux-devtools-extension": "2.13.9",
     "sass": "1.56.1",
