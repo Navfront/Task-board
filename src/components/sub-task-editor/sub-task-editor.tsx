@@ -1,6 +1,7 @@
 import { ISubTask } from '../../model/data-types'
 import { useAppDispatch, useAppSelector } from '../../redux'
 import SubTaskEditorItem from './sub-task-editor-item'
+import sprite from '../../resources/sprite.svg'
 
 function SubTaskEditor(): JSX.Element {
   const subTasks = useAppSelector<ISubTask[]>((state) => state.subTaskReducer)
@@ -27,7 +28,7 @@ function SubTaskEditor(): JSX.Element {
           }}
         >
           <svg className='svg' width='42' height='42'>
-            <use xlinkHref='img/sprite.svg#icon-add'></use>
+            <use xlinkHref={sprite + '#icon-add'}></use>
           </svg>
           <span className='visually-hidden'>add new subtask</span>
         </button>

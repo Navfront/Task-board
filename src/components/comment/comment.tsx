@@ -2,6 +2,7 @@ import React, { Dispatch, SetStateAction, useEffect } from 'react'
 import { IExComment } from '../../model/data-types'
 import { useAppDispatch } from '../../redux'
 import { IEditorState } from '../comments/comments'
+import sprite from '../../resources/sprite.svg'
 
 interface ICommentProps {
   className: string
@@ -45,7 +46,7 @@ function Comment({ className, data, editorState, setEditorState }: ICommentProps
             }}
           >
             <svg className='svg' width='30' height='30'>
-              <use xlinkHref='img/sprite.svg#icon-heart-plus'></use>
+              <use xlinkHref={sprite + '#icon-heart-plus'}></use>
             </svg>
             <span className='visually-hidden'>like</span>
           </button>
@@ -68,7 +69,7 @@ function Comment({ className, data, editorState, setEditorState }: ICommentProps
             className='comment__button comment__button--dis'
           >
             <svg className='svg' width='30' height='30'>
-              <use xlinkHref='img/sprite.svg#icon-heart-minus'></use>
+              <use xlinkHref={sprite + '#icon-heart-minus'}></use>
             </svg>
             <span className='visually-hidden'>dislike</span>
           </button>
@@ -88,7 +89,7 @@ function Comment({ className, data, editorState, setEditorState }: ICommentProps
             className='comment__button comment__button--delete'
           >
             <svg className='svg' width='30' height='30'>
-              <use xlinkHref='img/sprite.svg#icon-block'></use>
+              <use xlinkHref={sprite + '#icon-block'}></use>
             </svg>
             <span className='visually-hidden'>delete</span>
           </button>

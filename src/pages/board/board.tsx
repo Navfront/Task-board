@@ -8,6 +8,7 @@ import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { TouchBackend } from 'react-dnd-touch-backend'
 import Search from '../../components/search/search'
+import sprite from '../../resources/sprite.svg'
 
 function Board(): JSX.Element {
   const { projectId } = useParams()
@@ -40,7 +41,7 @@ function Board(): JSX.Element {
             <li className='navigation__item'>
               <Link to={'/'} className='navigation__link'>
                 <svg className='svg' width='42' height='42'>
-                  <use xlinkHref='img/sprite.svg#icon-home'></use>
+                  <use xlinkHref={sprite + '#icon-home'}></use>
                 </svg>
                 <span className='visually-hidden'>To main page</span>
               </Link>
@@ -61,7 +62,7 @@ function Board(): JSX.Element {
               }}
             >
               <svg className='svg' width='42' height='42'>
-                <use xlinkHref='img/sprite.svg#icon-add'></use>
+                <use xlinkHref={sprite + '#icon-add'}></use>
               </svg>
               <span className='visually-hidden'>Add new task</span>
             </button>
