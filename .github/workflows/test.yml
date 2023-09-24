@@ -20,6 +20,9 @@ jobs:
       - name: Eslint check
         run: npm run eslint
 
+      - name: Prettier write
+        run: npm run prettier-write
+
       - name: Prettier check
         run: npm run prettier
 
