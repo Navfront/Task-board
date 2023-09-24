@@ -30,7 +30,7 @@ function Comments({ data }: ICommentsProps): JSX.Element {
           }}
         >
           <svg className='svg' width='42' height='42'>
-            <use xlinkHref='img/sprite.svg#icon-close'></use>
+            <use xlinkHref='Task-board/img/sprite.svg#icon-close'></use>
           </svg>
           <span className='visually-hidden'>close comments</span>
         </button>
@@ -46,7 +46,7 @@ function Comments({ data }: ICommentsProps): JSX.Element {
             }}
           >
             <svg className='svg' width='42' height='42'>
-              <use xlinkHref='img/sprite.svg#icon-add-comment'></use>
+              <use xlinkHref='Task-board/img/sprite.svg#icon-add-comment'></use>
             </svg>
             <span className='visually-hidden'>add new comment</span>
           </button>

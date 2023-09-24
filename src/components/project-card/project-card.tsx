@@ -66,7 +66,7 @@ function ProjectsCard({ project }: IProjectsCardProps): JSX.Element {
         style={{ display: isDragging ? 'contents' : 'block' }}
       >
         <svg className='svg' width='42' height='42'>
-          <use xlinkHref='img/sprite.svg#icon-forward'></use>
+          <use xlinkHref='Task-board/img/sprite.svg#icon-forward'></use>
         </svg>
       </Link>
 
@@ -78,7 +78,7 @@ function ProjectsCard({ project }: IProjectsCardProps): JSX.Element {
           onClick={onEditClickHandler}
         >
           <svg className='svg' width='42' height='42'>
-            <use xlinkHref='img/sprite.svg#icon-settings'></use>
+            <use xlinkHref='Task-board/img/sprite.svg#icon-settings'></use>
           </svg>
           <span className='visually-hidden'>Edit</span>
         </button>
@@ -89,7 +89,7 @@ function ProjectsCard({ project }: IProjectsCardProps): JSX.Element {
           onClick={onDeleteHandler}
         >
           <svg className='svg' width='42' height='42'>
-            <use xlinkHref='img/sprite.svg#icon-delete'></use>
+            <use xlinkHref='Task-board/img/sprite.svg#icon-delete'></use>
           </svg>
           <span className='visually-hidden'>Delete</span>
         </button>

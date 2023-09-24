@@ -13,7 +13,7 @@ function Menu(): JSX.Element {
         >
           New Project
           <svg className='svg' width='42' height='42'>
-            <use xlinkHref='img/sprite.svg#icon-add'></use>
+            <use xlinkHref='Task-board/img/sprite.svg#icon-add'></use>
           </svg>
         </button>
       </li>

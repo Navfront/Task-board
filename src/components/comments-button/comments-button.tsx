@@ -28,7 +28,7 @@ function CommentsButton({
       }}
     >
       <svg className='svg' width='30' height='30'>
-        <use xlinkHref='img/sprite.svg#icon-comments'></use>
+        <use xlinkHref='Task-board/img/sprite.svg#icon-comments'></use>
       </svg>
       <span className='visually-hidden'>open comments modal</span>
     </button>

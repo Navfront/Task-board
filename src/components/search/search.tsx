@@ -26,7 +26,7 @@ function Search(): JSX.Element {
     <form className='board-search' onSubmit={onSubmitHandler}>
       <label className='board-search__label' htmlFor='board-search__input'>
         <svg className='svg' width='42' height='42'>
-          <use xlinkHref='img/sprite.svg#icon-search'></use>
+          <use xlinkHref='Task-board/img/sprite.svg#icon-search'></use>
         </svg>
       </label>
       <input

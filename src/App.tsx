@@ -6,7 +6,7 @@ import { Board, Main } from './pages'
 import { Modal } from './components'
 
 const router = createBrowserRouter([
-  { path: '*', element: <Main /> },
+  { path: '/', element: <Main /> },
   { path: '/board:projectId', element: <Board /> }
 ])
 

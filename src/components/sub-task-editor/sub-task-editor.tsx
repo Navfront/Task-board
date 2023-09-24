@@ -27,7 +27,7 @@ function SubTaskEditor(): JSX.Element {
           }}
         >
           <svg className='svg' width='42' height='42'>
-            <use xlinkHref='img/sprite.svg#icon-add'></use>
+            <use xlinkHref='Task-board/img/sprite.svg#icon-add'></use>
           </svg>
           <span className='visually-hidden'>add new subtask</span>
         </button>

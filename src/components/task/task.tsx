@@ -130,7 +130,7 @@ function Task(task: ITaskProps): JSX.Element {
       <div className='task__controls'>
         <button className='task__edit-button' type='button' onClick={onEditorOpenHandler}>
           <svg className='svg' width='42' height='42'>
-            <use xlinkHref='img/sprite.svg#icon-more'></use>
+            <use xlinkHref='Task-board/img/sprite.svg#icon-more'></use>
           </svg>
         </button>
         <CommentsButton
@@ -145,7 +145,7 @@ function Task(task: ITaskProps): JSX.Element {
           onClick={onExpandClickHandler}
         >
           <svg className='svg' width='42' height='42'>
-            <use xlinkHref='img/sprite.svg#icon-expand'></use>
+            <use xlinkHref='Task-board/img/sprite.svg#icon-expand'></use>
           </svg>
           <span className='visually-hidden'> {isExpand ? 'Свернуть' : 'Развернуть'}</span>
         </button>

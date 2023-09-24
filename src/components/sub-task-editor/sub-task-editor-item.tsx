@@ -36,7 +36,7 @@ function SubTaskEditorItem({ subTask }: SubTaskEditorItemProps): JSX.Element {
           style={{ opacity: showEditButton ? '1' : '0' }}
         >
           <svg className='subtask-editor-item__svg' width='35' height='35'>
-            <use xlinkHref='img/sprite.svg#icon-done'></use>
+            <use xlinkHref='Task-board/img/sprite.svg#icon-done'></use>
           </svg>
           <span className='visually-hidden'>update subtask</span>
         </button>
@@ -48,7 +48,7 @@ function SubTaskEditorItem({ subTask }: SubTaskEditorItemProps): JSX.Element {
           }}
         >
           <svg className='subtask-editor-item__svg' width='30' height='30'>
-            <use xlinkHref='img/sprite.svg#icon-block'></use>
+            <use xlinkHref='Task-board/img/sprite.svg#icon-block'></use>
           </svg>
           <span className='visually-hidden'>delete subtask</span>
         </button>
