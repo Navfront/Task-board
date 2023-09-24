@@ -1,4 +1,5 @@
 import { useAppDispatch } from './../../redux/index'
+import sprite from '../../resources/sprite.svg'
 
 interface ICommentsButtonProps {
   projectId: string
@@ -28,7 +29,7 @@ function CommentsButton({
       }}
     >
       <svg className='svg' width='30' height='30'>
-        <use xlinkHref='Task-board/img/sprite.svg#icon-comments'></use>
+        <use xlinkHref={sprite + '#icon-comments'}></use>
       </svg>
       <span className='visually-hidden'>open comments modal</span>
     </button>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import SubTask from './../sub-task/sub-task'
-
+import sprite from '../../resources/sprite.svg'
 import { useDrag, useDrop } from 'react-dnd'
 import { BoardItems, COLUMN_TITLES, ISubTask, ITask } from '../../model/data-types'
 import { useAppDispatch } from './../../redux/index'
@@ -130,7 +130,7 @@ function Task(task: ITaskProps): JSX.Element {
       <div className='task__controls'>
         <button className='task__edit-button' type='button' onClick={onEditorOpenHandler}>
           <svg className='svg' width='42' height='42'>
-            <use xlinkHref='Task-board/img/sprite.svg#icon-more'></use>
+            <use xlinkHref={sprite + '#icon-more'}></use>
           </svg>
         </button>
         <CommentsButton
@@ -145,7 +145,7 @@ function Task(task: ITaskProps): JSX.Element {
           onClick={onExpandClickHandler}
         >
           <svg className='svg' width='42' height='42'>
-            <use xlinkHref='Task-board/img/sprite.svg#icon-expand'></use>
+            <use xlinkHref={sprite + '#icon-expand'}></use>
           </svg>
           <span className='visually-hidden'> {isExpand ? 'Свернуть' : 'Развернуть'}</span>
         </button>

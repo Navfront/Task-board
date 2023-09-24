@@ -1,5 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { useAppDispatch } from './../../redux/index'
+import sprite from '../../resources/sprite.svg'
 
 function Search(): JSX.Element {
   const [searchValue, setSearchValue] = useState<string>('')
@@ -26,7 +27,7 @@ function Search(): JSX.Element {
     <form className='board-search' onSubmit={onSubmitHandler}>
       <label className='board-search__label' htmlFor='board-search__input'>
         <svg className='svg' width='42' height='42'>
-          <use xlinkHref='Task-board/img/sprite.svg#icon-search'></use>
+          <use xlinkHref={sprite + '#icon-search'}></use>
         </svg>
       </label>
       <input

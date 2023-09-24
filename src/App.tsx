@@ -6,8 +6,8 @@ import { Board, Main } from './pages'
 import { Modal } from './components'
 
 const router = createBrowserRouter([
-  { path: '/', element: <Main /> },
-  { path: '/board:projectId', element: <Board /> }
+  { path: '/board:projectId', element: <Board /> },
+  { path: '*', element: <Main /> }
 ])
 
 function App(): JSX.Element {

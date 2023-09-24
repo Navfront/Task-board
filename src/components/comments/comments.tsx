@@ -3,6 +3,7 @@ import { ICommentsModalData, ICommentsState, IExComment } from '../../model/data
 import { useAppDispatch, useAppSelector } from '../../redux'
 import Comment from '../comment/comment'
 import CommentsEditor from '../comments-editor/comments-editor'
+import sprite from '../../resources/sprite.svg'
 
 export interface IEditorState {
   isShow: boolean
@@ -30,7 +31,7 @@ function Comments({ data }: ICommentsProps): JSX.Element {
           }}
         >
           <svg className='svg' width='42' height='42'>
-            <use xlinkHref='Task-board/img/sprite.svg#icon-close'></use>
+            <use xlinkHref={sprite + '#icon-close'}></use>
           </svg>
           <span className='visually-hidden'>close comments</span>
         </button>
@@ -46,7 +47,7 @@ function Comments({ data }: ICommentsProps): JSX.Element {
             }}
           >
             <svg className='svg' width='42' height='42'>
-              <use xlinkHref='Task-board/img/sprite.svg#icon-add-comment'></use>
+              <use xlinkHref={sprite + '#icon-add-comment'}></use>
             </svg>
             <span className='visually-hidden'>add new comment</span>
           </button>

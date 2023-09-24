@@ -5,6 +5,7 @@ import { IProject } from '../../model/data-types'
 import { HumanizeLastDate } from '../../model/utils'
 import { useAppDispatch } from '../../redux'
 import { useHandlers } from './hooks/use-handlers'
+import sprite from '../../resources/sprite.svg'
 
 interface IProjectsCardProps {
   project: IProject
@@ -66,7 +67,7 @@ function ProjectsCard({ project }: IProjectsCardProps): JSX.Element {
         style={{ display: isDragging ? 'contents' : 'block' }}
       >
         <svg className='svg' width='42' height='42'>
-          <use xlinkHref='Task-board/img/sprite.svg#icon-forward'></use>
+          <use xlinkHref={sprite + '#icon-forward'}></use>
         </svg>
       </Link>
 
@@ -78,7 +79,7 @@ function ProjectsCard({ project }: IProjectsCardProps): JSX.Element {
           onClick={onEditClickHandler}
         >
           <svg className='svg' width='42' height='42'>
-            <use xlinkHref='Task-board/img/sprite.svg#icon-settings'></use>
+            <use xlinkHref={sprite + '#icon-settings'}></use>
           </svg>
           <span className='visually-hidden'>Edit</span>
         </button>
@@ -89,7 +90,7 @@ function ProjectsCard({ project }: IProjectsCardProps): JSX.Element {
           onClick={onDeleteHandler}
         >
           <svg className='svg' width='42' height='42'>
-            <use xlinkHref='Task-board/img/sprite.svg#icon-delete'></use>
+            <use xlinkHref={sprite + '#icon-delete'}></use>
           </svg>
           <span className='visually-hidden'>Delete</span>
         </button>
